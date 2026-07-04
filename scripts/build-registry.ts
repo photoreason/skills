@@ -70,12 +70,37 @@ export function buildManifest(skillsDir: string): SkillManifest {
   }
 }
 
+/** The manifest minus its timestamps — what "actually changed" means. */
+export function withoutTimestamps(manifest: SkillManifest): unknown {
+  return {
+    registryUrl: manifest.registryUrl,
+    skills: manifest.skills.map((s) => ({ ...s, scan: { ...s.scan, scannedAt: '' } })),
+  }
+}
+
 function main(): void {
   const skillsDir = join(repoRoot, 'skills')
   const manifest = buildManifest(skillsDir)
   // Validate before writing so we never emit a bad registry.
   manifestSchema.parse(manifest)
   const out = join(repoRoot, 'registry.json')
+
+  // Idempotent build: timestamps (generatedAt, scannedAt) change on every run,
+  // so if nothing else did, keep the committed file byte-for-byte — otherwise
+  // CI's "registry.json up to date" check could never pass.
+  if (existsSync(out)) {
+    const existing = manifestSchema.safeParse(JSON.parse(readFileSync(out, 'utf8')))
+    if (
+      existing.success &&
+      JSON.stringify(withoutTimestamps(existing.data)) ===
+        JSON.stringify(withoutTimestamps(manifest))
+    ) {
+      // eslint-disable-next-line no-console
+      console.log(`registry.json unchanged (${manifest.skills.length} skill(s))`)
+      return
+    }
+  }
+
   writeFileSync(out, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
   // eslint-disable-next-line no-console
   console.log(`Wrote ${manifest.skills.length} skill(s) to ${out}`)
