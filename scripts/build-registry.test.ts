@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { buildManifest } from './build-registry.ts'
+import { buildManifest, withoutTimestamps } from './build-registry.ts'
 import { manifestSchema } from '../src/skills-schema.ts'
 
 /** Create a throwaway skills/ dir with one valid skill and return its path. */
@@ -53,6 +53,29 @@ test('buildManifest produces a schema-valid manifest with the skill', () => {
     assert.equal(skill.installTargets.length, 1)
     assert.equal(skill.scan.status, 'pass')
     assert.equal(skill.counts.installs, 0)
+  } finally {
+    rmSync(skillsDir, { recursive: true, force: true })
+  }
+})
+
+test('rebuilds differing only in timestamps compare as unchanged', () => {
+  const skillsDir = makeFixtureSkillsDir()
+  try {
+    const a = buildManifest(skillsDir)
+    const b = buildManifest(skillsDir)
+    b.generatedAt = '1999-01-01T00:00:00.000Z'
+    b.skills[0]!.scan.scannedAt = '1999-01-01'
+    assert.equal(
+      JSON.stringify(withoutTimestamps(a)),
+      JSON.stringify(withoutTimestamps(b)),
+      'timestamp-only differences must be ignored',
+    )
+    b.skills[0]!.blurb = 'changed'
+    assert.notEqual(
+      JSON.stringify(withoutTimestamps(a)),
+      JSON.stringify(withoutTimestamps(b)),
+      'content differences must be detected',
+    )
   } finally {
     rmSync(skillsDir, { recursive: true, force: true })
   }
