@@ -1,6 +1,7 @@
 {
   "name": "photoreason-skills",
   "version": "0.1.0",
+  "packageManager": "pnpm@11.2.2",
   "description": "Photo Reason's open-source agent skills library — the single source of truth for skills surfaced on photoreason.com/lab.",
   "type": "module",
   "license": "MIT",
