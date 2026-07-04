@@ -1,0 +1,41 @@
+{
+  "name": "photoreason-skills",
+  "version": "0.1.0",
+  "description": "Photo Reason's open-source agent skills library — the single source of truth for skills surfaced on photoreason.com/lab.",
+  "type": "module",
+  "license": "MIT",
+  "author": {
+    "name": "Photo Reason",
+    "url": "https://photoreason.com"
+  },
+  "homepage": "https://github.com/photoreason/skills",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/photoreason/skills.git"
+  },
+  "keywords": [
+    "skills",
+    "agent-skills",
+    "photography",
+    "photoreason",
+    "claude",
+    "codex",
+    "gemini"
+  ],
+  "scripts": {
+    "build:registry": "tsx scripts/build-registry.ts",
+    "validate:registry": "tsx scripts/validate-registry.ts",
+    "sync:plugins": "bash scripts/sync-plugins.sh",
+    "test": "tsx --test scripts/*.test.ts"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "yaml": "^2.6.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

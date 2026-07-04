@@ -1,0 +1,21 @@
+{
+  "name": "photoreason-skills",
+  "displayName": "Photo Reason Skills",
+  "description": "Photo Reason's open-source skills for photographers: portfolio building, curation, and creative workflows.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Photo Reason",
+    "url": "https://photoreason.com"
+  },
+  "homepage": "https://github.com/photoreason/skills",
+  "repository": "https://github.com/photoreason/skills",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "photography",
+    "portfolio",
+    "photoreason",
+    "creative-workflows"
+  ],
+  "skills": "./skills/"
+}
