@@ -1,0 +1,51 @@
+# Portfolio template
+
+A minimal, monochrome, image-first photographer portfolio in the Photo Reason
+house style. **Zero build, no framework, no server** — it runs by double-clicking
+`index.html` and deploys as-is to Cloudflare Pages, Netlify, or Vercel.
+
+Trilingual out of the box: **English / 日本語 / 简体中文**, with a language switch
+top-right (remembers the visitor's choice).
+
+## You only edit the content files
+
+Do **not** edit `index.html`, `styles.css`, or `app.js` for normal use. All the
+words and photos come from four files in `content/`:
+
+| File | Holds |
+| --- | --- |
+| `content/site.js` | Structure — hero/portrait images, projects (ids, year, layout, image paths), email, social links. Shared across languages. |
+| `content/en.js` | English text |
+| `content/ja.js` | Japanese text |
+| `content/zh-hans.js` | Simplified Chinese text |
+
+A project's `id` in `site.js` must match its key in each language file.
+
+## Images
+
+Put photos in `images/` using the paths referenced in `site.js`
+(e.g. `images/tidal/01.jpg`). Use **JPEG or WebP**, long edge ~2000px, each well
+under ~500 KB. Convert HEIC/PNG at <https://towebp.io>. Until real photos exist,
+the template shows labelled placeholders so the layout is still visible.
+
+## Layouts & viewing
+
+Each project sets `layout: 'stack'` (full-bleed, one image per row — best for a
+sequenced series) or `layout: 'grid'` (even grid — best for a set). Click any
+image inside a project to view it full-screen; page through the series with the
+on-screen arrows or ← → keys. Each project ends with a quiet link to the next
+body of work.
+
+Per image you can set `alt` (a plain one-sentence description — recommended),
+`caption` (optional), and `aspect` (e.g. `'3 / 2'`, stack layout — reserves the
+space before the photo loads so the page never jumps).
+
+## Preview
+
+Double-click `index.html`. Fonts and layout work offline; only the Inter web
+font needs a connection (it falls back to your system sans otherwise).
+
+## Deploy
+
+See `../../references/deploy-static.md` — drag-and-drop (no account/coding) or
+git-connected (Vercel / Cloudflare Pages).
