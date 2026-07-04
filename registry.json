@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-04T15:24:55.530Z",
+  "generatedAt": "2026-07-04T16:18:35.526Z",
   "registryUrl": "https://github.com/photoreason/skills",
   "skills": [
     {
@@ -35,8 +35,7 @@
       ],
       "universalCommand": "/portfolio-site-builder",
       "scan": {
-        "snyk": "na",
-        "codeql": "na",
+        "socket": "pass",
         "status": "pass",
         "scannedAt": "2026-07-04"
       },

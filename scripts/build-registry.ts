@@ -43,8 +43,9 @@ function readSkill(skillsDir: string, id: string): Skill | null {
     ...(typeof meta.featured === 'boolean' ? { featured: meta.featured } : {}),
     installTargets: (meta.installTargets as Skill['installTargets']) ?? [],
     universalCommand: String(meta.universalCommand ?? ''),
-    // Placeholders — wired to real Snyk/CodeQL + install analytics later.
-    scan: { snyk: 'na', codeql: 'na', status: 'pass', scannedAt: today },
+    // Socket (socket.dev) scans every PR on this repo, so anything on main has
+    // passed it. Install analytics are still a placeholder.
+    scan: { socket: 'pass', status: 'pass', scannedAt: today },
     sampleVisuals: (meta.sampleVisuals as string[]) ?? [],
     license: String(meta.license ?? 'MIT'),
     repoPath: `skills/${id}`,

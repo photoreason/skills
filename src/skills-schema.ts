@@ -14,8 +14,9 @@ export const installTargetSchema = z.object({
 })
 
 export const scanStatusSchema = z.object({
-  snyk: z.enum(['pass', 'fail', 'na']),
-  codeql: z.enum(['pass', 'fail', 'na']),
+  // Socket (socket.dev) gates every pull request on this repo — it is the
+  // security platform behind the scan badge shown on photoreason.com/lab.
+  socket: z.enum(['pass', 'fail', 'na']),
   status: z.enum(['pass', 'fail']),
   scannedAt: z.string(),
 })
