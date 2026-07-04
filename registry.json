@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-04T15:24:55.530Z",
+  "registryUrl": "https://github.com/photoreason/skills",
+  "skills": [
+    {
+      "id": "portfolio-site-builder",
+      "name": "Portfolio Site Builder",
+      "blurb": "Get a real portfolio website online — no tech skills needed.",
+      "longDescription": "A guided, plain-language path for photographers with no technical background to get a portfolio website online. It tells you what to expect to pay each month (in your currency), helps register a web address, curates and sequences your strongest work, and writes your bio and artist statement in your voice. Then it publishes the way that fits you: a point-and-click visual builder (Squarespace/Wix/Pixieset), a free site you fully own via drag-and-drop, or a code deploy to Vercel/Cloudflare Pages. Ships a minimal, trilingual (English/日本語/简体中文) template and ends with a live link plus a simple way to add photos later.",
+      "tags": [
+        "portfolio",
+        "website",
+        "beginner",
+        "no-code",
+        "i18n",
+        "publishing"
+      ],
+      "featured": true,
+      "installTargets": [
+        {
+          "assistant": "claude",
+          "label": "Claude Code",
+          "command": "/plugin marketplace add photoreason/skills"
+        },
+        {
+          "assistant": "codex",
+          "label": "Codex",
+          "command": "add photoreason/skills via the plugin manager"
+        },
+        {
+          "assistant": "gemini",
+          "label": "Gemini CLI",
+          "command": "install the photoreason/skills extension"
+        }
+      ],
+      "universalCommand": "/portfolio-site-builder",
+      "scan": {
+        "snyk": "na",
+        "codeql": "na",
+        "status": "pass",
+        "scannedAt": "2026-07-04"
+      },
+      "sampleVisuals": [],
+      "license": "MIT",
+      "repoPath": "skills/portfolio-site-builder",
+      "counts": {
+        "installs": 0
+      }
+    }
+  ]
+}
