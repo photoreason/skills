@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: validate-registry
+        name: validate registry.json against the skills schema
+        entry: pnpm validate:registry
+        language: system
+        pass_filenames: false
+        files: ^(registry\.json|skills/.*|src/skills-schema\.ts)$

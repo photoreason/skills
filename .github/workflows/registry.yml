@@ -1,0 +1,40 @@
+name: registry
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Rebuild registry.json
+        run: pnpm build:registry
+
+      - name: Validate registry.json
+        run: pnpm validate:registry
+
+      - name: Ensure registry.json is committed & up to date
+        run: |
+          if ! git diff --exit-code registry.json; then
+            echo "::error::registry.json is out of date. Run 'pnpm build:registry' and commit the result."
+            exit 1
+          fi
+
+      - name: Ensure per-platform manifest versions agree
+        run: pnpm sync:plugins
