@@ -1,0 +1,12 @@
+# Local design docs & plans — never committed to the public SSoT repo
+docs/superpowers/
+
+# Node
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Env
+.env
+.env.*

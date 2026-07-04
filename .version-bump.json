@@ -1,0 +1,20 @@
+{
+  "files": [
+    { "path": "package.json", "field": "version" },
+    { "path": ".claude-plugin/plugin.json", "field": "version" },
+    { "path": ".claude-plugin/marketplace.json", "field": "plugins.0.version" },
+    { "path": ".codex-plugin/plugin.json", "field": "version" },
+    { "path": ".cursor-plugin/plugin.json", "field": "version" },
+    { "path": ".kimi-plugin/plugin.json", "field": "version" },
+    { "path": "gemini-extension.json", "field": "version" }
+  ],
+  "audit": {
+    "exclude": [
+      "CHANGELOG.md",
+      "node_modules",
+      ".git",
+      "docs",
+      ".version-bump.json"
+    ]
+  }
+}
