@@ -1,0 +1,37 @@
+# Website-facing metadata for this skill (consumed by photoreason.com/lab).
+# The generator merges this with SKILL.md frontmatter to produce registry.json.
+# Fields the author can't set (scan results, install counts) are filled in
+# automatically with safe placeholders.
+
+# Human-readable title shown on the website. Optional — defaults to the
+# SKILL.md frontmatter name. Set it so cards don't show the kebab-case id.
+name: Your Skill Name
+
+# One-line hook shown on skill cards.
+blurb: A one-line description of what this skill does.
+
+# A fuller paragraph for the skill's detail page.
+longDescription: >-
+  A longer description of the skill — what it produces, who it's for, and what
+  the person ends up with.
+
+# Filter/browse tags (lowercase).
+tags: [example]
+
+# Surface on the hub's featured row? Optional; omit or set false otherwise.
+featured: false
+
+# How to invoke the skill, per assistant. At least one is required.
+installTargets:
+  - assistant: claude
+    label: Claude Code
+    command: /plugin marketplace add photoreason/skills
+
+# A short, assistant-agnostic way to trigger the skill.
+universalCommand: /your-skill-name
+
+# Paths (relative to the repo) of sample images to show. Optional; [] if none.
+sampleVisuals: []
+
+# SPDX license id. Defaults to MIT.
+license: MIT
