@@ -60,10 +60,17 @@
 
   function resolveLocale() {
     var params = new URLSearchParams(window.location.search)
+    var savedLocale = null
+    try {
+      savedLocale = localStorage.getItem(STORAGE_KEY)
+    } catch (e) {
+      /* private mode or blocked storage — continue without a saved choice */
+    }
     var order = [
       params.get('lang'),
-      localStorage.getItem(STORAGE_KEY),
+      savedLocale,
       (navigator.language || 'en').toLowerCase(),
+      SITE.defaultLocale,
     ]
     for (var i = 0; i < order.length; i++) {
       var want = (order[i] || '').toLowerCase()
@@ -217,7 +224,12 @@
     var f = $('footer')
     f.innerHTML = ''
     f.appendChild(el('span', null, rights))
-    f.appendChild(el('span', null, 'Photo Reason'))
+
+    var credit = el('a', null, 'built with Photo Reason skill')
+    credit.href = 'https://www.photoreason.art/' + locale + '/lab'
+    credit.target = '_blank'
+    credit.rel = 'noopener noreferrer'
+    f.appendChild(credit)
   }
 
   function renderMeta() {

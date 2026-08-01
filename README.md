@@ -29,7 +29,16 @@ This library ships as a plugin for every major coding agent. Pick yours:
 /plugin install photoreason-skills@photoreason-skills
 ```
 
-### Codex / Cursor / Kimi
+### Codex
+
+```bash
+codex plugin marketplace add photoreason/skills
+```
+
+Then restart the ChatGPT desktop app, open **Plugins**, choose the Photo Reason
+marketplace, and install **Photo Reason Skills**.
+
+### Cursor / Kimi
 
 Add the plugin from `github.com/photoreason/skills` via your agent's plugin
 manager (each reads its own `.<agent>-plugin/plugin.json`).

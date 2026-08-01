@@ -24,7 +24,7 @@ installTargets:
     command: /plugin marketplace add photoreason/skills
   - assistant: codex
     label: Codex
-    command: add photoreason/skills via the plugin manager
+    command: codex plugin marketplace add photoreason/skills
   - assistant: gemini
     label: Gemini CLI
     command: install the photoreason/skills extension

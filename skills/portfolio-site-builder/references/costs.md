@@ -4,8 +4,10 @@ Give the photographer a clear, honest estimate **before** they choose a path, in
 **their own currency**. Infer the currency from their language (English → USD,
 日本語 → JPY, 简体中文 → CNY) or just ask.
 
-Prices below are **approximate** and change over time and by region — say so, and
-offer to double-check the current price on the provider's site.
+Prices below are **approximate** and change over time and by region. When web
+access is available, check the provider's official pricing page and a current
+exchange rate before quoting; otherwise say these are planning estimates and
+offer to check again before they pay.
 
 ## Two things cost money: the web address, and the hosting
 
@@ -29,7 +31,7 @@ builder subdomain) and add a domain later — so this never blocks launch.
 | **B/C — Free & owned / Code** | The real template on Cloudflare Pages, Netlify, or Vercel free tier | **$0** | **¥0** | **¥0** |
 | **A — Squarespace** | Polished visual builder + galleries | ~$16–23 | ~¥2,400–3,500 | ~¥115–165 |
 | **A — Wix** | Visual builder; free tier has Wix ads + a `wixsite.com` address | **$0** free · ~$17 paid | ¥0 · ~¥2,600 | ¥0 · ~¥120 |
-| **A — Pixieset** | Photographer-focused; can also sell prints / deliver client galleries | **$0** free · ~$8–16 | ¥0 · ~¥1,200–2,400 | ¥0 · ~¥55–115 |
+| **A — Pixieset** | Photographer-focused; can also sell prints / deliver client galleries | **$0** free · ~$12–15 | ¥0 · ~¥1,800–2,300 | ¥0 · ~¥85–110 |
 | **A — Format** | Minimal, portfolio-first builder | ~$10–18 | ~¥1,500–2,700 | ~¥70–130 |
 
 ## The one-line summary to give them

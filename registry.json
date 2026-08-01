@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-04T16:18:35.526Z",
+  "generatedAt": "2026-08-01T13:50:06.149Z",
   "registryUrl": "https://github.com/photoreason/skills",
   "skills": [
     {
@@ -25,7 +25,7 @@
         {
           "assistant": "codex",
           "label": "Codex",
-          "command": "add photoreason/skills via the plugin manager"
+          "command": "codex plugin marketplace add photoreason/skills"
         },
         {
           "assistant": "gemini",
@@ -37,7 +37,7 @@
       "scan": {
         "socket": "pass",
         "status": "pass",
-        "scannedAt": "2026-07-04"
+        "scannedAt": "2026-08-01"
       },
       "sampleVisuals": [],
       "license": "MIT",

@@ -401,6 +401,7 @@ a {
   font-size: clamp(1.5rem, 5vw, 3rem);
   font-weight: 500;
   letter-spacing: -0.015em;
+  overflow-wrap: anywhere;
   border-bottom: 1px solid var(--hairline);
   padding-bottom: 0.15em;
   transition: border-color 0.25s;

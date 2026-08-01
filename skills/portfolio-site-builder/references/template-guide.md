@@ -19,6 +19,9 @@ the files to download, or reproduce each file's contents for them to save.)
 This holds everything shared across languages — images, projects, contact,
 social. Edit the placeholder values:
 
+- `defaultLocale` — the language to use when a visitor has not chosen one and
+  their browser language is unavailable: `'en'`, `'ja'`, or `'zh-hans'`. For a
+  Chinese-primary site, set this to `'zh-hans'`.
 - `heroImage`, `portraitImage` — paths under `images/`.
 - `email` — contact address.
 - `social` — array of `{ label, href }` (Instagram, Xiaohongshu, etc.).

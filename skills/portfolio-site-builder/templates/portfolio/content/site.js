@@ -6,6 +6,10 @@
    "Aki Mori" and the images with the real photographer's. */
 
 window.PORTFOLIO_SITE = {
+  // Fallback language when the visitor has not chosen one and their browser
+  // language is unavailable: 'en', 'ja', or 'zh-hans'.
+  defaultLocale: 'en',
+
   // Big full-bleed landing image.
   heroImage: 'images/hero.jpg',
 

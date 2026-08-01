@@ -24,8 +24,9 @@ running"), but the tone stays the same throughout.
 - **The photographs carry the site.** Keep the chrome quiet: monochrome UI, no
   decorative flourishes, no colored accents. Resist requests-you-invented;
   honor the ones they actually make.
-- **One question at a time.** Ask, wait, react. Use the assistant's multiple-
-  choice question tool for options.
+- **One question at a time.** Ask, wait, react. When the assistant has a
+  multiple-choice question tool, use it for options; otherwise ask one short,
+  plain-language question in the conversation.
 - **Money up front.** Tell them what it will cost, in their own currency, before
   they choose anything (Phase 1). No surprises.
 - **Do the work for them.** Draft the bio, propose the structure, fill the
