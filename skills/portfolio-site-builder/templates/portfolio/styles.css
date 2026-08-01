@@ -14,8 +14,8 @@
   --hairline: #e5e5e5; /* neutral-200 */
   --paper-veil: rgba(250, 250, 250, 0.86);
 
-  /* Type: Inter for Latin, system CJK for ja / zh-hans. */
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", "Hiragino Sans",
+  /* Privacy-friendly system fonts; no third-party font request. */
+  --font-sans: system-ui, -apple-system, "Segoe UI", "Hiragino Sans",
     "Hiragino Kaku Gothic ProN", "PingFang SC", "Microsoft YaHei",
     "Noto Sans JP", "Noto Sans SC", sans-serif;
 

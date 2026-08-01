@@ -23,7 +23,8 @@ The template is a plain static site, so it deploys anywhere. Pick by comfort:
    `*.netlify.app` address.
 3. Make a free account when prompted to keep the site and manage it.
 
-Reassure them: nothing here can harm their computer, and the files stay theirs.
+Reassure them: publishing uploads copies of the finished website files; their
+original files remain on their computer and stay under their control.
 
 ## Path C — Git-connected (code)
 

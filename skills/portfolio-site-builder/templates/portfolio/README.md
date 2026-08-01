@@ -42,8 +42,8 @@ space before the photo loads so the page never jumps).
 
 ## Preview
 
-Double-click `index.html`. Fonts and layout work offline; only the Inter web
-font needs a connection (it falls back to your system sans otherwise).
+Double-click `index.html`. The complete site works offline and uses privacy-
+friendly system fonts; it makes no third-party font request.
 
 ## Deploy
 

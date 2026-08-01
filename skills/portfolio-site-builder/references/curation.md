@@ -64,14 +64,17 @@ huge files make a site slow. Guide them to export **web-sized** images.
   is smaller at the same quality; JPEG is universally safe — either is great.
   **Avoid PNG** (huge for photos) and **HEIC** (phone format, not web-friendly).
 - **Long edge ~2000px**, quality ~80%, sRGB color. Each file well under ~500 KB.
-- Easiest conversion/compression, no software to install:
-  **<https://towebp.io>** — drag photos in, get web-ready JPEG/WebP out (it also
-  converts HEIC and PNG). Works the same on Windows and Mac, in the browser.
 - From pro software:
   - **Lightroom:** Export → JPEG, Quality 80, Image Sizing → Resize to fit Long
     Edge 2000px.
   - **Mac Preview:** Tools → Adjust Size → 2000px, then File → Export as JPEG.
-  - **Phone photos:** usually fine, but run HEIC through towebp.io to get JPEG/WebP.
+  - **Phone photos:** usually fine, but convert HEIC to JPEG/WebP with a trusted
+    local editor or the browser option below.
+- Browser option, no software to install: **<https://towebp.io>** converts and
+  compresses JPEG, HEIC, PNG, and WebP. This uploads the image to a third-party
+  service. For unpublished work, client photographs, or anything confidential,
+  prefer Lightroom or another trusted local editor; otherwise review the
+  service's privacy terms before uploading.
 - Keep the web-sized copies in one folder, named in the order they should appear
   (e.g. `01.jpg`, `02.jpg`). You'll use that folder when filling the template.
 
