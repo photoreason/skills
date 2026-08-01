@@ -1,0 +1,10 @@
+{
+  "version": "2",
+  "plugins": [
+    {
+      "id": "photoreason-skills",
+      "displayName": "Photo Reason Skills",
+      "source": "https://github.com/photoreason/skills"
+    }
+  ]
+}

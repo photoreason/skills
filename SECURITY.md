@@ -4,7 +4,9 @@
 
 If you believe you've found a security issue in this repository — a skill, the
 portfolio template, the registry pipeline, or the generated `registry.json` —
-please report it **privately**:
+thank you for taking the time to investigate it responsibly. We welcome
+good-faith security research and ask that you contact us **privately** before
+disclosing the issue publicly:
 
 - **Email: [contact@photoreason.com](mailto:contact@photoreason.com)** with the
   subject line `[SECURITY] skills`.
@@ -26,6 +28,14 @@ on this repository.
 
 We ask that you give us a reasonable window to remediate before any public
 disclosure.
+
+## Good-faith research
+
+Please avoid privacy violations, data destruction, service disruption, and
+accessing more data than is necessary to demonstrate the issue. If you discover
+private information, stop testing and include that fact in your private report.
+We will work constructively with researchers who follow this policy and make a
+good-faith effort to avoid harm.
 
 ## Supported versions
 
