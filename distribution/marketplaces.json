@@ -1,0 +1,55 @@
+{
+  "codex": {
+    "name": "photoreason-skills",
+    "interface": {
+      "displayName": "Photo Reason Skills"
+    },
+    "plugins": [
+      {
+        "name": "photoreason-skills",
+        "source": {
+          "source": "url",
+          "url": "https://github.com/photoreason/skills.git"
+        },
+        "policy": {
+          "installation": "AVAILABLE",
+          "authentication": "ON_INSTALL"
+        },
+        "category": "Creative"
+      }
+    ]
+  },
+  "claude": {
+    "name": "photoreason-skills",
+    "description": "Photo Reason's open-source skills library for photographers.",
+    "owner": {
+      "name": "Photo Reason",
+      "url": "https://photoreason.com"
+    },
+    "plugins": [
+      {
+        "name": "photoreason-skills",
+        "description": "Skills for photographers: portfolio building, curation, and creative workflows for coding agents.",
+        "version": "0.1.0",
+        "source": {
+          "source": "url",
+          "url": "https://github.com/photoreason/skills.git"
+        },
+        "author": {
+          "name": "Photo Reason",
+          "url": "https://photoreason.com"
+        }
+      }
+    ]
+  },
+  "kimi": {
+    "version": "2",
+    "plugins": [
+      {
+        "id": "photoreason-skills",
+        "displayName": "Photo Reason Skills",
+        "source": "https://github.com/photoreason/skills"
+      }
+    ]
+  }
+}

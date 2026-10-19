@@ -32,6 +32,19 @@ running"), but the tone stays the same throughout.
 - **Do the work for them.** Draft the bio, propose the structure, fill the
   template. They approve and tweak.
 
+## Preview and handover
+
+If the photographer has already supplied an edit, language, or publishing path,
+use those decisions rather than repeating the survey. Preview the draft before
+publication, ask for a concrete revision, and explain what changed. Include the
+files, image credits, and the smallest useful update guide in the handover.
+Use only images the photographer may publish. Keep private contact details out
+of a public draft unless supplied for that purpose. Confirm any purchase or
+publication against the user's existing authorization.
+
+For the user-facing walkthrough, principles, and a working layout study, see
+[README.md](README.md). The study uses original illustrations, not client work.
+
 ## Where you're running (adapt, don't announce)
 
 - **Desktop/conversational (no filesystem):** you can't run builds. Produce the

@@ -21,6 +21,24 @@ export const scanStatusSchema = z.object({
   scannedAt: z.string(),
 })
 
+
+const guideSectionSchema = z.object({ title: z.string(), body: z.string() })
+export const skillGuideSchema = z.object({
+  intro: z.string(),
+  overview: z.string(),
+  demoTitle: z.string(),
+  demoCaption: z.string(),
+  demoPrompt: z.string(),
+  revision: z.string(),
+  revisionNote: z.string(),
+  prepare: z.string(),
+  firstPrompt: z.string(),
+  steps: z.array(guideSectionSchema).min(1),
+  principles: z.array(guideSectionSchema).min(1),
+  making: z.array(guideSectionSchema).min(1),
+  references: z.array(z.object({ title: z.string(), url: z.string().url(), reason: z.string() })),
+})
+
 export const skillSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -28,10 +46,13 @@ export const skillSchema = z.object({
   longDescription: z.string(),
   tags: z.array(z.string()),
   featured: z.boolean().optional(),
+  studyNumber: z.number().int().positive().optional(),
   installTargets: z.array(installTargetSchema).min(1),
   universalCommand: z.string(),
   scan: scanStatusSchema,
   sampleVisuals: z.array(z.string()),
+  demoPath: z.string().regex(/^[a-z0-9-]+\/index\.html$/).optional(),
+  guide: z.object({ en: skillGuideSchema, ja: skillGuideSchema, 'zh-hans': skillGuideSchema }).optional(),
   license: z.string().default('MIT'),
   repoPath: z.string(),
   counts: z.object({ installs: z.number().nonnegative() }),

@@ -41,12 +41,15 @@ function readSkill(skillsDir: string, id: string): Skill | null {
     longDescription: String(meta.longDescription ?? frontmatter.description ?? ''),
     tags: (meta.tags as string[]) ?? [],
     ...(typeof meta.featured === 'boolean' ? { featured: meta.featured } : {}),
+    ...(typeof meta.studyNumber === 'number' ? { studyNumber: meta.studyNumber } : {}),
     installTargets: (meta.installTargets as Skill['installTargets']) ?? [],
     universalCommand: String(meta.universalCommand ?? ''),
     // Socket (socket.dev) scans every PR on this repo, so anything on main has
     // passed it. Install analytics are still a placeholder.
     scan: { socket: 'pass', status: 'pass', scannedAt: today },
     sampleVisuals: (meta.sampleVisuals as string[]) ?? [],
+    ...(meta.demoPath ? { demoPath: meta.demoPath as string } : {}),
+    ...(meta.guide ? { guide: meta.guide as Skill['guide'] } : {}),
     license: String(meta.license ?? 'MIT'),
     repoPath: `skills/${id}`,
     counts: { installs: Number(meta.installs ?? 0) },
@@ -73,17 +76,19 @@ export function buildManifest(skillsDir: string): SkillManifest {
 
 /** The manifest minus its timestamps — what "actually changed" means. */
 export function withoutTimestamps(manifest: SkillManifest): unknown {
+  // Normalize schema key order too: nested editorial YAML can use a different order
+  // from the parsed committed JSON, without changing the actual content.
+  const normalized = manifestSchema.parse(manifest)
   return {
-    registryUrl: manifest.registryUrl,
-    skills: manifest.skills.map((s) => ({ ...s, scan: { ...s.scan, scannedAt: '' } })),
+    registryUrl: normalized.registryUrl,
+    skills: normalized.skills.map((s) => ({ ...s, scan: { ...s.scan, scannedAt: '' } })),
   }
 }
 
 function main(): void {
   const skillsDir = join(repoRoot, 'skills')
-  const manifest = buildManifest(skillsDir)
-  // Validate before writing so we never emit a bad registry.
-  manifestSchema.parse(manifest)
+  // Keep the validated canonical shape for both comparison and output.
+  const manifest = manifestSchema.parse(buildManifest(skillsDir))
   const out = join(repoRoot, 'registry.json')
 
   // Idempotent build: timestamps (generatedAt, scannedAt) change on every run,

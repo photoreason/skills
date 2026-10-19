@@ -692,3 +692,10 @@ a {
     transform: none;
   }
 }
+
+/* Keep navigation clear of the fixed language switch, including embedded previews. */
+@media (max-width: 600px) {
+  .hero__frame { padding-top: 4.5rem; }
+  .nav { flex-wrap: wrap; }
+}
+.hero .eyebrow { color: rgba(255, 255, 255, 0.85); }

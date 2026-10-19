@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Title & description are also set per-language by app.js. -->
+    <title>Portfolio</title>
+    <meta name="description" content="" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#fafafa" />
+
+    <link rel="stylesheet" href="styles.css" />
+  <meta name="robots" content="noindex, nofollow" />
+  </head>
+  <body>
+    <!-- Language switch (EN / 日本語 / 简体) — populated by app.js -->
+    <div class="lang-switch" id="langSwitch" role="group" aria-label="Language"></div>
+
+    <!-- Full-bleed filmic hero. A real <img> (not a CSS background) so the
+         browser can prioritize it — it's the most important image on the page. -->
+    <header class="hero" id="hero">
+      <div class="hero__media" id="heroMedia" aria-hidden="true">
+        <img id="heroImg" alt="" fetchpriority="high" decoding="async" />
+      </div>
+      <div class="hero__frame">
+        <nav class="nav" id="nav" aria-label="Primary"></nav>
+        <div class="hero__wordmark">
+          <span class="eyebrow" id="heroEyebrow"></span>
+          <h1 class="hero__name" id="heroName"></h1>
+          <p class="hero__tagline" id="heroTagline"></p>
+        </div>
+        <a class="hero__scroll" href="#work" id="heroScroll" aria-label="Scroll to work">
+          <span></span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- WORK — list of projects, rendered by app.js -->
+      <section class="section" id="work" aria-labelledby="workLabel">
+        <p class="eyebrow section__label" id="workLabel"></p>
+        <ol class="projects" id="projects"></ol>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="section about" id="about" aria-labelledby="aboutLabel">
+        <p class="eyebrow section__label" id="aboutLabel"></p>
+        <div class="about__grid">
+          <div class="about__portrait" id="aboutPortrait" aria-hidden="true"></div>
+          <div class="about__text">
+            <p class="about__statement" id="aboutStatement"></p>
+            <p class="about__bio" id="aboutBio"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section contact" id="contact" aria-labelledby="contactLabel">
+        <p class="eyebrow section__label" id="contactLabel"></p>
+        <a class="contact__email" id="contactEmail" href="#"></a>
+        <ul class="social" id="social"></ul>
+      </section>
+    </main>
+
+    <footer class="footer" id="footer"></footer>
+
+    <!-- Project detail — a full-screen view shown on #/p/<id> routes. -->
+    <div class="project-view" id="projectView" hidden></div>
+
+    <!-- Lightbox — pages through the open project's images (arrows / arrow keys). -->
+    <div class="lightbox" id="lightbox" hidden>
+      <button class="lightbox__close" type="button" aria-label="Close">×</button>
+      <button class="lightbox__nav -prev" type="button" aria-label="Previous image">‹</button>
+      <button class="lightbox__nav -next" type="button" aria-label="Next image">›</button>
+      <img class="lightbox__img" alt="" />
+    </div>
+
+    <!-- Content: edit these four files, not the HTML.
+         site.js = structure (projects, images, social). Locale files = text. -->
+    <script src="content/site.js"></script>
+    <script src="content/en.js"></script>
+    <script src="content/ja.js"></script>
+    <script src="content/zh-hans.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

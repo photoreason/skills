@@ -16,6 +16,55 @@ The skills in this repository are the source of truth for
 | --- | --- |
 | [`portfolio-site-builder`](skills/portfolio-site-builder/) | Guides a photographer from costs and curation to a published, trilingual portfolio website—without assuming technical experience. |
 
+## A first portfolio, step by step
+
+Start with the [Portfolio Site Builder guide](skills/portfolio-site-builder/README.md):
+a working layout study, what to prepare, the first message to send, and the
+principles behind the template. The study uses original illustrations in place
+of photographs and is clearly labeled as a demonstration.
+
+For a coding assistant that reads skills, install from your website project folder:
+
+```sh
+npx skills add photoreason/skills --skill portfolio-site-builder
+```
+
+Choose your assistant, open a new session, and describe the portfolio you want.
+Installation and publication are separate steps. Other installation methods follow.
+
+## Photo Reason marketplace URLs
+
+When the website changes are deployed, the branded entry points are:
+
+| Client | Add this source |
+| --- | --- |
+| Codex desktop / CLI | `https://photoreason.art/marketplace/codex.git` (Git repository alias) |
+| Claude Code | `https://photoreason.art/marketplace/claude/marketplace.json` |
+| Kimi Code | `https://photoreason.art/marketplace/kimi/marketplace.json` |
+
+For Codex, register the Git source with `codex plugin marketplace add <Git URL>`,
+then restart the desktop app, choose **Photo Reason Skills** in the plugin browser,
+and install the plugin. Refresh later with `codex plugin marketplace upgrade photoreason-skills`,
+then review available plugin updates in the desktop UI. The existing GitHub source remains valid.
+A standalone JSON URL is **not** a supported Codex marketplace add source.
+
+For Claude Code, run `/plugin marketplace add <Claude JSON URL>`, then
+`/plugin install photoreason-skills@photoreason-skills`. The URL-hosted catalog uses
+an absolute public Git source, so it does not depend on a nonexistent relative folder.
+The install panel in `/lab/skills` includes the full steps and update commands.
+
+The Git alias redirects read-only Git discovery/fetch to the canonical public repository.
+It does not mirror Git objects or remove the client's need to reach GitHub. The JSON
+catalogs are generated from this repository. The website refreshes the published catalogs
+with a five-minute cache and falls back to its committed snapshot during an outage.
+Run `pnpm build:registry` here and `pnpm skills:sync --source <checkout>` in the site
+when updating that fallback and the example assets.
+Publish the skills changes before the website so the Git source contains the new native manifest.
+
+Sources: [OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins),
+[Codex CLI marketplace commands](https://learn.chatgpt.com/docs/cli/reference),
+[Claude marketplace hosting](https://code.claude.com/docs/en/plugins/host-marketplace).
+
 ## Install
 
 ### Kimi Code

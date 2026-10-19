@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T13:50:06.149Z",
+  "generatedAt": "2026-10-19T17:28:57.283Z",
   "registryUrl": "https://github.com/photoreason/skills",
   "skills": [
     {
@@ -16,30 +16,255 @@
         "publishing"
       ],
       "featured": true,
+      "studyNumber": 1,
       "installTargets": [
         {
-          "assistant": "claude",
+          "assistant": "claude-code",
           "label": "Claude Code",
-          "command": "/plugin marketplace add photoreason/skills"
+          "command": "npx skills add photoreason/skills --skill portfolio-site-builder --agent claude-code"
         },
         {
           "assistant": "codex",
           "label": "Codex",
-          "command": "codex plugin marketplace add photoreason/skills"
+          "command": "npx skills add photoreason/skills --skill portfolio-site-builder --agent codex"
         },
         {
-          "assistant": "gemini",
+          "assistant": "gemini-cli",
           "label": "Gemini CLI",
-          "command": "install the photoreason/skills extension"
+          "command": "npx skills add photoreason/skills --skill portfolio-site-builder --agent gemini-cli"
         }
       ],
-      "universalCommand": "/portfolio-site-builder",
+      "universalCommand": "npx skills add photoreason/skills --skill portfolio-site-builder",
       "scan": {
         "socket": "pass",
         "status": "pass",
-        "scannedAt": "2026-08-01"
+        "scannedAt": "2026-10-19"
       },
-      "sampleVisuals": [],
+      "sampleVisuals": [
+        "/lab-examples/portfolio-site-builder/assets/portfolio-workbench.svg"
+      ],
+      "demoPath": "portfolio-study/index.html",
+      "guide": {
+        "en": {
+          "intro": "A small home for a body of work. Built with an assistant, edited by you.",
+          "demoTitle": "Study 01 — A quieter sequence",
+          "demoCaption": "A working study of the bundled portfolio template. Original landscape illustrations stand in for photographs; this is a layout demonstration, not a client portfolio or a documented agent session.",
+          "demoPrompt": "Help me make a portfolio for one coastal series. Keep the interface quiet, show the work large, and make it readable in English, Japanese, and Chinese.",
+          "revision": "Give the images more room. Keep the project together as a sequence instead of turning each frame into a card.",
+          "revisionNote": "The study uses the template’s stacked layout: one image per row, a restrained project index, and no decorative animation. These are example directions to try, not a transcript of a commissioned project.",
+          "prepare": "Bring a small selection of photographs you have permission to publish, a name, a short note about the work, and a way for visitors to contact you. You can decide on a web address later. The skill is free; your assistant and chosen hosting service may have costs. The optional direct terminal installer needs Node.js.",
+          "firstPrompt": "Use the portfolio-site-builder skill to help me make a website for my photographs. Start with the costs and help me choose a publishing path. I want to keep control of the edit.",
+          "steps": [
+            {
+              "title": "Install the skill",
+              "body": "Add the Photo Reason marketplace in the install panel below, then install Photo Reason Skills in your assistant’s plugin browser. If you prefer a direct skill install, open the terminal option. Adding a marketplace and installing its plugin are separate steps; neither publishes a website."
+            },
+            {
+              "title": "Start a conversation",
+              "body": "Open a new assistant session in that folder and paste the first prompt below. You can begin with a handful of images and a rough idea. Tell it your preferred language and currency rather than accepting guesses."
+            },
+            {
+              "title": "Choose the path, then make the edit",
+              "body": "Review current costs, then choose a visual builder, a downloadable site you own, or a code workflow. The assistant can suggest a sequence and draft text; you decide what belongs and what stays private."
+            },
+            {
+              "title": "Preview, revise, and put it online",
+              "body": "Check the site on a phone, read every caption, and test contact links. Approve any paid service or publication before proceeding. Ask for a short handover explaining how to change an image and update the site."
+            }
+          ],
+          "principles": [
+            {
+              "title": "Your eye sets the sequence",
+              "body": "The assistant can propose a first edit and explain it. It should keep your image order and choices when you have already made them."
+            },
+            {
+              "title": "Let the photographs lead",
+              "body": "Monochrome controls and generous space keep attention on the work. The template offers stacked images or a grid; the story determines which you use."
+            },
+            {
+              "title": "Say what it costs before choosing",
+              "body": "A free starting address can be enough. Check current hosting, domain, and assistant costs in your currency before committing to a service."
+            },
+            {
+              "title": "Leave something you can maintain",
+              "body": "The bundled site is ordinary HTML, CSS, and JavaScript with separate language files. The handover should show exactly where to replace a photograph or a line of text."
+            }
+          ],
+          "making": [
+            {
+              "title": "Start with the work, not the interface",
+              "body": "A portfolio is an edit: what opens, what follows, and where a visitor can pause. The supplied template starts with a project index and offers both a continuous sequence and a grid."
+            },
+            {
+              "title": "One structure, three readings",
+              "body": "Project structure lives in content/site.js; English, Japanese, and Chinese live in separate files. This lets the sequence stay consistent while the writing changes. Translations still need your review."
+            },
+            {
+              "title": "Keep the example honest",
+              "body": "This study is built from the actual bundled template, with original vector illustrations and a clearly labeled sample brief. A real photographer’s case study needs permission, image credits, and a record of the decisions made."
+            }
+          ],
+          "references": [
+            {
+              "title": "Hairline — skills & making notes",
+              "url": "https://hairline.lucasmarkes.com/skills",
+              "reason": "The reference for showing a prompt, a working result, and the judgment behind a revision. Our portfolio template is independent."
+            },
+            {
+              "title": "Portfolio template source",
+              "url": "https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio",
+              "reason": "The HTML, styles, and language files used by this working study. Read and adapt them."
+            }
+          ],
+          "overview": "A guided way to make a portfolio website, from choosing a small edit to putting it online. The assistant helps with costs, layout, and a first draft of your words. You choose the photographs, the sequence, and the publishing path: a visual builder or the simple site files included with the skill. The template supports English, Japanese, and Chinese."
+        },
+        "ja": {
+          "intro": "ひとまとまりの作品に、静かな居場所を。助手とつくり、あなたの目で編集する。",
+          "demoTitle": "習作 01 — 作品の流れを静かに",
+          "demoCaption": "同梱のポートフォリオテンプレートによる操作できる習作です。写真の代わりにオリジナルの風景イラストを使用。顧客の作品集でも、エージェントの実行記録でもありません。",
+          "demoPrompt": "海岸のシリーズのための作品集をつくってください。画面は静かに、作品は大きく。日本語、英語、中国語で読めるようにしたいです。",
+          "revision": "画像にもっと余白を。一枚ずつカードにせず、シリーズをひとつの流れで見せてください。",
+          "revisionNote": "習作ではテンプレートの縦並びを使い、一行に一枚の画像と控えめな作品目録を配置。装飾的なアニメーションはありません。試すための指示例であり、受託制作の会話記録ではありません。",
+          "prepare": "公開する権利のある写真を少し、名前、作品についての短いメモ、連絡先をご用意ください。ウェブアドレスは後で決められます。スキルは無料ですが、助手や公開先には費用がかかる場合があります。任意のターミナル用インストーラーには Node.js が必要です。",
+          "firstPrompt": "portfolio-site-builder スキルを使って、写真のウェブサイトをつくるのを手伝ってください。まず費用を説明し、公開方法を一緒に選びたいです。作品の選択と順序は自分で決めます。",
+          "steps": [
+            {
+              "title": "スキルをインストール",
+              "body": "下の案内から Photo Reason のマーケットプレイスを追加し、助手のプラグイン画面で Photo Reason Skills をインストールします。スキルだけを直接追加する場合はターミナルの項目を開いてください。登録とインストールは別の操作で、どちらもサイトを公開するものではありません。"
+            },
+            {
+              "title": "会話を始める",
+              "body": "同じフォルダで助手の新しいセッションを開き、下の最初のプロンプトを貼り付けます。数枚の写真と大まかな考えから始められます。使いたい言語と通貨も伝えてください。"
+            },
+            {
+              "title": "公開方法を選び、作品を編集",
+              "body": "現在の費用を確認してから、ビジュアルビルダー、自分で持てるサイト、コードによる方法を選びます。助手は順序や文章を提案できますが、残すものと公開しないものはあなたが決めます。"
+            },
+            {
+              "title": "プレビューし、直して公開する",
+              "body": "スマートフォンで確認し、キャプションと連絡先のリンクを読み直します。支払いや公開は事前に確認。写真の差し替え方と更新手順も短くまとめてもらいましょう。"
+            }
+          ],
+          "principles": [
+            {
+              "title": "順序を決めるのは、あなたの目",
+              "body": "助手は最初の編集案とその理由を提案できます。すでに選択と順序が決まっていれば、それを尊重します。"
+            },
+            {
+              "title": "写真を主役にする",
+              "body": "単色の操作部と余白で、作品に目が向くようにします。縦並びかグリッドかは、作品の語り方で選びます。"
+            },
+            {
+              "title": "選ぶ前に費用を伝える",
+              "body": "最初は無料のアドレスで十分かもしれません。契約前に、公開先、ドメイン、助手の現在の費用を自分の通貨で確認します。"
+            },
+            {
+              "title": "自分で更新できる形で残す",
+              "body": "同梱サイトは HTML、CSS、JavaScript と独立した言語ファイルです。どこで画像や文章を変えるかを引き継ぎで示します。"
+            }
+          ],
+          "making": [
+            {
+              "title": "画面ではなく作品から始める",
+              "body": "作品集は編集です。何から始まり、何が続き、どこで立ち止まるのか。テンプレートは作品目録から始まり、連続表示とグリッドを用意しています。"
+            },
+            {
+              "title": "ひとつの構造、三つの読み方",
+              "body": "構造は content/site.js に、英語、日本語、中国語は個別のファイルにあります。順序を保ちつつ文章を変えられます。翻訳は本人による確認が必要です。"
+            },
+            {
+              "title": "習作であることを明確に",
+              "body": "実際の同梱テンプレート、オリジナルのベクターイラスト、明示した例題を使用しています。実際の写真家の事例には、許可、クレジット、判断の記録が必要です。"
+            }
+          ],
+          "references": [
+            {
+              "title": "Hairline — スキルと制作ノート",
+              "url": "https://hairline.lucasmarkes.com/skills",
+              "reason": "プロンプト、操作できる成果、修正の判断を伝える構成を参考にしました。テンプレートは独立した制作です。"
+            },
+            {
+              "title": "ポートフォリオテンプレートのソース",
+              "url": "https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio",
+              "reason": "習作で使っている HTML、スタイル、言語ファイルです。自由に読んで編集できます。"
+            }
+          ],
+          "overview": "写真を選ぶところから公開まで、作品集づくりを順に進めるスキルです。助手が費用、レイアウト、文章の下書きを手伝います。写真、順序、公開方法を決めるのはあなた。ビジュアルビルダーか、同梱のシンプルなサイトファイルを使えます。テンプレートは英語、日本語、中国語に対応しています。"
+        },
+        "zh-hans": {
+          "intro": "为一组作品留一个安静的地方。助手搭建，你来编辑。",
+          "demoTitle": "习作 01 — 让观看慢下来",
+          "demoCaption": "使用随附作品集模板制作的可操作习作。原创风景插画代替照片；这是版式演示，并非客户作品集，也不是一次代理执行过程的实录。",
+          "demoPrompt": "帮我为一组海岸作品做一个作品集。界面安静，照片足够大，并支持中文、英文和日文。",
+          "revision": "给画面更多空间。让整组作品按顺序展开，不要把每张照片做成一张卡片。",
+          "revisionNote": "习作采用模板的纵向布局：每行一张图，克制的项目目录，没有装饰性动画。这些是可尝试的修改方向，不是委托项目的对话记录。",
+          "prepare": "准备一小组有权公开的照片、署名、作品的简短说明和联系方式。网址可以稍后再定。技能免费，助手及所选托管服务可能收费。可选的终端安装方式需要 Node.js。",
+          "firstPrompt": "请使用 portfolio-site-builder 技能，帮我为照片做一个网站。先说明费用，再一起选择发布方式。作品的取舍和顺序由我决定。",
+          "steps": [
+            {
+              "title": "安装技能",
+              "body": "按照下方说明添加 Photo Reason 技能市场，再在助手的插件界面安装 Photo Reason Skills。如果只想直接安装单个技能，可打开终端选项。添加技能市场与安装插件是两个步骤，都不会发布网站。"
+            },
+            {
+              "title": "开始对话",
+              "body": "在该文件夹中打开新的助手会话，粘贴下方的第一条提示词。少量照片和一个大致想法就可以开始。请说明你的语言和结算货币，不必让助手猜。"
+            },
+            {
+              "title": "选好方式，再一起编辑",
+              "body": "先了解当前费用，再选择可视化建站、可下载的自有网站或代码流程。助手可以建议顺序、起草文字；哪些保留、哪些不公开，由你决定。"
+            },
+            {
+              "title": "预览、修改、上线",
+              "body": "在手机上检查，读完每条图注，测试联系链接。付费或公开发布前先确认。请助手留下简短说明，告诉你以后如何替换照片和更新网站。"
+            }
+          ],
+          "principles": [
+            {
+              "title": "作品的顺序由你决定",
+              "body": "助手可以提出初选并解释理由。如果你已经完成编辑，它应该尊重现有的选片和排序。"
+            },
+            {
+              "title": "让照片成为主角",
+              "body": "单色控件和充足留白，把注意力交还给作品。模板提供纵向排列与网格，由作品叙事决定使用哪一种。"
+            },
+            {
+              "title": "先把费用说清楚",
+              "body": "免费提供的初始网址可能已经够用。选定服务前，以你的货币核对托管、域名和助手的当前费用。"
+            },
+            {
+              "title": "留下能够维护的网站",
+              "body": "模板是普通的 HTML、CSS 和 JavaScript，语言文件独立。交付说明应告诉你具体在哪里换图、改字。"
+            }
+          ],
+          "making": [
+            {
+              "title": "从作品开始，而不是从界面开始",
+              "body": "作品集是一种编辑：从哪张开始，接下来是什么，在哪里停留。模板从项目目录出发，允许连续观看，也允许网格浏览。"
+            },
+            {
+              "title": "同一结构，三种语言",
+              "body": "项目结构写在 content/site.js 中；中、英、日文字分别存放。顺序保持一致，文字可以各自调整。译文仍需要你审阅。"
+            },
+            {
+              "title": "诚实展示习作",
+              "body": "本习作使用真实随附模板、原创矢量插画和明确标注的示例需求。真正的摄影师案例需要授权、图片署名与修改过程记录。"
+            }
+          ],
+          "references": [
+            {
+              "title": "Hairline — 技能与制作笔记",
+              "url": "https://hairline.lucasmarkes.com/skills",
+              "reason": "参考它呈现提示词、可操作结果与修改判断的方式。作品集模板独立制作。"
+            },
+            {
+              "title": "作品集模板源码",
+              "url": "https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio",
+              "reason": "本习作使用的 HTML、样式和语言文件，可阅读并自行修改。"
+            }
+          ],
+          "overview": "从选出一小组作品到发布网站，一步步完成作品集。助手帮助说明费用、安排版式、起草文字；照片、顺序和发布方式由你决定。你可以使用可视化建站工具，也可以使用技能附带的简单网站文件。模板支持中文、英文和日文。"
+        }
+      },
       "license": "MIT",
       "repoPath": "skills/portfolio-site-builder",
       "counts": {
