@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T17:28:57.283Z",
+  "generatedAt": "2026-10-20T01:21:16.606Z",
   "registryUrl": "https://github.com/photoreason/skills",
   "skills": [
     {
@@ -38,7 +38,7 @@
       "scan": {
         "socket": "pass",
         "status": "pass",
-        "scannedAt": "2026-10-19"
+        "scannedAt": "2026-10-20"
       },
       "sampleVisuals": [
         "/lab-examples/portfolio-site-builder/assets/portfolio-workbench.svg"
@@ -47,6 +47,7 @@
       "guide": {
         "en": {
           "intro": "A small home for a body of work. Built with an assistant, edited by you.",
+          "overview": "A guided way to make a portfolio website, from choosing a small edit to putting it online. The assistant helps with costs, layout, and a first draft of your words. You choose the photographs, the sequence, and the publishing path: a visual builder or the simple site files included with the skill. The template supports English, Japanese, and Chinese.",
           "demoTitle": "Study 01 — A quieter sequence",
           "demoCaption": "A working study of the bundled portfolio template. Original landscape illustrations stand in for photographs; this is a layout demonstration, not a client portfolio or a documented agent session.",
           "demoPrompt": "Help me make a portfolio for one coastal series. Keep the interface quiet, show the work large, and make it readable in English, Japanese, and Chinese.",
@@ -106,20 +107,15 @@
           ],
           "references": [
             {
-              "title": "Hairline — skills & making notes",
-              "url": "https://hairline.lucasmarkes.com/skills",
-              "reason": "The reference for showing a prompt, a working result, and the judgment behind a revision. Our portfolio template is independent."
-            },
-            {
               "title": "Portfolio template source",
               "url": "https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio",
               "reason": "The HTML, styles, and language files used by this working study. Read and adapt them."
             }
-          ],
-          "overview": "A guided way to make a portfolio website, from choosing a small edit to putting it online. The assistant helps with costs, layout, and a first draft of your words. You choose the photographs, the sequence, and the publishing path: a visual builder or the simple site files included with the skill. The template supports English, Japanese, and Chinese."
+          ]
         },
         "ja": {
           "intro": "ひとまとまりの作品に、静かな居場所を。助手とつくり、あなたの目で編集する。",
+          "overview": "写真を選ぶところから公開まで、作品集づくりを順に進めるスキルです。助手が費用、レイアウト、文章の下書きを手伝います。写真、順序、公開方法を決めるのはあなた。ビジュアルビルダーか、同梱のシンプルなサイトファイルを使えます。テンプレートは英語、日本語、中国語に対応しています。",
           "demoTitle": "習作 01 — 作品の流れを静かに",
           "demoCaption": "同梱のポートフォリオテンプレートによる操作できる習作です。写真の代わりにオリジナルの風景イラストを使用。顧客の作品集でも、エージェントの実行記録でもありません。",
           "demoPrompt": "海岸のシリーズのための作品集をつくってください。画面は静かに、作品は大きく。日本語、英語、中国語で読めるようにしたいです。",
@@ -179,20 +175,15 @@
           ],
           "references": [
             {
-              "title": "Hairline — スキルと制作ノート",
-              "url": "https://hairline.lucasmarkes.com/skills",
-              "reason": "プロンプト、操作できる成果、修正の判断を伝える構成を参考にしました。テンプレートは独立した制作です。"
-            },
-            {
               "title": "ポートフォリオテンプレートのソース",
               "url": "https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio",
               "reason": "習作で使っている HTML、スタイル、言語ファイルです。自由に読んで編集できます。"
             }
-          ],
-          "overview": "写真を選ぶところから公開まで、作品集づくりを順に進めるスキルです。助手が費用、レイアウト、文章の下書きを手伝います。写真、順序、公開方法を決めるのはあなた。ビジュアルビルダーか、同梱のシンプルなサイトファイルを使えます。テンプレートは英語、日本語、中国語に対応しています。"
+          ]
         },
         "zh-hans": {
           "intro": "为一组作品留一个安静的地方。助手搭建，你来编辑。",
+          "overview": "从选出一小组作品到发布网站，一步步完成作品集。助手帮助说明费用、安排版式、起草文字；照片、顺序和发布方式由你决定。你可以使用可视化建站工具，也可以使用技能附带的简单网站文件。模板支持中文、英文和日文。",
           "demoTitle": "习作 01 — 让观看慢下来",
           "demoCaption": "使用随附作品集模板制作的可操作习作。原创风景插画代替照片；这是版式演示，并非客户作品集，也不是一次代理执行过程的实录。",
           "demoPrompt": "帮我为一组海岸作品做一个作品集。界面安静，照片足够大，并支持中文、英文和日文。",
@@ -252,17 +243,11 @@
           ],
           "references": [
             {
-              "title": "Hairline — 技能与制作笔记",
-              "url": "https://hairline.lucasmarkes.com/skills",
-              "reason": "参考它呈现提示词、可操作结果与修改判断的方式。作品集模板独立制作。"
-            },
-            {
               "title": "作品集模板源码",
               "url": "https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio",
               "reason": "本习作使用的 HTML、样式和语言文件，可阅读并自行修改。"
             }
-          ],
-          "overview": "从选出一小组作品到发布网站，一步步完成作品集。助手帮助说明费用、安排版式、起草文字；照片、顺序和发布方式由你决定。你可以使用可视化建站工具，也可以使用技能附带的简单网站文件。模板支持中文、英文和日文。"
+          ]
         }
       },
       "license": "MIT",

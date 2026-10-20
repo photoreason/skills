@@ -97,10 +97,6 @@ guide:
           illustrations and a clearly labeled sample brief. A real photographer’s case
           study needs permission, image credits, and a record of the decisions made.
     references:
-      - title: Hairline — skills & making notes
-        url: https://hairline.lucasmarkes.com/skills
-        reason: The reference for showing a prompt, a working result, and the judgment behind a
-          revision. Our portfolio template is independent.
       - title: Portfolio template source
         url: https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio
         reason: The HTML, styles, and language files used by this working study. Read and adapt
@@ -148,9 +144,6 @@ guide:
       - title: 習作であることを明確に
         body: 実際の同梱テンプレート、オリジナルのベクターイラスト、明示した例題を使用しています。実際の写真家の事例には、許可、クレジット、判断の記録が必要です。
     references:
-      - title: Hairline — スキルと制作ノート
-        url: https://hairline.lucasmarkes.com/skills
-        reason: プロンプト、操作できる成果、修正の判断を伝える構成を参考にしました。テンプレートは独立した制作です。
       - title: ポートフォリオテンプレートのソース
         url: https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio
         reason: 習作で使っている HTML、スタイル、言語ファイルです。自由に読んで編集できます。
@@ -191,9 +184,6 @@ guide:
       - title: 诚实展示习作
         body: 本习作使用真实随附模板、原创矢量插画和明确标注的示例需求。真正的摄影师案例需要授权、图片署名与修改过程记录。
     references:
-      - title: Hairline — 技能与制作笔记
-        url: https://hairline.lucasmarkes.com/skills
-        reason: 参考它呈现提示词、可操作结果与修改判断的方式。作品集模板独立制作。
       - title: 作品集模板源码
         url: https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio
         reason: 本习作使用的 HTML、样式和语言文件，可阅读并自行修改。
