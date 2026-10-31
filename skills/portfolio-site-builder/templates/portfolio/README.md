@@ -52,7 +52,9 @@ Older `layout: 'stack'` / `'grid'` values are accepted but no longer create a lo
 image stack.
 
 Inside Gallery mode, use arrows, the thumbnail rail or All photographs to
-navigate. Click the image or Zoom to enlarge it; drag/scroll to pan. Escape
+navigate. Click a photograph to zoom around that point, or use Zoom to enlarge
+the visible centre. The top-right slider adjusts from 100% (fit to screen) to 400%;
+its arrow keys change magnification, not photographs. Drag/scroll to pan. Escape
 returns to fit view, closes the contact sheet, or leaves the gallery.
 
 Per image you can set `thumb` (optional smaller JPEG/WebP for the contact sheet),

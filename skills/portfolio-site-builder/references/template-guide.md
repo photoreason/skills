@@ -91,6 +91,9 @@ Try previous/next and arrow keys on the one-photo project view; the description
 stays alongside it. Expand All photographs to jump to a frame, then enter Gallery
 mode. Closing the gallery should retain the photograph you reached.
 Check arrows/keyboard navigation, thumbnails, zoom/pan, and Escape to return.
+Zoom at different photo positions; the clicked area should remain under the
+pointer. Check the percentage slider, including keyboard adjustment, fit reset
+and phone layout. 100% means fit to screen, not native image pixels.
 The chat language chosen during intake is independent of these website languages.
 
 Iterate on order and words until they're happy, then go to

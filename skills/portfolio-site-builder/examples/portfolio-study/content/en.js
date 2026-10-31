@@ -33,7 +33,8 @@ window.PORTFOLIO_I18N["en"] = {
     "imageError": "This photograph could not be loaded.",
     "viewProject": "View project",
     "photographCount": "{count} photographs",
-    "noPhotos": "No photographs in this project yet."
+    "noPhotos": "No photographs in this project yet.",
+    "zoomLevel": "Zoom level"
   },
   "projects": {
     "coastal-study": {

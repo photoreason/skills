@@ -87,19 +87,34 @@
             aria-expanded="false"
           ></button>
           <button id="galleryZoom" type="button" aria-pressed="false"></button>
+          <label class="lightbox__zoom-control">
+            <input
+              id="galleryZoomRange"
+              type="range"
+              min="100"
+              max="400"
+              step="10"
+              value="100"
+              aria-label="Zoom level"
+              disabled
+            />
+            <output id="galleryZoomValue" for="galleryZoomRange">100%</output>
+          </label>
           <button class="lightbox__close" type="button" autofocus></button>
         </div>
       </header>
       <div class="lightbox__stage">
         <button class="lightbox__nav -prev" type="button">‹</button>
         <div class="lightbox__canvas" id="galleryCanvas">
-          <button
-            class="lightbox__image-button"
-            id="galleryImageButton"
-            type="button"
-          >
-            <img class="lightbox__img" alt="" draggable="false" />
-          </button>
+          <div class="lightbox__surface" id="gallerySurface">
+            <button
+              class="lightbox__image-button"
+              id="galleryImageButton"
+              type="button"
+            >
+              <img class="lightbox__img" alt="" draggable="false" />
+            </button>
+          </div>
           <p class="lightbox__error" id="galleryError" role="status" hidden></p>
         </div>
         <button class="lightbox__nav -next" type="button">›</button>

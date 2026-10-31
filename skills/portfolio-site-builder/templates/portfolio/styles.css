@@ -1053,9 +1053,41 @@ a {
   min-width: 0;
   min-height: 0;
   overflow: auto;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr);
+  display: block;
+  scrollbar-width: none;
   overscroll-behavior: contain;
+}
+.lightbox__canvas::-webkit-scrollbar {
+  display: none;
+}
+.lightbox__surface {
+  display: grid;
+  place-items: center;
+  min-width: 100%;
+  min-height: 100%;
+}
+.lightbox__zoom-control {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+}
+.lightbox__zoom-control input {
+  width: clamp(5rem, 9vw, 8rem);
+  min-height: 44px;
+  margin: 0;
+  accent-color: #e5e5e5;
+  cursor: pointer;
+}
+.lightbox__zoom-control input:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.lightbox__zoom-control output {
+  min-width: 3.5em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: #b0b0b0;
 }
 .lightbox__image-button {
   display: block;
@@ -1077,8 +1109,6 @@ a {
   cursor: grab;
 }
 .lightbox__canvas.is-zoomed .lightbox__image-button {
-  width: 200%;
-  height: 200%;
   cursor: zoom-out !important;
 }
 .lightbox__nav {
@@ -1163,10 +1193,13 @@ a {
     grid-row: 1;
     grid-column: 1;
     gap: 0.5rem;
+    flex-wrap: wrap;
     align-items: flex-start;
   }
   .lightbox__tools {
+    width: 100%;
     gap: 0.25rem 0.75rem;
+    justify-content: space-between;
   }
   .lightbox__stage {
     grid-row: 2;
