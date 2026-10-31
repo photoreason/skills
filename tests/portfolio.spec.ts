@@ -442,3 +442,17 @@ test('cross-page navigation works on static hosts without directory index routin
   await expect(page).toHaveURL(/portfolio-study\/index\.html\?lang=en#work/)
   await expect(page.locator('.project-disclosure')).toHaveCount(1)
 })
+
+for (const locale of ['en', 'ja', 'zh-hans']) {
+  test(`legacy #about bookmarks open the separate About page in ${locale}`, async ({page}) => {
+    await page.goto(example + '?lang=' + locale + '#about')
+    await expect(page).toHaveURL(new RegExp('about/index\\.html\\?lang=' + locale + '$'))
+    await expect(page.locator('#aboutHeading')).toBeVisible()
+    await expect(page.locator('html')).toHaveAttribute('lang', locale === 'zh-hans' ? 'zh-Hans' : locale)
+    await page.locator('#nav a').first().click()
+    await expect(page.locator('.project-disclosure')).toHaveCount(1)
+    await page.evaluate(() => { location.hash = '#about' })
+    await expect(page.locator('#aboutHeading')).toBeVisible()
+    await expect(page).toHaveURL(new RegExp('about/index\\.html\\?lang=' + locale + '$'))
+  })
+}
