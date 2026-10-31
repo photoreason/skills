@@ -21,6 +21,13 @@ words and photos come from four files in `content/`:
 
 A project's `id` in `site.js` must match its key in each language file.
 
+About lives at `about/index.html` (served as `/about/`), using the same content
+files and language switch. `about.bio` accepts a string or paragraphs. Optional
+`about.sections` entries are `{ title, entries: [{ year, title, detail }] }`;
+omit empty sections and include only real publications, exhibitions, curatorial
+work, awards, or teaching. A portrait is optional; caption a selected artwork
+accurately with `about.imageCaption` instead of calling it a portrait.
+
 ## Images
 
 Put photos in `images/` using the paths referenced in `site.js`
@@ -30,6 +37,10 @@ Check detail, color, and zoom quality; the size targets are starting points. Unt
 the template shows labelled placeholders so the layout is still visible.
 
 ## Layouts & viewing
+
+Project rows show a short introduction and a plus/minus control. Click or press
+Enter/Space to expand a preview; moving the pointer does not change it. Choose
+View project for the complete work. Expansion persists while changing languages.
 
 Each project sets `layout: 'stack'` (full-bleed, one image per row — best for a
 sequenced series) or `layout: 'grid'` (even grid — best for a set). Click any
@@ -47,7 +58,7 @@ space before the photo loads so the page never jumps).
 
 ## Preview
 
-Double-click `index.html`. The complete site works offline and uses privacy-
+Double-click `index.html` or `about/index.html`. The complete site works offline and uses privacy-
 friendly system fonts; it makes no third-party font request.
 
 ## Deploy

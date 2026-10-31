@@ -32,7 +32,9 @@ window.PORTFOLIO_I18N["ja"] = {
     "fit": "全体を表示",
     "previous": "前の写真",
     "nextPhoto": "次の写真",
-    "imageError": "写真を読み込めませんでした。"
+    "imageError": "写真を読み込めませんでした。",
+    "viewProject": "作品を見る",
+    "photographCount": "写真 {count} 枚"
   },
   "projects": {
     "tidal": {
@@ -50,7 +52,38 @@ window.PORTFOLIO_I18N["ja"] = {
   },
   "about": {
     "statement": "ものごとの間（あわい）を撮っています。引いていく潮、雨のあと乾いていく街、年の暮れに薄れていく光。",
-    "bio": "Aki Mori は京都を拠点とする写真家。作品は日本各地のグループ展で発表。編集・コミッションの依頼を受け付けています。"
+    "bio": "Aki Mori は京都を拠点とする写真家。作品は日本各地のグループ展で発表。編集・コミッションの依頼を受け付けています。",
+    "heading": "プロフィール",
+    "role": "写真家 · 京都",
+    "imageAlt": "",
+    "imageCaption": "",
+    "representation": "",
+    "sections": [
+      {
+        "title": "出版物",
+        "entries": []
+      },
+      {
+        "title": "個展",
+        "entries": []
+      },
+      {
+        "title": "グループ展",
+        "entries": []
+      },
+      {
+        "title": "キュレーション",
+        "entries": []
+      },
+      {
+        "title": "受賞",
+        "entries": []
+      },
+      {
+        "title": "執筆・教育活動",
+        "entries": []
+      }
+    ]
   },
   "footer": {
     "rights": "© {year} Aki Mori"

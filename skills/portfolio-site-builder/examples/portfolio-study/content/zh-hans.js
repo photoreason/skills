@@ -30,7 +30,9 @@ window.PORTFOLIO_I18N["zh-hans"] = {
     "fit": "适合屏幕",
     "previous": "上一张照片",
     "nextPhoto": "下一张照片",
-    "imageError": "这张照片暂时无法加载。"
+    "imageError": "这张照片暂时无法加载。",
+    "viewProject": "查看完整项目",
+    "photographCount": "{count} 张照片"
   },
   "projects": {
     "coastal-study": {
@@ -40,7 +42,9 @@ window.PORTFOLIO_I18N["zh-hans"] = {
   },
   "about": {
     "statement": "Photo Reason 原创矢量插画，以 MIT 许可发布。未使用照片或客户作品。",
-    "bio": "使用随附模板制作的示例。公开前，请替换为自己的作品与文字。"
+    "bio": "使用随附模板制作的示例。公开前，请替换为自己的作品与文字。",
+    "heading": "关于习作",
+    "sections": []
   },
   "footer": {
     "rights": "© {year} Photo Reason · MIT"

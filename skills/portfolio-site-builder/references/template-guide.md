@@ -49,14 +49,23 @@ content package:
 - `hero.eyebrow`, `hero.name`, `hero.tagline`.
 - `nav` and `labels` — usually leave as-is (already translated).
 - `projects.<id>.title` + `.description` — one block per project id in `site.js`.
-- `about.statement`, `about.bio`.
+- `about.heading`, `about.role`, `about.location`, `about.statement`, `about.bio`
+  (one string or an array of paragraphs) fill the separate `about/index.html` page.
+  `about.imageAlt` / `imageCaption` identify the portrait or a selected work;
+  do not present an artwork as a portrait. `about.representation` is optional.
+- `about.sections` is an ordered array of `{ title, entries }`. Each entry has
+  `title`, optional `year`, and optional `detail`. Include publications, solo/group
+  exhibitions, curatorial work, awards, and writing/teaching only when supplied.
+  Empty sections disappear; never invent achievements to fill the layout.
 - `footer.rights` — keep `{year}`; it fills in automatically.
 
 **If they only want one language:** delete the `<script src="content/ja.js">`
-and `zh-hans.js` lines from `index.html`; the language switch hides itself.
+and `zh-hans.js` lines from **both** `index.html` and `about/index.html`; the
+language switch hides itself.
 
 Before publishing, also write the default language's title/description and an
-absolute `og:image` URL into the static `<head>` of `index.html`. Keep runtime
+absolute `og:image` URL into the static `<head>` of both HTML pages, with each
+page's own title/description and canonical URL. Keep runtime
 language switching, but do not rely on JavaScript for social previews: many share
 crawlers do not execute it. Check the fetched HTML as well as the browser DOM.
 
@@ -71,7 +80,13 @@ so the layout is reviewable before every photo is in place.
 
 Double-click `index.html` (works on Windows and Mac, offline). Check it on a
 narrow window too (mobile). Switch languages with the EN / 日本語 / 简体 control.
-Click a project, try its complete contact sheet, and enter Gallery mode.
+Project introductions stay visible; click a row's plus/minus to expand its
+preview, then use “View project” for the complete sequence. Hover must not expand
+or close it. Check Enter/Space and touch as well as the pointer.
+Open About from navigation and return to Work; check that the chosen language
+survives both directions. Open `about/index.html` directly offline; on Cloudflare,
+verify both `/about` and `/about/` resolve to the dedicated page after deployment.
+Try a project's complete contact sheet and enter Gallery mode.
 Check arrows/keyboard navigation, thumbnails, zoom/pan, and Escape to return.
 The chat language chosen during intake is independent of these website languages.
 

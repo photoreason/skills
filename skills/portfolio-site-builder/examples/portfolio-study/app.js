@@ -6,696 +6,828 @@
    No framework, no build step, no fetch() (so it works from file:// too).
    ========================================================================= */
 
-;(function () {
-  'use strict'
+(function () {
+  "use strict";
 
-  var SITE = window.PORTFOLIO_SITE || { projects: [], social: [] }
-  var I18N = window.PORTFOLIO_I18N || {}
+  var SITE = window.PORTFOLIO_SITE || { projects: [], social: [] };
+  var I18N = window.PORTFOLIO_I18N || {};
 
   // Fixed display order + native labels for the language switch.
   var LOCALES = [
-    { code: 'en', label: 'EN' },
-    { code: 'ja', label: '日本語' },
-    { code: 'zh-hans', label: '简体' },
+    { code: "en", label: "EN" },
+    { code: "ja", label: "日本語" },
+    { code: "zh-hans", label: "简体" },
   ].filter(function (l) {
-    return I18N[l.code]
-  })
+    return I18N[l.code];
+  });
 
-  var STORAGE_KEY = 'pf-lang'
+  var STORAGE_KEY = "pf-lang";
+  var isAbout = document.body.dataset.page === "about";
+  var rootURL = new URL("./", document.currentScript.src);
+  var expandedProjects = {};
 
   // ---- helpers ------------------------------------------------------------
 
   function $(id) {
-    return document.getElementById(id)
+    return document.getElementById(id);
   }
 
   function el(tag, className, text) {
-    var node = document.createElement(tag)
-    if (className) node.className = className
-    if (text != null) node.textContent = text
-    return node
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text != null) node.textContent = text;
+    return node;
   }
 
   /** A labelled placeholder block (shown when an image is missing/absent). */
   function placeholder(aspect) {
-    var ph = el('div', 'ph', 'Image')
-    if (aspect) ph.style.aspectRatio = aspect
-    return ph
+    var ph = el("div", "ph", "Image");
+    if (aspect) ph.style.aspectRatio = aspect;
+    return ph;
   }
 
   /** An <img> that degrades to a labelled placeholder if the file is missing.
    *  If no src is given at all, returns the placeholder straight away. */
   function imgEl(src, alt, aspect) {
-    if (!src) return placeholder(aspect)
-    var img = document.createElement('img')
-    img.src = src || ''
-    img.alt = alt || ''
-    img.loading = 'lazy'
-    img.decoding = 'async'
-    img.addEventListener('error', function () {
-      if (img.parentNode) img.parentNode.replaceChild(placeholder(aspect), img)
-    })
-    return img
+    if (!src) return placeholder(aspect);
+    var img = document.createElement("img");
+    img.src = new URL(src, rootURL).href;
+    img.alt = alt || "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.addEventListener("error", function () {
+      if (img.parentNode) img.parentNode.replaceChild(placeholder(aspect), img);
+    });
+    return img;
   }
 
   function resolveLocale() {
-    var params = new URLSearchParams(window.location.search)
-    var savedLocale = null
+    var params = new URLSearchParams(window.location.search);
+    var savedLocale = null;
     try {
-      savedLocale = localStorage.getItem(STORAGE_KEY)
+      savedLocale = localStorage.getItem(STORAGE_KEY);
     } catch (e) {
       /* private mode or blocked storage — continue without a saved choice */
     }
     var order = [
-      params.get('lang'),
+      params.get("lang"),
       savedLocale,
-      (navigator.language || 'en').toLowerCase(),
+      (navigator.language || "en").toLowerCase(),
       SITE.defaultLocale,
-    ]
+    ];
     for (var i = 0; i < order.length; i++) {
-      var want = (order[i] || '').toLowerCase()
-      if (!want) continue
-      if (I18N[want]) return want
-      if (want.indexOf('ja') === 0 && I18N['ja']) return 'ja'
-      if (want.indexOf('zh') === 0 && I18N['zh-hans']) return 'zh-hans'
-      if (want.indexOf('en') === 0 && I18N['en']) return 'en'
+      var want = (order[i] || "").toLowerCase();
+      if (!want) continue;
+      if (I18N[want]) return want;
+      if (want.indexOf("ja") === 0 && I18N["ja"]) return "ja";
+      if (want.indexOf("zh") === 0 && I18N["zh-hans"]) return "zh-hans";
+      if (want.indexOf("en") === 0 && I18N["en"]) return "en";
     }
-    return LOCALES.length ? LOCALES[0].code : 'en'
+    return LOCALES.length ? LOCALES[0].code : "en";
   }
 
   // ---- state --------------------------------------------------------------
 
-  var locale = resolveLocale()
-  var t = I18N[locale] || {}
+  var locale = resolveLocale();
+  var t = I18N[locale] || {};
 
   function projectText(id) {
-    return (t.projects && t.projects[id]) || {}
+    return (t.projects && t.projects[id]) || {};
   }
 
   // ---- rendering ----------------------------------------------------------
 
   function renderLangSwitch() {
-    var box = $('langSwitch')
-    box.innerHTML = ''
+    var box = $("langSwitch");
+    box.innerHTML = "";
     // With only one language there's nothing to switch — hide the control.
     // (display must be forced: .lang-switch's `display:flex` beats [hidden].)
     if (LOCALES.length <= 1) {
-      box.style.display = 'none'
-      return
+      box.style.display = "none";
+      return;
     }
-    box.style.display = ''
+    box.style.display = "";
     LOCALES.forEach(function (l) {
-      var b = el('button', null, l.label)
-      b.type = 'button'
-      b.setAttribute('aria-pressed', String(l.code === locale))
-      b.addEventListener('click', function () {
-        setLocale(l.code)
-      })
-      box.appendChild(b)
-    })
+      var b = el("button", null, l.label);
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(l.code === locale));
+      b.addEventListener("click", function () {
+        setLocale(l.code);
+      });
+      box.appendChild(b);
+    });
+  }
+
+  // Explicit locale in cross-page links also works when storage is unavailable.
+  function pageLink(path, hash) {
+    var url = new URL(path, rootURL);
+    url.searchParams.set("lang", locale);
+    url.hash = hash || "";
+    return url.href;
+  }
+
+  function homeLink(hash) {
+    return pageLink(location.protocol === "file:" ? "index.html" : "./", hash);
   }
 
   function renderNav() {
-    var nav = $('nav')
-    nav.innerHTML = ''
-    var items = t.nav || {}
-    ;[
-      ['#work', items.work],
-      ['#about', items.about],
-      ['#contact', items.contact],
-    ].forEach(function (pair) {
-      if (!pair[1]) return
-      var a = el('a', null, pair[1])
-      a.href = pair[0]
-      nav.appendChild(a)
-    })
+    var nav = $("nav");
+    nav.innerHTML = "";
+    var items = t.nav || {};
+    [
+      [isAbout ? homeLink("work") : "#work", items.work],
+      [
+        pageLink(location.protocol === "file:" ? "about/index.html" : "about/"),
+        items.about,
+      ],
+      ["#contact", items.contact],
+    ].forEach(function (pair, index) {
+      if (!pair[1]) return;
+      var a = el("a", null, pair[1]);
+      a.href = pair[0];
+      if (isAbout && index === 1) a.setAttribute("aria-current", "page");
+      nav.appendChild(a);
+    });
+    if (isAbout) {
+      $("siteName").textContent = (t.hero && t.hero.name) || "";
+      $("siteName").href = homeLink();
+    }
   }
 
   function renderHero() {
-    var heroImg = $('heroImg')
+    var heroImg = $("heroImg");
     if (SITE.heroImage && heroImg) {
-      heroImg.src = SITE.heroImage
-      heroImg.addEventListener('error', function () {
-        heroImg.style.display = 'none' // keep the dark backdrop
-      })
+      heroImg.src = SITE.heroImage;
+      heroImg.addEventListener("error", function () {
+        heroImg.style.display = "none"; // keep the dark backdrop
+      });
     } else if (heroImg) {
-      heroImg.style.display = 'none'
+      heroImg.style.display = "none";
     }
-    var hero = t.hero || {}
-    $('heroEyebrow').textContent = hero.eyebrow || ''
-    $('heroName').textContent = hero.name || ''
-    $('heroTagline').textContent = hero.tagline || ''
+    var hero = t.hero || {};
+    $("heroEyebrow").textContent = hero.eyebrow || "";
+    $("heroName").textContent = hero.name || "";
+    $("heroTagline").textContent = hero.tagline || "";
   }
 
   function projectMeta(p) {
-    var bits = []
-    if (p.year) bits.push(el('span', null, p.year))
+    var bits = [];
+    if (p.year) bits.push(el("span", null, p.year));
     if (p.ongoing) {
-      var ong = el('span', 'ongoing', (t.ui && t.ui.ongoing) || 'ongoing')
-      bits.push(ong)
+      var ong = el("span", "ongoing", (t.ui && t.ui.ongoing) || "ongoing");
+      bits.push(ong);
     }
-    var wrap = el('span', 'project-row__meta')
+    var wrap = el("span", "project-row__meta");
     bits.forEach(function (b) {
-      wrap.appendChild(b)
-    })
-    return wrap
+      wrap.appendChild(b);
+    });
+    return wrap;
   }
 
   function renderWork() {
-    $('workLabel').textContent = (t.labels && t.labels.work) || ''
-    var list = $('projects')
-    list.innerHTML = ''
-    ;(SITE.projects || []).forEach(function (p) {
-      var text = projectText(p.id)
-      var li = el('li', 'project-row')
+    $("workLabel").textContent = (t.labels && t.labels.work) || "";
+    var list = $("projects");
+    list.innerHTML = "";
+    (SITE.projects || []).forEach(function (p) {
+      var text = projectText(p.id);
+      var li = el("li", "project-row");
+      var details = el("details", "project-disclosure");
+      var summary = el("summary", "project-summary");
+      var heading = el("span", "project-summary__heading");
+      heading.appendChild(el("span", "project-row__title", text.title || p.id));
+      var side = el("span", "project-summary__side");
+      side.appendChild(projectMeta(p));
+      var indicator = el("span", "project-indicator");
+      indicator.setAttribute("aria-hidden", "true");
+      side.appendChild(indicator);
+      heading.appendChild(side);
+      summary.appendChild(heading);
+      if (text.description)
+        summary.appendChild(el("span", "project-excerpt", text.description));
+      details.appendChild(summary);
 
-      var a = el('a')
-      a.href = '#/p/' + p.id
+      var panel = el("div", "project-panel");
+      var thumbs = el("div", "project-preview-strip");
+      panel.appendChild(thumbs);
+      var footer = el("div", "project-panel__footer");
+      var link = el("a", "project-open", ui("viewProject") + " ↗");
+      link.href = "#/p/" + encodeURIComponent(p.id);
+      footer.appendChild(link);
+      footer.appendChild(
+        el(
+          "span",
+          "project-count",
+          ui("photographCount").replace(
+            "{count}",
+            String((p.images || []).length),
+          ),
+        ),
+      );
+      panel.appendChild(footer);
+      details.appendChild(panel);
 
-      a.appendChild(el('span', 'project-row__title', text.title || p.id))
-      a.appendChild(projectMeta(p))
-
-      // Hover/touch thumbnail strip: first few images.
-      var thumbs = el('div', 'project-row__thumbs')
-      ;(p.images || []).slice(0, 4).forEach(function (im) {
-        thumbs.appendChild(imgEl(im.src, text.title || '', '4 / 3'))
-      })
-      if ((p.images || []).length) a.appendChild(thumbs)
-
-      li.appendChild(a)
-      list.appendChild(li)
-    })
+      function loadPreview() {
+        if (thumbs.childNodes.length) return;
+        (p.images || []).slice(0, 4).forEach(function (im) {
+          thumbs.appendChild(
+            imgEl(
+              im.thumb || im.src,
+              im.alt || text.title || "",
+              im.aspect || "4 / 3",
+            ),
+          );
+        });
+      }
+      details.open = !!expandedProjects[p.id];
+      if (details.open) loadPreview();
+      details.addEventListener("toggle", function () {
+        if (!details.isConnected) return;
+        expandedProjects[p.id] = details.open;
+        if (details.open) loadPreview();
+      });
+      li.appendChild(details);
+      list.appendChild(li);
+    });
   }
 
   function renderAbout() {
-    $('aboutLabel').textContent = (t.labels && t.labels.about) || ''
+    var about = t.about || {};
+    $("aboutHeading").textContent =
+      about.heading || (t.labels && t.labels.about) || "About";
+    $("aboutKicker").textContent = [about.role, about.location]
+      .filter(Boolean)
+      .join(" · ");
+    $("aboutStatement").textContent = about.statement || "";
+    $("aboutStatement").hidden = !about.statement;
+    var biography = $("aboutBio");
+    biography.innerHTML = "";
+    var paragraphs = Array.isArray(about.bio) ? about.bio : [about.bio];
+    paragraphs.filter(Boolean).forEach(function (paragraph) {
+      biography.appendChild(el("p", null, paragraph));
+    });
+    $("aboutRepresentation").textContent = about.representation || "";
+    $("aboutRepresentation").hidden = !about.representation;
+    var portrait = $("aboutPortrait");
+    portrait.innerHTML = "";
+    portrait.hidden = !SITE.portraitImage;
+    $("aboutIntro").classList.toggle("-no-image", !SITE.portraitImage);
     if (SITE.portraitImage) {
-      $('aboutPortrait').style.backgroundImage =
-        'url("' + SITE.portraitImage + '")'
+      portrait.appendChild(
+        imgEl(SITE.portraitImage, about.imageAlt || "", "4 / 5"),
+      );
+      if (about.imageCaption)
+        portrait.appendChild(el("figcaption", null, about.imageCaption));
     }
-    var about = t.about || {}
-    $('aboutStatement').textContent = about.statement || ''
-    $('aboutBio').textContent = about.bio || ''
+    var sections = $("aboutSections");
+    sections.innerHTML = "";
+    (about.sections || []).forEach(function (section) {
+      var entries = (section.entries || []).filter(function (entry) {
+        return entry.title;
+      });
+      if (!section.title || !entries.length) return;
+      var block = el("section", "cv-section");
+      block.appendChild(el("h2", null, section.title));
+      var list = el("ul", "cv-list");
+      entries.forEach(function (entry) {
+        var item = el("li");
+        item.classList.toggle("-undated", !entry.year);
+        if (entry.year) item.appendChild(el("span", "cv-year", entry.year));
+        var body = el("div");
+        body.appendChild(el("span", "cv-title", entry.title));
+        if (entry.detail)
+          body.appendChild(el("span", "cv-place", entry.detail));
+        item.appendChild(body);
+        list.appendChild(item);
+      });
+      block.appendChild(list);
+      sections.appendChild(block);
+    });
   }
 
   function renderContact() {
-    $('contactLabel').textContent = (t.labels && t.labels.contact) || ''
-    var email = SITE.email || ''
-    var link = $('contactEmail')
-    link.textContent = email
-    link.href = email ? 'mailto:' + email : '#'
+    $("contactLabel").textContent = (t.labels && t.labels.contact) || "";
+    var email = SITE.email || "";
+    var link = $("contactEmail");
+    link.textContent = email;
+    link.href = email ? "mailto:" + email : "#";
+    link.hidden = !email;
 
-    var ul = $('social')
-    ul.innerHTML = ''
-    ;(SITE.social || []).forEach(function (s) {
-      var li = document.createElement('li')
-      var a = el('a', null, s.label)
-      a.href = s.href
-      a.target = '_blank'
-      a.rel = 'noopener noreferrer'
-      li.appendChild(a)
-      ul.appendChild(li)
-    })
+    var ul = $("social");
+    ul.innerHTML = "";
+    (SITE.social || []).forEach(function (s) {
+      var li = document.createElement("li");
+      var a = el("a", null, s.label);
+      a.href = s.href;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
   }
 
   function renderFooter() {
-    var year = new Date().getFullYear()
-    var rights = (t.footer && t.footer.rights) || ''
-    rights = rights.replace('{year}', year)
-    var f = $('footer')
-    f.innerHTML = ''
-    f.appendChild(el('span', null, rights))
+    var year = new Date().getFullYear();
+    var rights = (t.footer && t.footer.rights) || "";
+    rights = rights.replace("{year}", year);
+    var f = $("footer");
+    f.innerHTML = "";
+    f.appendChild(el("span", null, rights));
 
-    var credit = el('a', null, 'built with Photo Reason skill')
-    credit.href = 'https://www.photoreason.art/' + locale + '/lab'
-    credit.target = '_blank'
-    credit.rel = 'noopener noreferrer'
-    f.appendChild(credit)
+    var credit = el("a", null, "built with Photo Reason skill");
+    credit.href = "https://www.photoreason.art/" + locale + "/lab";
+    credit.target = "_blank";
+    credit.rel = "noopener noreferrer";
+    f.appendChild(credit);
   }
 
   function renderMeta() {
-    document.documentElement.lang = locale === 'zh-hans' ? 'zh-Hans' : locale
-    var meta = t.meta || {}
-    if (meta.title) document.title = meta.title
-    setMeta('name', 'description', meta.description || '')
-    setMeta('property', 'og:title', meta.title || '')
-    setMeta('property', 'og:description', meta.description || '')
+    document.documentElement.lang = locale === "zh-hans" ? "zh-Hans" : locale;
+    var meta = t.meta || {};
+    if (isAbout) {
+      var about = t.about || {};
+      meta = {
+        title:
+          about.metaTitle ||
+          (about.heading || "About") +
+            " — " +
+            ((t.hero && t.hero.name) || "Portfolio"),
+        description:
+          about.metaDescription || about.statement || meta.description,
+      };
+    }
+    if (meta.title) document.title = meta.title;
+    setMeta("name", "description", meta.description || "");
+    setMeta("property", "og:title", meta.title || "");
+    setMeta("property", "og:description", meta.description || "");
     if (SITE.heroImage) {
       // og:image must be an absolute URL to work when the link is shared.
-      setMeta(
-        'property',
-        'og:image',
-        new URL(SITE.heroImage, window.location.href).href,
-      )
+      setMeta("property", "og:image", new URL(SITE.heroImage, rootURL).href);
     }
   }
 
   function setMeta(attr, key, value) {
-    var node = document.head.querySelector('meta[' + attr + '="' + key + '"]')
+    var node = document.head.querySelector("meta[" + attr + '="' + key + '"]');
     if (!node) {
-      node = document.createElement('meta')
-      node.setAttribute(attr, key)
-      document.head.appendChild(node)
+      node = document.createElement("meta");
+      node.setAttribute(attr, key);
+      document.head.appendChild(node);
     }
-    node.setAttribute('content', value)
+    node.setAttribute("content", value);
   }
 
   function renderAll() {
-    renderLangSwitch()
-    renderNav()
-    renderHero()
-    renderWork()
-    renderAbout()
-    renderContact()
-    renderFooter()
-    renderMeta()
+    renderLangSwitch();
+    renderNav();
+    if (isAbout) renderAbout();
+    else {
+      renderHero();
+      renderWork();
+    }
+    renderContact();
+    renderFooter();
+    renderMeta();
     // Re-render whatever route is active (e.g. an open project) in the new lang.
-    handleRoute()
+    if (!isAbout) handleRoute();
   }
 
   // ---- project detail (hash route: #/p/<id>) ------------------------------
 
   function findProject(id) {
     return (SITE.projects || []).filter(function (p) {
-      return p.id === id
-    })[0]
+      return p.id === id;
+    })[0];
   }
 
   function renderProject(p) {
-    closeLightbox()
-    var text = projectText(p.id)
-    var view = $('projectView')
-    view.innerHTML = ''
+    closeLightbox();
+    var text = projectText(p.id);
+    var view = $("projectView");
+    view.innerHTML = "";
 
-    var bar = el('div', 'pv__bar')
-    var back = el('a', 'pv__back', '← ' + ((t.ui && t.ui.back) || 'Back'))
-    back.href = '#'
-    bar.appendChild(back)
+    var bar = el("div", "pv__bar");
+    var back = el("a", "pv__back", "← " + ((t.ui && t.ui.back) || "Back"));
+    back.href = "#";
+    bar.appendChild(back);
     var metaBits = [
       p.year,
-      p.ongoing ? (t.ui && t.ui.ongoing) || 'ongoing' : null,
+      p.ongoing ? (t.ui && t.ui.ongoing) || "ongoing" : null,
     ]
       .filter(Boolean)
-      .join(' · ')
-    bar.appendChild(el('span', 'pv__meta', metaBits))
-    view.appendChild(bar)
+      .join(" · ");
+    bar.appendChild(el("span", "pv__meta", metaBits));
+    view.appendChild(bar);
 
-    var head = el('div', 'pv__head')
-    head.appendChild(el('h2', 'pv__title', text.title || p.id))
+    var head = el("div", "pv__head");
+    head.appendChild(el("h2", "pv__title", text.title || p.id));
     if (text.description)
-      head.appendChild(el('p', 'pv__desc', text.description))
-    view.appendChild(head)
+      head.appendChild(el("p", "pv__desc", text.description));
+    view.appendChild(head);
 
-    var galleryButton = el('button', 'pv__gallery', ui('gallery'))
-    galleryButton.type = 'button'
-    galleryButton.addEventListener('click', function () {
-      openLightboxAt(0)
-    })
-    head.appendChild(galleryButton)
+    var galleryButton = el("button", "pv__gallery", ui("gallery"));
+    galleryButton.type = "button";
+    galleryButton.addEventListener("click", function () {
+      openLightboxAt(0);
+    });
+    head.appendChild(galleryButton);
 
     var images = el(
-      'div',
-      'pv__images ' + (p.layout === 'grid' ? '-grid' : '-stack'),
-    )
-    gallery = []
-    ;(p.images || []).forEach(function (im, i) {
-      var alt = im.alt || (text.title || '') + ' — ' + (i + 1)
-      var fig = document.createElement('figure')
-      var image = imgEl(im.src, alt, p.layout === 'grid' ? '4 / 3' : null)
-      if (image.tagName === 'IMG') {
+      "div",
+      "pv__images " + (p.layout === "grid" ? "-grid" : "-stack"),
+    );
+    gallery = [];
+    (p.images || []).forEach(function (im, i) {
+      var alt = im.alt || (text.title || "") + " — " + (i + 1);
+      var fig = document.createElement("figure");
+      var image = imgEl(im.src, alt, p.layout === "grid" ? "4 / 3" : null);
+      if (image.tagName === "IMG") {
         // Optional per-image aspect (e.g. '3 / 2') reserves space before load
         // so the page doesn't jump; the image is cropped, never distorted.
-        if (im.aspect && p.layout !== 'grid') {
-          image.style.aspectRatio = im.aspect
-          image.style.objectFit = 'cover'
+        if (im.aspect && p.layout !== "grid") {
+          image.style.aspectRatio = im.aspect;
+          image.style.objectFit = "cover";
         }
-        var index = gallery.length
-        var enlarge = el('button', 'pv__enlarge')
-        enlarge.type = 'button'
-        enlarge.setAttribute('aria-label', ui('enlarge') + ': ' + alt)
-        enlarge.addEventListener('click', function () {
-          openLightboxAt(index)
-        })
-        enlarge.appendChild(image)
-        image = enlarge
-        fig.id = 'project-photo-' + index
+        var index = gallery.length;
+        var enlarge = el("button", "pv__enlarge");
+        enlarge.type = "button";
+        enlarge.setAttribute("aria-label", ui("enlarge") + ": " + alt);
+        enlarge.addEventListener("click", function () {
+          openLightboxAt(index);
+        });
+        enlarge.appendChild(image);
+        image = enlarge;
+        fig.id = "project-photo-" + index;
         gallery.push({
           src: im.src,
           thumb: im.thumb || im.src,
           alt: alt,
-          caption: im.caption || '',
-        })
+          caption: im.caption || "",
+        });
       }
-      fig.appendChild(image)
-      if (im.caption) fig.appendChild(el('figcaption', null, im.caption))
-      images.appendChild(fig)
-    })
-    galleryIndex = 0
-    galleryButton.hidden = !gallery.length
+      fig.appendChild(image);
+      if (im.caption) fig.appendChild(el("figcaption", null, im.caption));
+      images.appendChild(fig);
+    });
+    galleryIndex = 0;
+    galleryButton.hidden = !gallery.length;
     if (gallery.length) {
-      var indexWrap = el('div', 'pv__index')
+      var indexWrap = el("div", "pv__index");
       indexWrap.appendChild(
-        el('p', 'pv__index-label', ui('allPhotos') + ' · ' + gallery.length),
-      )
-      var contactSheet = el('div', 'photo-index')
-      contactSheet.setAttribute('role', 'group')
-      contactSheet.setAttribute('aria-label', ui('allPhotos'))
+        el("p", "pv__index-label", ui("allPhotos") + " · " + gallery.length),
+      );
+      var contactSheet = el("div", "photo-index");
+      contactSheet.setAttribute("role", "group");
+      contactSheet.setAttribute("aria-label", ui("allPhotos"));
       renderThumbnails(contactSheet, function (index) {
-        galleryIndex = index
-        var figure = $('project-photo-' + index)
-        figure.scrollIntoView({ block: 'center', behavior: 'instant' })
-        figure.querySelector('button').focus({ preventScroll: true })
-      })
-      indexWrap.appendChild(contactSheet)
-      view.appendChild(indexWrap)
+        galleryIndex = index;
+        var figure = $("project-photo-" + index);
+        figure.scrollIntoView({ block: "center", behavior: "instant" });
+        figure.querySelector("button").focus({ preventScroll: true });
+      });
+      indexWrap.appendChild(contactSheet);
+      view.appendChild(indexWrap);
     }
-    view.appendChild(images)
+    view.appendChild(images);
 
     // Quiet editorial handoff to the next body of work.
-    var idx = (SITE.projects || []).indexOf(p)
-    var next = (SITE.projects || [])[(idx + 1) % SITE.projects.length]
+    var idx = (SITE.projects || []).indexOf(p);
+    var next = (SITE.projects || [])[(idx + 1) % SITE.projects.length];
     if (next && next.id !== p.id) {
-      var nextWrap = el('div', 'pv__next')
-      var nextLink = el('a')
-      nextLink.href = '#/p/' + next.id
+      var nextWrap = el("div", "pv__next");
+      var nextLink = el("a");
+      nextLink.href = "#/p/" + next.id;
       nextLink.appendChild(
-        el('span', 'pv__next-label', (t.ui && t.ui.next) || 'Next'),
-      )
+        el("span", "pv__next-label", (t.ui && t.ui.next) || "Next"),
+      );
       nextLink.appendChild(
         el(
-          'span',
-          'pv__next-title',
-          (projectText(next.id).title || next.id) + ' →',
+          "span",
+          "pv__next-title",
+          (projectText(next.id).title || next.id) + " →",
         ),
-      )
-      nextWrap.appendChild(nextLink)
-      view.appendChild(nextWrap)
+      );
+      nextWrap.appendChild(nextLink);
+      view.appendChild(nextWrap);
     }
 
-    view.hidden = false
-    view.scrollTop = 0
-    document.body.style.overflow = 'hidden'
+    view.hidden = false;
+    view.scrollTop = 0;
+    document.body.style.overflow = "hidden";
   }
 
   function closeProject() {
-    closeLightbox()
-    var view = $('projectView')
-    view.hidden = true
-    view.innerHTML = ''
-    document.body.style.overflow = ''
+    closeLightbox();
+    var view = $("projectView");
+    view.hidden = true;
+    view.innerHTML = "";
+    document.body.style.overflow = "";
   }
 
   function handleRoute() {
-    var m = window.location.hash.match(/^#\/p\/(.+)$/)
+    var m = window.location.hash.match(/^#\/p\/(.+)$/);
     if (m) {
-      var id
+      var id;
       try {
-        id = decodeURIComponent(m[1])
+        id = decodeURIComponent(m[1]);
       } catch (e) {
-        closeProject()
-        return
+        closeProject();
+        return;
       }
-      var p = findProject(id)
+      var p = findProject(id);
       if (p) {
-        renderProject(p)
-        return
+        renderProject(p);
+        return;
       }
     }
-    closeProject()
+    closeProject();
   }
 
   // ---- language switch ----------------------------------------------------
 
   function setLocale(code) {
-    if (!I18N[code] || code === locale) return
-    locale = code
-    t = I18N[code]
+    if (!I18N[code] || code === locale) return;
+    locale = code;
+    t = I18N[code];
     try {
-      localStorage.setItem(STORAGE_KEY, code)
+      localStorage.setItem(STORAGE_KEY, code);
     } catch (e) {
       /* private mode — ignore */
     }
+    try {
+      var url = new URL(location.href);
+      url.searchParams.set("lang", locale);
+      history.replaceState(null, "", url.href);
+    } catch (e) {
+      /* Some offline hosts disallow history updates; cross-page links retain it. */
+    }
     // Brief cross-fade of the page content.
-    var main = $('main')
-    main.style.transition = 'opacity .22s ease'
-    main.style.opacity = '0'
+    var main = $("main");
+    main.style.transition = "opacity .22s ease";
+    main.style.opacity = "0";
     window.setTimeout(function () {
-      renderAll()
-      main.style.opacity = '1'
-    }, 160)
+      renderAll();
+      main.style.opacity = "1";
+    }, 160);
   }
 
   // ---- gallery: one project's sequence, without a framework ----------------
 
-  var lightbox = $('lightbox')
-  var lightboxImg = lightbox.querySelector('.lightbox__img')
-  var lightboxPrev = lightbox.querySelector('.lightbox__nav.-prev')
-  var lightboxNext = lightbox.querySelector('.lightbox__nav.-next')
-  var canvas = $('galleryCanvas')
-  var gallery = []
-  var galleryIndex = 0
-  var zoomed = false
-  var imageFailed = false
-  var galleryLabels = {
-    gallery: 'Gallery mode',
-    allPhotos: 'All photographs',
-    enlarge: 'Enlarge photograph',
-    zoom: 'Zoom',
-    fit: 'Fit image',
-    previous: 'Previous photograph',
-    nextPhoto: 'Next photograph',
-    close: 'Close',
-    imageError: 'This photograph could not be loaded.',
+  // About uses the shared content/navigation runtime, without gallery listeners.
+  if (isAbout) {
+    renderAll();
+    return;
   }
 
+  var lightbox = $("lightbox");
+  var lightboxImg = lightbox.querySelector(".lightbox__img");
+  var lightboxPrev = lightbox.querySelector(".lightbox__nav.-prev");
+  var lightboxNext = lightbox.querySelector(".lightbox__nav.-next");
+  var canvas = $("galleryCanvas");
+  var gallery = [];
+  var galleryIndex = 0;
+  var zoomed = false;
+  var imageFailed = false;
+  var galleryLabels = {
+    viewProject: "View project",
+    photographCount: "{count} photographs",
+    gallery: "Gallery mode",
+    allPhotos: "All photographs",
+    enlarge: "Enlarge photograph",
+    zoom: "Zoom",
+    fit: "Fit image",
+    previous: "Previous photograph",
+    nextPhoto: "Next photograph",
+    close: "Close",
+    imageError: "This photograph could not be loaded.",
+  };
+
   function ui(key) {
-    return (t.ui && t.ui[key]) || galleryLabels[key] || key
+    return (t.ui && t.ui[key]) || (galleryLabels && galleryLabels[key]) || key;
   }
 
   function renderThumbnails(container, select) {
-    container.innerHTML = ''
+    container.innerHTML = "";
     gallery.forEach(function (item, index) {
-      var button = el('button', 'photo-thumb')
-      button.type = 'button'
-      button.dataset.photo = String(index)
+      var button = el("button", "photo-thumb");
+      button.type = "button";
+      button.dataset.photo = String(index);
       button.setAttribute(
-        'aria-label',
-        index + 1 + ' / ' + gallery.length + ': ' + item.alt,
-      )
-      button.appendChild(imgEl(item.thumb, '', '1 / 1'))
-      button.addEventListener('click', function () {
-        select(index)
-      })
-      container.appendChild(button)
-    })
+        "aria-label",
+        index + 1 + " / " + gallery.length + ": " + item.alt,
+      );
+      button.appendChild(imgEl(item.thumb, "", "1 / 1"));
+      button.addEventListener("click", function () {
+        select(index);
+      });
+      container.appendChild(button);
+    });
   }
 
   function setZoom(value) {
-    zoomed = value && !imageFailed
-    canvas.classList.toggle('is-zoomed', zoomed)
-    canvas.scrollLeft = 0
-    canvas.scrollTop = 0
-    $('galleryZoom').textContent = ui(zoomed ? 'fit' : 'zoom')
-    $('galleryZoom').setAttribute('aria-pressed', String(zoomed))
-    $('galleryImageButton').setAttribute(
-      'aria-label',
-      ui(zoomed ? 'fit' : 'zoom'),
-    )
+    zoomed = value && !imageFailed;
+    canvas.classList.toggle("is-zoomed", zoomed);
+    canvas.scrollLeft = 0;
+    canvas.scrollTop = 0;
+    $("galleryZoom").textContent = ui(zoomed ? "fit" : "zoom");
+    $("galleryZoom").setAttribute("aria-pressed", String(zoomed));
+    $("galleryImageButton").setAttribute(
+      "aria-label",
+      ui(zoomed ? "fit" : "zoom"),
+    );
   }
 
   function setSheet(open) {
-    $('gallerySheet').hidden = !open
-    $('galleryIndex').setAttribute('aria-expanded', String(open))
+    $("gallerySheet").hidden = !open;
+    $("galleryIndex").setAttribute("aria-expanded", String(open));
     // Keep covered controls out of keyboard navigation.
-    lightbox.querySelector('.lightbox__stage').inert = open
-    lightbox.querySelector('.lightbox__footer').inert = open
-    $('galleryZoom').disabled = open || imageFailed
+    lightbox.querySelector(".lightbox__stage").inert = open;
+    lightbox.querySelector(".lightbox__footer").inert = open;
+    $("galleryZoom").disabled = open || imageFailed;
   }
 
   function updateGallery() {
-    var item = gallery[galleryIndex]
-    if (!item) return
-    imageFailed = false
-    $('galleryError').hidden = true
-    setSheet(false)
-    setZoom(false)
-    lightboxImg.src = item.src
-    lightboxImg.alt = item.alt
-    $('galleryCaption').textContent = item.caption
-    $('galleryCount').textContent = galleryIndex + 1 + ' / ' + gallery.length
-    lightboxPrev.hidden = lightboxNext.hidden = gallery.length < 2
-    lightbox.querySelectorAll('[data-photo]').forEach(function (button) {
+    var item = gallery[galleryIndex];
+    if (!item) return;
+    imageFailed = false;
+    $("galleryError").hidden = true;
+    setSheet(false);
+    setZoom(false);
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.alt;
+    $("galleryCaption").textContent = item.caption;
+    $("galleryCount").textContent = galleryIndex + 1 + " / " + gallery.length;
+    lightboxPrev.hidden = lightboxNext.hidden = gallery.length < 2;
+    lightbox.querySelectorAll("[data-photo]").forEach(function (button) {
       button.setAttribute(
-        'aria-current',
+        "aria-current",
         String(Number(button.dataset.photo) === galleryIndex),
-      )
-    })
-    var currentThumb = $('galleryThumbs').children[galleryIndex]
+      );
+    });
+    var currentThumb = $("galleryThumbs").children[galleryIndex];
     if (currentThumb)
       currentThumb.scrollIntoView({
-        block: 'nearest',
-        inline: 'nearest',
-        behavior: 'instant',
-      })
+        block: "nearest",
+        inline: "nearest",
+        behavior: "instant",
+      });
   }
 
   function openLightboxAt(index) {
-    if (!gallery[index]) return
-    galleryIndex = index
+    if (!gallery[index]) return;
+    galleryIndex = index;
     if (!lightbox.open) {
-      var route = window.location.hash.match(/^#\/p\/(.+)$/)
-      $('galleryTitle').textContent = route
-        ? projectText(decodeURIComponent(route[1])).title || ''
-        : ''
-      $('galleryIndex').textContent = $('gallerySheetTitle').textContent =
-        ui('allPhotos')
-      $('galleryError').textContent = ui('imageError')
-      lightboxPrev.setAttribute('aria-label', ui('previous'))
-      lightboxNext.setAttribute('aria-label', ui('nextPhoto'))
-      lightbox.querySelector('.lightbox__close').textContent = ui('close')
-      $('galleryThumbs').setAttribute('aria-label', ui('allPhotos'))
-      $('galleryThumbs').setAttribute('role', 'group')
-      renderThumbnails($('galleryThumbs'), function (i) {
-        openLightboxAt(i)
-      })
-      renderThumbnails($('gallerySheetImages'), function (i) {
-        openLightboxAt(i)
-        $('galleryIndex').focus()
-      })
-      lightbox.showModal()
+      var route = window.location.hash.match(/^#\/p\/(.+)$/);
+      $("galleryTitle").textContent = route
+        ? projectText(decodeURIComponent(route[1])).title || ""
+        : "";
+      $("galleryIndex").textContent = $("gallerySheetTitle").textContent =
+        ui("allPhotos");
+      $("galleryError").textContent = ui("imageError");
+      lightboxPrev.setAttribute("aria-label", ui("previous"));
+      lightboxNext.setAttribute("aria-label", ui("nextPhoto"));
+      lightbox.querySelector(".lightbox__close").textContent = ui("close");
+      $("galleryThumbs").setAttribute("aria-label", ui("allPhotos"));
+      $("galleryThumbs").setAttribute("role", "group");
+      renderThumbnails($("galleryThumbs"), function (i) {
+        openLightboxAt(i);
+      });
+      renderThumbnails($("gallerySheetImages"), function (i) {
+        openLightboxAt(i);
+        $("galleryIndex").focus();
+      });
+      lightbox.showModal();
     }
-    updateGallery()
+    updateGallery();
   }
 
   function stepLightbox(delta) {
     if (gallery.length > 1)
-      openLightboxAt((galleryIndex + delta + gallery.length) % gallery.length)
+      openLightboxAt((galleryIndex + delta + gallery.length) % gallery.length);
   }
 
   function closeLightbox() {
-    if (!lightbox.open) return
-    lightbox.close()
-    setZoom(false)
-    setSheet(false)
-    lightboxImg.removeAttribute('src')
+    if (!lightbox.open) return;
+    lightbox.close();
+    setZoom(false);
+    setSheet(false);
+    lightboxImg.removeAttribute("src");
   }
 
-  lightboxImg.addEventListener('error', function () {
-    if (!lightbox.open) return
-    imageFailed = true
-    $('galleryError').hidden = false
-    setZoom(false)
-    $('galleryZoom').disabled = true
-  })
-  lightboxImg.addEventListener('load', function () {
-    imageFailed = false
-    $('galleryError').hidden = true
-    $('galleryZoom').disabled = !$('gallerySheet').hidden
-  })
-  $('galleryZoom').addEventListener('click', function () {
-    setZoom(!zoomed)
-  })
-  $('galleryImageButton').addEventListener('click', function () {
-    setZoom(!zoomed)
-  })
-  $('galleryIndex').addEventListener('click', function () {
-    setZoom(false)
-    setSheet($('gallerySheet').hidden)
-  })
+  lightboxImg.addEventListener("error", function () {
+    if (!lightbox.open) return;
+    imageFailed = true;
+    $("galleryError").hidden = false;
+    setZoom(false);
+    $("galleryZoom").disabled = true;
+  });
+  lightboxImg.addEventListener("load", function () {
+    imageFailed = false;
+    $("galleryError").hidden = true;
+    $("galleryZoom").disabled = !$("gallerySheet").hidden;
+  });
+  $("galleryZoom").addEventListener("click", function () {
+    setZoom(!zoomed);
+  });
+  $("galleryImageButton").addEventListener("click", function () {
+    setZoom(!zoomed);
+  });
+  $("galleryIndex").addEventListener("click", function () {
+    setZoom(false);
+    setSheet($("gallerySheet").hidden);
+  });
   lightbox
-    .querySelector('.lightbox__close')
-    .addEventListener('click', closeLightbox)
-  lightboxPrev.addEventListener('click', function () {
-    stepLightbox(-1)
-  })
-  lightboxNext.addEventListener('click', function () {
-    stepLightbox(1)
-  })
-  lightbox.addEventListener('cancel', function (event) {
-    event.preventDefault()
-    if (!$('gallerySheet').hidden) {
-      setSheet(false)
-      $('galleryIndex').focus()
-    } else if (zoomed) setZoom(false)
-    else closeLightbox()
-  })
-  document.addEventListener('keydown', function (event) {
+    .querySelector(".lightbox__close")
+    .addEventListener("click", closeLightbox);
+  lightboxPrev.addEventListener("click", function () {
+    stepLightbox(-1);
+  });
+  lightboxNext.addEventListener("click", function () {
+    stepLightbox(1);
+  });
+  lightbox.addEventListener("cancel", function (event) {
+    event.preventDefault();
+    if (!$("gallerySheet").hidden) {
+      setSheet(false);
+      $("galleryIndex").focus();
+    } else if (zoomed) setZoom(false);
+    else closeLightbox();
+  });
+  document.addEventListener("keydown", function (event) {
     if (lightbox.open) {
-      if (event.key === 'Tab') {
+      if (event.key === "Tab") {
         var controls = Array.prototype.filter.call(
-          lightbox.querySelectorAll('button'),
+          lightbox.querySelectorAll("button"),
           function (button) {
             return (
               !button.disabled &&
-              !button.closest('[inert]') &&
+              !button.closest("[inert]") &&
               button.getClientRects().length
-            )
+            );
           },
-        )
+        );
         var first = controls[0],
-          last = controls[controls.length - 1]
+          last = controls[controls.length - 1];
         if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault()
-          last.focus()
+          event.preventDefault();
+          last.focus();
         } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault()
-          first.focus()
+          event.preventDefault();
+          first.focus();
         }
       }
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-        event.preventDefault()
-        stepLightbox(event.key === 'ArrowLeft' ? -1 : 1)
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        stepLightbox(event.key === "ArrowLeft" ? -1 : 1);
         // A contact-sheet button may have become hidden on navigation.
-        if (document.activeElement.closest('#gallerySheet'))
-          $('galleryIndex').focus()
+        if (document.activeElement.closest("#gallerySheet"))
+          $("galleryIndex").focus();
       }
-      return
+      return;
     }
-    if (event.key === 'Escape' && window.location.hash.indexOf('#/p/') === 0)
-      window.location.hash = ''
-  })
+    if (event.key === "Escape" && window.location.hash.indexOf("#/p/") === 0)
+      window.location.hash = "";
+  });
 
   // Drag to pan a zoomed image; touch users can also scroll the enlarged canvas.
-  var drag = null
-  canvas.addEventListener('pointerdown', function (event) {
-    if (!zoomed || event.pointerType !== 'mouse' || event.button !== 0) return
+  var drag = null;
+  canvas.addEventListener("pointerdown", function (event) {
+    if (!zoomed || event.pointerType !== "mouse" || event.button !== 0) return;
     drag = {
       x: event.clientX,
       y: event.clientY,
       left: canvas.scrollLeft,
       top: canvas.scrollTop,
       moved: false,
-    }
-    canvas.setPointerCapture(event.pointerId)
-  })
-  canvas.addEventListener('pointermove', function (event) {
-    if (!drag) return
+    };
+    canvas.setPointerCapture(event.pointerId);
+  });
+  canvas.addEventListener("pointermove", function (event) {
+    if (!drag) return;
     if (Math.abs(event.clientX - drag.x) + Math.abs(event.clientY - drag.y) > 5)
-      drag.moved = true
-    canvas.scrollLeft = drag.left + drag.x - event.clientX
-    canvas.scrollTop = drag.top + drag.y - event.clientY
-  })
-  canvas.addEventListener('pointerup', function (event) {
+      drag.moved = true;
+    canvas.scrollLeft = drag.left + drag.x - event.clientX;
+    canvas.scrollTop = drag.top + drag.y - event.clientY;
+  });
+  canvas.addEventListener("pointerup", function (event) {
     if (canvas.hasPointerCapture(event.pointerId))
-      canvas.releasePointerCapture(event.pointerId)
-  })
-  canvas.addEventListener('pointercancel', function () {
-    drag = null
-  })
+      canvas.releasePointerCapture(event.pointerId);
+  });
+  canvas.addEventListener("pointercancel", function () {
+    drag = null;
+  });
   canvas.addEventListener(
-    'click',
+    "click",
     function (event) {
       if (drag && drag.moved) {
-        event.preventDefault()
-        event.stopPropagation()
-      } else if (drag && event.target === canvas) setZoom(false)
-      drag = null
+        event.preventDefault();
+        event.stopPropagation();
+      } else if (drag && event.target === canvas) setZoom(false);
+      drag = null;
     },
     true,
-  )
+  );
 
   // ---- boot ---------------------------------------------------------------
 
-  window.addEventListener('hashchange', handleRoute)
-  renderAll()
-})()
+  window.addEventListener("hashchange", handleRoute);
+  renderAll();
+})();

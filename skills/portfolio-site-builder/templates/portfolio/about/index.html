@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Fill these with approved default-language copy before publishing. -->
+    <title>About — Portfolio</title>
+    <meta name="description" content="" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#fafafa" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="about-page-body" data-page="about">
+    <header class="about-topbar">
+      <a class="about-topbar__brand" id="siteName" href="../index.html"></a>
+      <nav id="nav" aria-label="Primary"></nav>
+      <div
+        class="lang-switch"
+        id="langSwitch"
+        role="group"
+        aria-label="Language"
+      ></div>
+    </header>
+    <main class="about-page" id="main">
+      <h1 class="about-heading" id="aboutHeading"></h1>
+      <p class="about-kicker" id="aboutKicker"></p>
+      <section
+        class="about-intro"
+        id="aboutIntro"
+        aria-labelledby="aboutHeading"
+      >
+        <figure class="about-artwork" id="aboutPortrait" hidden></figure>
+        <div class="about-intro__text">
+          <p class="about-statement" id="aboutStatement"></p>
+          <div id="aboutBio"></div>
+          <p class="about-representation" id="aboutRepresentation" hidden></p>
+        </div>
+      </section>
+      <div id="aboutSections"></div>
+      <section
+        class="about-contact"
+        id="contact"
+        aria-labelledby="contactLabel"
+      >
+        <p class="eyebrow" id="contactLabel"></p>
+        <a class="contact__email" id="contactEmail" href="#" hidden></a>
+        <ul class="social" id="social"></ul>
+      </section>
+    </main>
+    <footer class="footer" id="footer"></footer>
+    <script src="../content/site.js"></script>
+    <script src="../content/en.js"></script>
+    <script src="../content/ja.js"></script>
+    <script src="../content/zh-hans.js"></script>
+    <script src="../app.js"></script>
+  </body>
+</html>
