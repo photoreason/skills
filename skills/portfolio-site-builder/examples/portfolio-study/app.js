@@ -130,7 +130,7 @@
   }
 
   function homeLink(hash) {
-    return pageLink(location.protocol === "file:" ? "index.html" : "./", hash);
+    return pageLink("index.html", hash);
   }
 
   function renderNav() {
@@ -140,7 +140,7 @@
     [
       [isAbout ? homeLink("work") : "#work", items.work],
       [
-        pageLink(location.protocol === "file:" ? "about/index.html" : "about/"),
+        pageLink("about/index.html"),
         items.about,
       ],
       ["#contact", items.contact],

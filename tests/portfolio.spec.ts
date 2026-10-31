@@ -1,6 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { pathToFileURL } from "node:url";
-import { resolve } from "node:path";
+import { resolve, extname } from "node:path";
+import { readFile } from "node:fs/promises";
 
 const example = pathToFileURL(
   resolve("skills/portfolio-site-builder/examples/portfolio-study/index.html"),
@@ -419,3 +420,25 @@ test("a long project renders one uncropped photograph with its description and r
     await page.locator("#projectView").evaluate((e) => e.scrollHeight),
   ).toBe(initialHeight);
 });
+
+test('cross-page navigation works on static hosts without directory index routing', async ({ page }) => {
+  const root = resolve('skills/portfolio-site-builder/examples')
+  await page.route('https://portfolio.test/**', async route => {
+    const url = new URL(route.request().url())
+    const path = resolve(root, '.' + url.pathname.replace(/^\/examples/, ''))
+    if (!path.startsWith(root + '/')) return route.fulfill({status: 404, body: 'Not found'})
+    try {
+      const contentType = ({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml'} as Record<string,string>)[extname(path)]
+      await route.fulfill({body: await readFile(path), contentType})
+    } catch {
+      await route.fulfill({status: 404, body: 'No directory indexes'})
+    }
+  })
+  await page.goto('https://portfolio.test/examples/portfolio-study/index.html?lang=en')
+  await page.locator('#nav a').nth(1).click()
+  await expect(page).toHaveURL(/about\/index\.html\?lang=en/)
+  await expect(page.locator('#aboutHeading')).toHaveText('About this study')
+  await page.locator('#nav a').first().click()
+  await expect(page).toHaveURL(/portfolio-study\/index\.html\?lang=en#work/)
+  await expect(page.locator('.project-disclosure')).toHaveCount(1)
+})
