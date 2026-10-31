@@ -21,8 +21,8 @@ professional about photography.
 ## 2. Series → site structure
 
 - Each body of work becomes one **project** on the site, with its own title,
-  year, short description, and layout (**stack** for a sequenced narrative,
-  **grid** for a set — let them choose per series).
+  year, short description, and a sequence. The default project page shows one
+  image with its description; Gallery mode and a contact sheet expose the series.
 - **2–5 projects** navigate well. A single strong series is also a perfectly
   good portfolio.
 - Mark ongoing work as *ongoing* — it signals an active practice.

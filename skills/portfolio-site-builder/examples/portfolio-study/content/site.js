@@ -8,7 +8,6 @@ window.PORTFOLIO_SITE = {
     {
       "id": "coastal-study",
       "year": "2026",
-      "layout": "stack",
       "images": [
         {
           "src": "images/coast-1.svg"

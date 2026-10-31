@@ -77,12 +77,14 @@ The language switch, project view, and image viewer work locally, without a buil
 English, Japanese, and Chinese.
 
 **Example revision:** Give the images more room. Keep the series together rather than
-turning every frame into a card. The study uses a single stacked sequence to demonstrate this.
+turning every frame into a card. The study shows one image at a time, with the
+project description alongside it and Gallery mode for the full sequence.
 
 ## Making notes
 
-The template begins with a project index. Stacked images support a deliberate sequence;
-a grid supports looking across a body of work. Text lives in separate language files,
+The template begins with a click-controlled project index. Each project shows one
+uncropped image beside its description; the contact sheet gives an overview of
+the sequence. About has its own page. Text lives in separate language files,
 so translating a project does not require rebuilding its structure.
 
 [Hairline's skill page](https://hairline.lucasmarkes.com/skills) and

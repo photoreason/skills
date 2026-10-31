@@ -25,6 +25,9 @@
   var isAbout = document.body.dataset.page === "about";
   var rootURL = new URL("./", document.currentScript.src);
   var expandedProjects = {};
+  var projectSelections = {};
+  var currentProjectId = null;
+  var projectOpener = null;
 
   // ---- helpers ------------------------------------------------------------
 
@@ -402,6 +405,7 @@
     closeLightbox();
     var text = projectText(p.id);
     var view = $("projectView");
+    if (view.hidden) projectOpener = document.activeElement;
     view.innerHTML = "";
 
     var bar = el("div", "pv__bar");
@@ -417,76 +421,103 @@
     bar.appendChild(el("span", "pv__meta", metaBits));
     view.appendChild(bar);
 
+    currentProjectId = p.id;
+    gallery = (p.images || [])
+      .filter(function (im) {
+        return im.src;
+      })
+      .map(function (im, i) {
+        return {
+          src: im.src,
+          thumb: im.thumb || im.src,
+          alt: im.alt || (text.title || "") + " — " + (i + 1),
+          caption: im.caption || "",
+        };
+      });
+    galleryIndex = Math.min(
+      projectSelections[p.id] || 0,
+      Math.max(0, gallery.length - 1),
+    );
+
+    var body = el("div", "pv__body");
     var head = el("div", "pv__head");
     head.appendChild(el("h2", "pv__title", text.title || p.id));
     if (text.description)
       head.appendChild(el("p", "pv__desc", text.description));
-    view.appendChild(head);
-
     var galleryButton = el("button", "pv__gallery", ui("gallery"));
     galleryButton.type = "button";
+    galleryButton.hidden = !gallery.length;
     galleryButton.addEventListener("click", function () {
-      openLightboxAt(0);
+      openLightboxAt(galleryIndex);
     });
     head.appendChild(galleryButton);
 
-    var images = el(
-      "div",
-      "pv__images " + (p.layout === "grid" ? "-grid" : "-stack"),
+    var indexWrap = el("details", "pv__index");
+    indexWrap.hidden = !gallery.length;
+    indexWrap.appendChild(
+      el(
+        "summary",
+        "pv__index-label",
+        ui("allPhotos") + " · " + gallery.length,
+      ),
     );
-    gallery = [];
-    (p.images || []).forEach(function (im, i) {
-      var alt = im.alt || (text.title || "") + " — " + (i + 1);
-      var fig = document.createElement("figure");
-      var image = imgEl(im.src, alt, p.layout === "grid" ? "4 / 3" : null);
-      if (image.tagName === "IMG") {
-        // Optional per-image aspect (e.g. '3 / 2') reserves space before load
-        // so the page doesn't jump; the image is cropped, never distorted.
-        if (im.aspect && p.layout !== "grid") {
-          image.style.aspectRatio = im.aspect;
-          image.style.objectFit = "cover";
-        }
-        var index = gallery.length;
-        var enlarge = el("button", "pv__enlarge");
-        enlarge.type = "button";
-        enlarge.setAttribute("aria-label", ui("enlarge") + ": " + alt);
-        enlarge.addEventListener("click", function () {
-          openLightboxAt(index);
-        });
-        enlarge.appendChild(image);
-        image = enlarge;
-        fig.id = "project-photo-" + index;
-        gallery.push({
-          src: im.src,
-          thumb: im.thumb || im.src,
-          alt: alt,
-          caption: im.caption || "",
-        });
-      }
-      fig.appendChild(image);
-      if (im.caption) fig.appendChild(el("figcaption", null, im.caption));
-      images.appendChild(fig);
-    });
-    galleryIndex = 0;
-    galleryButton.hidden = !gallery.length;
-    if (gallery.length) {
-      var indexWrap = el("div", "pv__index");
-      indexWrap.appendChild(
-        el("p", "pv__index-label", ui("allPhotos") + " · " + gallery.length),
-      );
-      var contactSheet = el("div", "photo-index");
-      contactSheet.setAttribute("role", "group");
-      contactSheet.setAttribute("aria-label", ui("allPhotos"));
+    var contactSheet = el("div", "photo-index");
+    contactSheet.setAttribute("role", "group");
+    contactSheet.setAttribute("aria-label", ui("allPhotos"));
+    indexWrap.appendChild(contactSheet);
+    indexWrap.addEventListener("toggle", function () {
+      if (!indexWrap.open || contactSheet.childNodes.length) return;
       renderThumbnails(contactSheet, function (index) {
-        galleryIndex = index;
-        var figure = $("project-photo-" + index);
-        figure.scrollIntoView({ block: "center", behavior: "instant" });
-        figure.querySelector("button").focus({ preventScroll: true });
+        setProjectPhoto(index);
+        indexWrap.open = false;
+        $("projectEnlarge").focus({ preventScroll: true });
       });
-      indexWrap.appendChild(contactSheet);
-      view.appendChild(indexWrap);
-    }
-    view.appendChild(images);
+      markProjectThumbnail();
+    });
+    head.appendChild(indexWrap);
+    body.appendChild(head);
+
+    var stage = el("div", "pv__stage");
+    stage.hidden = !gallery.length;
+    var figure = el("figure", "pv__single");
+    var enlarge = el("button", "pv__enlarge");
+    enlarge.id = "projectEnlarge";
+    enlarge.type = "button";
+    enlarge.addEventListener("click", function () {
+      openLightboxAt(galleryIndex);
+    });
+    figure.appendChild(enlarge);
+    var caption = el("figcaption");
+    caption.id = "projectCaption";
+    figure.appendChild(caption);
+    stage.appendChild(figure);
+    var controls = el("div", "pv__controls");
+    var previous = el("button", "pv__previous", "←");
+    previous.type = "button";
+    previous.setAttribute("aria-label", ui("previous"));
+    previous.hidden = gallery.length < 2;
+    previous.addEventListener("click", function () {
+      stepProject(-1);
+    });
+    var count = el("span", "pv__count");
+    count.id = "projectCount";
+    count.setAttribute("role", "status");
+    count.setAttribute("aria-live", "polite");
+    var nextPhoto = el("button", "pv__next-photo", "→");
+    nextPhoto.type = "button";
+    nextPhoto.setAttribute("aria-label", ui("nextPhoto"));
+    nextPhoto.hidden = gallery.length < 2;
+    nextPhoto.addEventListener("click", function () {
+      stepProject(1);
+    });
+    controls.appendChild(previous);
+    controls.appendChild(count);
+    controls.appendChild(nextPhoto);
+    stage.appendChild(controls);
+    body.appendChild(stage);
+    if (!gallery.length) body.appendChild(el("p", "pv__empty", ui("noPhotos")));
+    view.appendChild(body);
+    setProjectPhoto(galleryIndex);
 
     // Quiet editorial handoff to the next body of work.
     var idx = (SITE.projects || []).indexOf(p);
@@ -510,15 +541,66 @@
     }
 
     view.hidden = false;
+    view.tabIndex = -1;
+    view.setAttribute("role", "region");
+    view.setAttribute("aria-label", text.title || p.id);
+    setPageCovered(true);
+    view.focus({ preventScroll: true });
     view.scrollTop = 0;
     document.body.style.overflow = "hidden";
+  }
+
+  function markProjectThumbnail() {
+    $("projectView")
+      .querySelectorAll(".pv__index [data-photo]")
+      .forEach(function (button) {
+        button.setAttribute(
+          "aria-current",
+          String(Number(button.dataset.photo) === galleryIndex),
+        );
+      });
+  }
+
+  function setProjectPhoto(index) {
+    var item = gallery[index];
+    if (!item || !$("projectEnlarge")) return;
+    galleryIndex = index;
+    projectSelections[currentProjectId] = index;
+    var button = $("projectEnlarge");
+    button.innerHTML = "";
+    button.setAttribute("aria-label", ui("enlarge") + ": " + item.alt);
+    var image = imgEl(item.src, item.alt, "4 / 3");
+    if (image.tagName === "IMG") image.loading = "eager";
+    button.appendChild(image);
+    button.parentNode.id = "project-photo-" + index;
+    $("projectCaption").textContent = item.caption;
+    $("projectCaption").hidden = !item.caption;
+    $("projectCount").textContent = index + 1 + " / " + gallery.length;
+    markProjectThumbnail();
+  }
+
+  function stepProject(delta) {
+    if (gallery.length > 1)
+      setProjectPhoto((galleryIndex + delta + gallery.length) % gallery.length);
+  }
+
+  function setPageCovered(covered) {
+    ["hero", "main", "footer", "langSwitch"].forEach(function (id) {
+      $(id).inert = covered;
+    });
   }
 
   function closeProject() {
     closeLightbox();
     var view = $("projectView");
+    var wasOpen = !view.hidden;
     view.hidden = true;
+    setPageCovered(false);
+    if (wasOpen && projectOpener && projectOpener.isConnected)
+      projectOpener.focus({ preventScroll: true });
+    projectOpener = null;
     view.innerHTML = "";
+    currentProjectId = null;
     document.body.style.overflow = "";
   }
 
@@ -598,6 +680,7 @@
     nextPhoto: "Next photograph",
     close: "Close",
     imageError: "This photograph could not be loaded.",
+    noPhotos: "No photographs in this project yet.",
   };
 
   function ui(key) {
@@ -695,6 +778,7 @@
         $("galleryIndex").focus();
       });
       lightbox.showModal();
+      $("projectView").inert = true;
     }
     updateGallery();
   }
@@ -706,10 +790,12 @@
 
   function closeLightbox() {
     if (!lightbox.open) return;
+    $("projectView").inert = false;
     lightbox.close();
     setZoom(false);
     setSheet(false);
     lightboxImg.removeAttribute("src");
+    setProjectPhoto(galleryIndex);
   }
 
   lightboxImg.addEventListener("error", function () {
@@ -782,6 +868,19 @@
           $("galleryIndex").focus();
       }
       return;
+    }
+    if (
+      !$("projectView").hidden &&
+      (event.key === "ArrowLeft" || event.key === "ArrowRight") &&
+      !event.altKey &&
+      !event.ctrlKey &&
+      !event.metaKey &&
+      !event.target.closest(
+        "input, textarea, select, [contenteditable], .pv__index",
+      )
+    ) {
+      event.preventDefault();
+      stepProject(event.key === "ArrowLeft" ? -1 : 1);
     }
     if (event.key === "Escape" && window.location.hash.indexOf("#/p/") === 0)
       window.location.hash = "";

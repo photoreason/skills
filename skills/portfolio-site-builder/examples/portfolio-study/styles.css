@@ -750,85 +750,128 @@ a {
   color: var(--muted);
 }
 
-.pv__head {
+.pv__body {
   max-width: var(--wrap);
   margin: 0 auto;
-  padding: clamp(3rem, 8vw, 6rem) var(--pad) clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.5rem, 4vw, 3.5rem) var(--pad) 2rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 5rem);
 }
-
+.pv__head {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  padding-top: 1rem;
+}
 .pv__title {
   margin: 0;
-  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-size: clamp(1.7rem, 3.4vw, 3rem);
   font-weight: 500;
-  line-height: 1.02;
+  line-height: 1.2;
   letter-spacing: -0.02em;
 }
-
 .pv__desc {
-  margin: 1.25rem 0 0;
-  max-width: 52ch;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  margin: 1.4rem 0 0;
+  max-width: 42ch;
+  color: #656565;
+  font-size: 1rem;
+  line-height: 1.85;
+  white-space: pre-line;
 }
-
-/* image layouts inside a project */
-.pv__images {
-  max-width: var(--wrap);
-  margin: 0 auto;
-  padding: 0 var(--pad) clamp(4rem, 10vw, 8rem);
+.pv__stage {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
 }
-
-.pv__images.-stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-}
-
-.pv__images.-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
-  gap: var(--gap);
-}
-
-.pv__images figure {
+.pv__single {
   margin: 0;
 }
-
-.pv__images .-stack figure,
-.pv__images.-stack figure {
-  text-align: center;
+.pv__single .pv__enlarge {
+  height: clamp(240px, 64dvh, 720px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-.pv__images img,
-.pv__images .ph {
+.pv__single img {
   width: 100%;
-  cursor: zoom-in;
+  height: 100%;
+  object-fit: contain;
 }
-
-.pv__images.-grid img,
-.pv__images.-grid .ph {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-
-.pv__images figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
+.pv__single figcaption {
   color: var(--muted);
+  font-size: 0.78rem;
+  margin-top: 1rem;
+}
+.pv__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 0.8rem;
+}
+.pv__controls button {
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.3rem;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+.pv__count {
+  color: var(--muted);
+  font-size: 0.8rem;
+  min-width: 5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.pv__empty {
+  color: var(--muted);
+}
+.pv__stage[hidden],
+.pv__index[hidden],
+.pv__gallery[hidden],
+.pv__controls [hidden],
+.pv__single [hidden] {
+  display: none;
+}
+@media (max-width: 760px) {
+  .pv__body {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .pv__head {
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 0;
+  }
+  .pv__stage {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .pv__single .pv__enlarge {
+    height: clamp(220px, 48dvh, 520px);
+  }
+  .pv__desc {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
 }
 
 /* Handoff to the next body of work at the end of a project. */
 .pv__next {
   max-width: var(--wrap);
   margin: 0 auto;
-  padding: 0 var(--pad) clamp(4rem, 10vw, 8rem);
+  padding: 0 var(--pad) 2.5rem;
 }
 
 .pv__next a {
   display: block;
   border-top: 1px solid var(--hairline);
-  padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  padding-top: 1.25rem;
   transition: opacity 0.25s var(--ease);
 }
 
@@ -847,9 +890,9 @@ a {
 .pv__next-title {
   display: block;
   margin-top: 0.6rem;
-  font-size: clamp(1.5rem, 4vw, 2.75rem);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
   font-weight: 500;
-  line-height: 1.05;
+  line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--ink);
 }
@@ -899,15 +942,16 @@ a {
   cursor: zoom-in;
 }
 .pv__index {
-  max-width: var(--wrap);
-  margin: 0 auto;
-  padding: 0 var(--pad) 2.5rem;
+  margin-top: 1.25rem;
 }
 .pv__index-label {
-  margin: 0 0 0.75rem;
+  padding: 0.7rem 0;
+  cursor: pointer;
   color: var(--muted);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+.pv__index .photo-index {
+  margin-top: 0.75rem;
 }
 .photo-index {
   display: grid;
@@ -927,9 +971,6 @@ a {
   min-height: 0;
   aspect-ratio: 1;
   object-fit: cover;
-}
-.pv__images.-grid .pv__enlarge {
-  height: auto;
 }
 
 /* --- Gallery: photographs hold the screen --------------------------------- */

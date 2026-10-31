@@ -34,7 +34,8 @@ window.PORTFOLIO_I18N["ja"] = {
     "nextPhoto": "次の写真",
     "imageError": "写真を読み込めませんでした。",
     "viewProject": "作品を見る",
-    "photographCount": "写真 {count} 枚"
+    "photographCount": "写真 {count} 枚",
+    "noPhotos": "この作品には、まだ写真がありません。"
   },
   "projects": {
     "tidal": {

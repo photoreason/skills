@@ -36,8 +36,8 @@ guide:
       large, and make it readable in English, Japanese, and Chinese.
     revision: Give the images more room. Keep the project together as a sequence instead of turning each
       frame into a card.
-    revisionNote: "The study uses the template’s stacked layout: one image per row, a restrained project
-      index, and no decorative animation. These are example directions to try, not a transcript of a
+    revisionNote: "The study shows one image beside the project description, a restrained project
+      index, and a separate About page. These are example directions to try, not a transcript of a
       commissioned project."
     prepare: Photographs grouped by project, in your preferred order. Your name, a short introduction
       and a contact address you want to make public. A domain can wait. Use WebP or JPEG web copies
@@ -97,7 +97,7 @@ guide:
     demoCaption: テンプレートのイメージ · 写真の代わりにイラストを使用
     demoPrompt: 海岸のシリーズのための作品集をつくってください。画面は静かに、作品は大きく。日本語、英語、中国語で読めるようにしたいです。
     revision: 画像にもっと余白を。一枚ずつカードにせず、シリーズをひとつの流れで見せてください。
-    revisionNote: 習作ではテンプレートの縦並びを使い、一行に一枚の画像と控えめな作品目録を配置。装飾的なアニメーションはありません。試すための指示例であり、受託制作の会話記録ではありません。
+    revisionNote: 習作では写真を一枚ずつ表示し、作品の説明を添えています。作品目録はクリックで開き、プロフィールは別ページにまとめました。試すための指示例であり、受託制作の会話記録ではありません。
     prepare: 写真を作品ごとに分け、見せたい順に並べてください。名前、短い紹介文、公開してよい連絡先も用意します。ドメインは後で決めても大丈夫です。ウェブ用の写真はWebPかJPEGで用意し、元のファイルは別に残します。
     firstPrompt: Portfolio Site
       Builderで写真のポートフォリオサイトをつくりたいです。まず会話に使う言語を聞いてから、費用の確認と写真の準備を手伝ってください。選んだ写真と順序は変えず、公開前にプレビューを見せてください。
@@ -141,7 +141,7 @@ guide:
     demoCaption: 模板示意 · 以插画代替照片
     demoPrompt: 帮我为一组海岸作品做一个作品集。界面安静，照片足够大，并支持中文、英文和日文。
     revision: 给画面更多空间。让整组作品按顺序展开，不要把每张照片做成一张卡片。
-    revisionNote: 习作采用模板的纵向布局：每行一张图，克制的项目目录，没有装饰性动画。这些是可尝试的修改方向，不是委托项目的对话记录。
+    revisionNote: 习作一次展示一张图，旁边保留项目介绍。项目目录点击展开，关于页面独立呈现。这些是可尝试的修改方向，不是委托项目的对话记录。
     prepare: 照片按项目分好，保留希望展示的顺序。再准备署名、几句简介和愿意公开的联系方式。域名可以晚一点决定；已有域名也不必迁走。网页副本优先用 WebP 或 JPEG，原件另存。
     firstPrompt: 请用 Portfolio Site Builder 帮我做一个摄影作品集。先问我想用什么语言交流，再一起看费用、准备照片。保留我的选片和顺序，发布前先给我看预览。
     steps:
