@@ -25,14 +25,13 @@ window.PORTFOLIO_SITE = {
     { label: 'Xiaohongshu', href: 'https://xiaohongshu.com/' },
   ],
 
-  // Each project is one body of work. `layout` is 'stack' (full-bleed, one
-  // per row) or 'grid'. `id` must match the keys in the per-language files.
+  // Each project is one body of work, viewed one image at a time.
+  // Image order is the sequence; `id` matches the per-language keys.
   projects: [
     {
       id: 'tidal',
       year: '2024',
       ongoing: true,
-      layout: 'stack',
       images: [
         { src: 'images/tidal/01.jpg' },
         { src: 'images/tidal/02.jpg' },
@@ -43,7 +42,6 @@ window.PORTFOLIO_SITE = {
     {
       id: 'city-after-rain',
       year: '2023',
-      layout: 'grid',
       images: [
         { src: 'images/city-after-rain/01.jpg' },
         { src: 'images/city-after-rain/02.jpg' },
@@ -56,7 +54,6 @@ window.PORTFOLIO_SITE = {
     {
       id: 'northern-light',
       year: '2022',
-      layout: 'stack',
       images: [
         { src: 'images/northern-light/01.jpg' },
         { src: 'images/northern-light/02.jpg' },

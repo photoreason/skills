@@ -42,6 +42,7 @@ test("offline project has a complete contact sheet and keyboard-accessible photo
     if (/^https?:/.test(request.url())) remoteRequests.push(request.url());
   });
   await fixture(page);
+  await page.locator(".pv__index > summary").click();
   await expect(page.locator(".pv__index .photo-thumb")).toHaveCount(3);
   await page.locator(".pv__index .photo-thumb").nth(1).click();
   await expect(page.locator("#project-photo-1 .pv__enlarge")).toBeFocused();
@@ -57,10 +58,11 @@ test("offline project has a complete contact sheet and keyboard-accessible photo
   expect(remoteRequests).toEqual([]);
 });
 
-test("zoom, pan, Escape, and focus return preserve the reading position", async ({
+test("zoom, pan, Escape, and focus return preserve the selected photograph", async ({
   page,
 }) => {
   await fixture(page);
+  await page.locator(".pv__next-photo").click();
   const opener = page.locator("#project-photo-1 .pv__enlarge");
   await opener.click();
   await page.locator("#galleryImageButton").click();
@@ -107,18 +109,19 @@ test("zoom, pan, Escape, and focus return preserve the reading position", async 
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toBeHidden();
   await expect(opener).toBeFocused();
-  expect(
-    await page.locator("#projectView").evaluate((e) => e.scrollTop),
-  ).toBeGreaterThan(0);
+  await expect(page.locator("#projectCount")).toHaveText("2 / 3");
+  await expect(page.locator(".pv__single img")).toHaveCount(1);
 });
 
 test("gallery index and thumbnails select every photograph; covered controls are inert", async ({
   page,
 }) => {
   await fixture(page, { count: 38, grid: true });
+  await page.locator(".pv__index > summary").click();
   await expect(page.locator(".pv__index .photo-thumb")).toHaveCount(38);
   await page.getByRole("button", { name: "Gallery mode", exact: true }).click();
   await page.locator("#galleryIndex").click();
+  await expect(page.locator("#projectView")).toHaveJSProperty("inert", true);
   await expect(page.locator("#gallerySheetImages .photo-thumb")).toHaveCount(
     38,
   );
@@ -129,7 +132,7 @@ test("gallery index and thumbnails select every photograph; covered controls are
   await page.locator("#gallerySheetImages .photo-thumb").last().click();
   await expect(page.locator("#gallerySheet")).toBeHidden();
   await expect(page.locator("#galleryCount")).toHaveText("38 / 38");
-  await page
+  await page.locator("#lightbox")
     .getByRole("button", { name: "Next photograph", exact: true })
     .click();
   await expect(page.locator("#galleryCount")).toHaveText("1 / 38");
@@ -378,3 +381,41 @@ for (const locale of ["en", "ja", "zh-hans"]) {
     ).toBe(true);
   });
 }
+
+test("a long project renders one uncropped photograph with its description and retains gallery selection", async ({
+  page,
+}) => {
+  await fixture(page, { count: 140 });
+  await expect(page.locator(".pv__single img")).toHaveCount(1);
+  await expect(page.locator(".pv__desc")).toBeVisible();
+  await expect(page.locator(".pv__index")).not.toHaveAttribute("open", "");
+  await expect(page.locator(".pv__index .photo-thumb")).toHaveCount(0);
+  expect(
+    await page
+      .locator(".pv__single img")
+      .evaluate((e) => getComputedStyle(e).objectFit),
+  ).toBe("contain");
+  const initialHeight = await page
+    .locator("#projectView")
+    .evaluate((e) => e.scrollHeight);
+  await page.locator(".pv__next-photo").click();
+  await expect(page.locator("#projectCount")).toHaveText("2 / 140");
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator("#projectCount")).toHaveText("3 / 140");
+  await page.locator(".pv__index > summary").click();
+  await expect(page.locator(".pv__index .photo-thumb")).toHaveCount(140);
+  await page.locator(".pv__index .photo-thumb").nth(73).click();
+  await expect(page.locator("#projectCount")).toHaveText("74 / 140");
+  await expect(page.locator(".pv__index")).not.toHaveAttribute("open", "");
+  await expect(page.locator("#projectEnlarge")).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#galleryCount")).toHaveText("74 / 140");
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#projectCount")).toHaveText("75 / 140");
+  await expect(page.locator("#projectEnlarge")).toBeFocused();
+  await expect(page.locator(".pv__single img")).toHaveCount(1);
+  expect(
+    await page.locator("#projectView").evaluate((e) => e.scrollHeight),
+  ).toBe(initialHeight);
+});

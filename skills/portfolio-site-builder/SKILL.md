@@ -60,7 +60,7 @@ existing registrations; registrar and host can differ. A custom domain is option
 
 For Cloudflare, copy `templates/portfolio/` and follow
 [template-guide.md](references/template-guide.md). Fill the content and images;
-keep its artistic, monochrome, image-first design, stack/grid layouts, and sequence.
+keep its artistic, monochrome, image-first design, uncropped photos, and sequence.
 Change design only when requested. Use only approved content and website languages.
 Private placeholders must be replaced or removed before publication.
 

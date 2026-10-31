@@ -34,7 +34,8 @@ window.PORTFOLIO_I18N["en"] = {
     "nextPhoto": "Next photograph",
     "imageError": "This photograph could not be loaded.",
     "viewProject": "View project",
-    "photographCount": "{count} photographs"
+    "photographCount": "{count} photographs",
+    "noPhotos": "No photographs in this project yet."
   },
   "projects": {
     "tidal": {

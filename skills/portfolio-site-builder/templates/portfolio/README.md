@@ -42,19 +42,22 @@ Project rows show a short introduction and a plus/minus control. Click or press
 Enter/Space to expand a preview; moving the pointer does not change it. Choose
 View project for the complete work. Expansion persists while changing languages.
 
-Each project sets `layout: 'stack'` (full-bleed, one image per row — best for a
-sequenced series) or `layout: 'grid'` (even grid — best for a set). Click any
-image inside a project to enlarge it, or choose Gallery mode. The complete
-contact sheet jumps to each photograph without changing the original stack/grid
-layout. In the dark viewer, use arrows or ← → keys, the thumbnail rail, or All
-photographs to navigate. Click the image or Zoom to enlarge it; drag/scroll to pan.
-Escape returns to fit view, closes the contact sheet, or leaves the gallery. Each project ends with a quiet link to the next
-body of work.
+A project's page shows one uncropped photograph beside its description. Use
+previous/next controls or ← → keys to browse. All photographs opens a compact
+contact sheet; choosing a thumbnail returns to the single-photo view. Gallery
+mode (or clicking the image) opens the dark viewer at the current photograph.
+Closing it preserves the photograph you reached. The page length stays independent
+of the number of photos; long artist statements can still scroll naturally.
+Older `layout: 'stack'` / `'grid'` values are accepted but no longer create a long
+image stack.
+
+Inside Gallery mode, use arrows, the thumbnail rail or All photographs to
+navigate. Click the image or Zoom to enlarge it; drag/scroll to pan. Escape
+returns to fit view, closes the contact sheet, or leaves the gallery.
 
 Per image you can set `thumb` (optional smaller JPEG/WebP for the contact sheet),
-`alt` (a plain one-sentence description — recommended),
-`caption` (optional), and `aspect` (e.g. `'3 / 2'`, stack layout — reserves the
-space before the photo loads so the page never jumps).
+`alt` (a plain one-sentence description), `caption` and `aspect` (e.g. `'3 / 2'`).
+Only the selected full-sized photograph is rendered in the project view.
 
 ## Preview
 

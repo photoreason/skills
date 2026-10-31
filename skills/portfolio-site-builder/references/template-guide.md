@@ -29,16 +29,17 @@ social. Edit the placeholder values:
 - `projects` — one entry per series:
   - `id` — short slug (must match the language files).
   - `year`, `ongoing` (true/false).
-  - `layout` — `'stack'` (full-bleed, one image per row — best for a sequenced
-    series) or `'grid'` (even grid — best for a set).
+  - Image order is the viewing sequence. Project pages show one uncropped photo
+    at a time beside the description, with previous/next controls and Gallery
+    mode. Older `layout` values are accepted but no longer create a long stack.
   - `images` — array of `{ src }`, each optionally with:
     - `thumb` — optional smaller JPEG/WebP for contact sheets and thumbnails;
       falls back to `src`. Keep the full image at `src` for gallery/zoom.
     - `alt` — one plain sentence describing the photo (from the prepared content
       package; strongly recommended).
     - `caption` — shown under the image; many pros skip captions.
-    - `aspect` — e.g. `'3 / 2'` — reserves the image's space before it loads so
-      the page never jumps (stack layout only; the grid handles its own).
+    - `aspect` — optional image proportions, e.g. `'3 / 2'`; the project viewer
+      reserves a consistent image area and fits each photograph without cropping.
 
 ## Step 3 — Words: `content/en.js`, `ja.js`, `zh-hans.js`
 
@@ -86,7 +87,9 @@ or close it. Check Enter/Space and touch as well as the pointer.
 Open About from navigation and return to Work; check that the chosen language
 survives both directions. Open `about/index.html` directly offline; on Cloudflare,
 verify both `/about` and `/about/` resolve to the dedicated page after deployment.
-Try a project's complete contact sheet and enter Gallery mode.
+Try previous/next and arrow keys on the one-photo project view; the description
+stays alongside it. Expand All photographs to jump to a frame, then enter Gallery
+mode. Closing the gallery should retain the photograph you reached.
 Check arrows/keyboard navigation, thumbnails, zoom/pan, and Escape to return.
 The chat language chosen during intake is independent of these website languages.
 

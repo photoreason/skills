@@ -34,7 +34,8 @@ window.PORTFOLIO_I18N["zh-hans"] = {
     "nextPhoto": "下一张照片",
     "imageError": "这张照片暂时无法加载。",
     "viewProject": "查看完整项目",
-    "photographCount": "{count} 张照片"
+    "photographCount": "{count} 张照片",
+    "noPhotos": "这个项目还没有添加照片。"
   },
   "projects": {
     "tidal": {
