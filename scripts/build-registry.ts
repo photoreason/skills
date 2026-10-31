@@ -96,6 +96,14 @@ function main(): void {
   // CI's "registry.json up to date" check could never pass.
   if (existsSync(out)) {
     const existing = manifestSchema.safeParse(JSON.parse(readFileSync(out, 'utf8')))
+    // Editorial changes are not a new security scan. Retain the recorded scan
+    // metadata instead of stamping today's date onto the previous result.
+    if (existing.success) {
+      for (const skill of manifest.skills) {
+        const prior = existing.data.skills.find((item) => item.id === skill.id)
+        if (prior) skill.scan = prior.scan
+      }
+    }
     if (
       existing.success &&
       JSON.stringify(withoutTimestamps(existing.data)) ===
