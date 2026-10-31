@@ -1,3 +1,4 @@
+/* zh-hans text. Project ids match content/site.js. */
 window.PORTFOLIO_I18N = window.PORTFOLIO_I18N || {}
 window.PORTFOLIO_I18N["zh-hans"] = {
   "meta": {
@@ -21,7 +22,15 @@ window.PORTFOLIO_I18N["zh-hans"] = {
   "ui": {
     "back": "返回",
     "next": "下个项目",
-    "close": "关闭"
+    "close": "关闭",
+    "gallery": "画廊模式",
+    "allPhotos": "全部照片",
+    "enlarge": "放大照片",
+    "zoom": "放大",
+    "fit": "适合屏幕",
+    "previous": "上一张照片",
+    "nextPhoto": "下一张照片",
+    "imageError": "这张照片暂时无法加载。"
   },
   "projects": {
     "coastal-study": {

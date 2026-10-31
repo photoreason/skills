@@ -55,15 +55,21 @@ For each photo, draft and confirm:
   search engines. Example: "A lone swimmer crosses an empty pool at dawn."
   Factual, not poetic. On the template this is the per-image `alt` field.
 
-## 6. Web-sizing (important) {#web-sizing}
+## Web-sizing
 
-You cannot resize their original camera files for them in a conversation, and
-huge files make a site slow. Guide them to export **web-sized** images.
+Prepare **web-sized copies**, keeping original camera files untouched. If local
+image tools are available, offer to export/convert copies; otherwise guide an
+export from their editor. Check the result at its displayed size, including zoom.
 
 - **Use JPEG or WebP.** These are the right formats for photos on the web. WebP
-  is smaller at the same quality; JPEG is universally safe — either is great.
-  **Avoid PNG** (huge for photos) and **HEIC** (phone format, not web-friendly).
-- **Long edge ~2000px**, quality ~80%, sRGB color. Each file well under ~500 KB.
+  can reduce file size; compare the exported result with JPEG rather than assuming
+  one format always wins.
+  **Avoid large PNG, HEIC, TIFF, and RAW originals** as published photo assets.
+  PNG is useful for graphics needing transparency, not the default for photographs.
+- Start around **2000px on the long edge**, quality ~80%, sRGB, and aim for
+  **under ~500 KB** per photo. These are starting points, not hard limits: inspect
+  detail, banding, color, and zoom before choosing the final export. For larger
+  projects, optional small `thumb` copies keep the contact sheet lighter.
 - From pro software:
   - **Lightroom:** Export → JPEG, Quality 80, Image Sizing → Resize to fit Long
     Edge 2000px.
@@ -81,6 +87,7 @@ huge files make a site slow. Guide them to export **web-sized** images.
 ## Output: the content package
 
 By the end you should have, written down in the conversation:
+
 - Ordered, grouped list of photos (with their filenames).
 - Titles + alt text per photo.
 - Short bio + artist statement.
@@ -88,7 +95,7 @@ By the end you should have, written down in the conversation:
 
 Hand this same package to whichever publish path they chose.
 
-## Launch checklist {#launch-checklist}
+## Launch checklist
 
 After the site is live:
 
@@ -96,14 +103,13 @@ After the site is live:
 - [ ] **Fresh-eyes read.** Check every word for typos; make sure the story reads
       clearly to a stranger.
 - [ ] **Findability.** Set the page **title** (e.g. "Jane Doe — Photography")
-      and a one-line **description**. On the template (Paths B/C) these are
+      and a one-line **description**. On the template these are
       `meta.title` / `meta.description` in each language file; on a visual builder
-      (Path A) they're in the platform's settings.
+      they're in the platform's settings.
 - [ ] **Test the links.** Contact email works, each gallery opens, images load.
       Switch languages once (template) and confirm nothing is left untranslated.
 - [ ] **Share it.** Give them the link and suggest posting it in their Instagram
       bio and email signature.
 - [ ] **Adding photos later:** give them the short recipe for their path — the
-      "Updating later" section of [deploy-static.md](deploy-static.md) (Paths
-      B/C) or [track-visual-builder.md](track-visual-builder.md) (Path A) — so
+      "Updating later" section of [deploy-static.md](deploy-static.md) or [track-visual-builder.md](track-visual-builder.md) — so
       they're never stuck.

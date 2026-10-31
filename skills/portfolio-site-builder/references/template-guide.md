@@ -5,8 +5,9 @@ minimal, monochrome, **trilingual (EN/JA/ZH)** photographer site. It's zero-buil
 — no framework, no server — so it previews by double-clicking `index.html` and
 deploys as-is.
 
-**You only edit the content files.** Never touch `index.html`, `styles.css`, or
-`app.js` for normal use.
+For ordinary content changes, edit the content files and images. Change HTML,
+CSS, or runtime only for a requested design/behavior change or to remove unused
+language scripts; preserve the existing artistic typography, spacing, and layouts.
 
 ## Step 1 — Copy the template
 
@@ -31,6 +32,8 @@ social. Edit the placeholder values:
   - `layout` — `'stack'` (full-bleed, one image per row — best for a sequenced
     series) or `'grid'` (even grid — best for a set).
   - `images` — array of `{ src }`, each optionally with:
+    - `thumb` — optional smaller JPEG/WebP for contact sheets and thumbnails;
+      falls back to `src`. Keep the full image at `src` for gallery/zoom.
     - `alt` — one plain sentence describing the photo (from the prepared content
       package; strongly recommended).
     - `caption` — shown under the image; many pros skip captions.
@@ -63,7 +66,9 @@ so the layout is reviewable before every photo is in place.
 
 Double-click `index.html` (works on Windows and Mac, offline). Check it on a
 narrow window too (mobile). Switch languages with the EN / 日本語 / 简体 control.
-Click a project to open its full-screen view; click an image to zoom.
+Click a project, try its complete contact sheet, and enter Gallery mode.
+Check arrows/keyboard navigation, thumbnails, zoom/pan, and Escape to return.
+The chat language chosen during intake is independent of these website languages.
 
 Iterate on order and words until they're happy, then go to
 [deploy-static.md](deploy-static.md) to put it online.

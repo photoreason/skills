@@ -1,8 +1,8 @@
 {
   "name": "photoreason-skills",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "packageManager": "pnpm@11.2.2",
-  "description": "Photo Reason's open-source agent skills library — the single source of truth for skills surfaced on photoreason.com/lab.",
+  "description": "Photo Reason's open-source agent skills library \u2014 the single source of truth for skills surfaced on photoreason.com/lab.",
   "type": "module",
   "license": "MIT",
   "author": {
@@ -28,7 +28,9 @@
     "validate:registry": "tsx scripts/validate-registry.ts",
     "sync:plugins": "bash scripts/sync-plugins.sh",
     "test": "tsx --test scripts/*.test.ts",
-    "build:marketplaces": "tsx scripts/build-marketplaces.ts"
+    "build:marketplaces": "tsx scripts/build-marketplaces.ts",
+    "test:browser": "playwright test",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
@@ -36,6 +38,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@playwright/test": "1.61.1",
     "@types/node": "^22.10.5",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"

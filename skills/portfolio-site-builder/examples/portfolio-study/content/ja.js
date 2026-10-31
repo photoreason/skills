@@ -1,3 +1,4 @@
+/* ja text. Project ids match content/site.js. */
 window.PORTFOLIO_I18N = window.PORTFOLIO_I18N || {}
 window.PORTFOLIO_I18N["ja"] = {
   "meta": {
@@ -21,7 +22,15 @@ window.PORTFOLIO_I18N["ja"] = {
   "ui": {
     "back": "戻る",
     "next": "次の作品",
-    "close": "閉じる"
+    "close": "閉じる",
+    "gallery": "ギャラリーモード",
+    "allPhotos": "すべての写真",
+    "enlarge": "写真を拡大",
+    "zoom": "拡大",
+    "fit": "全体を表示",
+    "previous": "前の写真",
+    "nextPhoto": "次の写真",
+    "imageError": "写真を読み込めませんでした。"
   },
   "projects": {
     "coastal-study": {

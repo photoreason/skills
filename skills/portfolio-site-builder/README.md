@@ -2,7 +2,7 @@
 
 A small home for a body of work. The assistant handles the website; you keep the edit.
 
-<img src="assets/website-builder-wordmark.png" alt="Website Builder" width="280">
+<img src="assets/portfolio-builder.png" alt="PB. — Portfolio Builder" width="80">
 
 ## Install, then start
 
@@ -26,7 +26,8 @@ The command follows the [skills CLI documentation](https://github.com/vercel-lab
 Paste this as your first message:
 
 > Use the portfolio-site-builder skill to help me make a website for my photographs.
-> Start with the costs and help me choose a publishing path. I want to keep control of the edit.
+> First ask which language I want to chat in: English / 日本語 / 简体中文.
+> Then review costs and help me choose a publishing path. I want to keep control of the edit.
 
 Bring a small selection of images you may publish, your name, a note about the work,
 and a contact address. Your assistant may have a subscription cost. Hosting and a
@@ -45,9 +46,9 @@ add mouse-control capability to a host that lacks it.
 
 Both modes follow the same sequence:
 
-1. Understand current costs and choose a budget/currency.
+1. Choose a chat language (English / 日本語 / 简体中文), then understand current costs and choose a budget/currency.
 2. Gather photographs, introductions, project text, and any domain. An existing
-   Namecheap, GoDaddy, Squarespace, or Cloudflare registration can stay where it is.
+   Namecheap, GoDaddy, Squarespace, Cloudflare, or Tencent Cloud registration can stay where it is.
 3. Build from the supplied template, or recreate its layout in Squarespace.
 4. Review a real preview on a phone and larger screen; make a revision.
 5. Publish to Cloudflare Pages (recommended) or Squarespace when ready, verify

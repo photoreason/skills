@@ -23,6 +23,15 @@ jobs:
       - name: Unit tests
         run: pnpm test
 
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Install test browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Offline portfolio interactions
+        run: pnpm test:browser
+
       - name: Rebuild registry.json
         run: pnpm build:registry
 

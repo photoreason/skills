@@ -1,3 +1,4 @@
+/* en text. Project ids match content/site.js. */
 window.PORTFOLIO_I18N = window.PORTFOLIO_I18N || {}
 window.PORTFOLIO_I18N["en"] = {
   "meta": {
@@ -21,7 +22,15 @@ window.PORTFOLIO_I18N["en"] = {
   "ui": {
     "back": "Back",
     "next": "Next project",
-    "close": "Close"
+    "close": "Close",
+    "gallery": "Gallery mode",
+    "allPhotos": "All photographs",
+    "enlarge": "Enlarge photograph",
+    "zoom": "Zoom",
+    "fit": "Fit image",
+    "previous": "Previous photograph",
+    "nextPhoto": "Next photograph",
+    "imageError": "This photograph could not be loaded."
   },
   "projects": {
     "coastal-study": {

@@ -1,10 +1,10 @@
 name: Portfolio Site Builder
 blurb: Make a home for your photographs, from the first edit to a live website.
-longDescription: "Build a photography portfolio with step-by-step guidance or optional user-granted
-  computer use for difficult screens. Start with costs, gather photographs, introductions and domain
-  resources, build with the included trilingual template, review a preview, then publish on
-  Cloudflare Pages or Squarespace. Cloudflare remains the recommended template host for mainland
-  China audiences. Your edit and publishing decisions stay yours."
+longDescription: "Build a photography portfolio with guided steps or optional user-granted computer
+  use. Choose a conversation language, review costs, gather photographs and domain resources, build
+  with the included trilingual template, preview, then publish on Cloudflare Pages or Squarespace.
+  Cloudflare remains recommended for mainland China audiences. Your edit and publishing decisions
+  stay yours."
 tags:
   - portfolio
   - website
@@ -45,20 +45,23 @@ guide:
       your name, a few words about the work, and a public contact address. If you have a domain,
       keep its registrar details handy. The skill is free; assistant, domain, and hosting costs are
       reviewed first.
-    firstPrompt: Use portfolio-site-builder to help me make a website for my photographs. Start with
-      costs, then help me gather the photographs, introduction, and domain details. Use the
-      template, show me a preview, and help me publish on Cloudflare Pages. Guide me through the
-      steps; if a difficult screen needs computer use, first check that you have that capability and
-      ask me to grant control. Keep my existing image selection and sequence.
+    firstPrompt: "First ask which language I would like to chat in: English, 日本語, or 简体中文. Use
+      portfolio-site-builder to help me make a website for my photographs. Start with costs, then
+      help me gather the photographs, introduction, and domain details. Use the template, show me a
+      preview, and help me publish on Cloudflare Pages. Guide me through the steps; if a difficult
+      screen needs computer use, first check that you have that capability and ask me to grant
+      control. Keep my existing image selection and sequence."
     steps:
       - title: Understand the costs
-        body: Review your budget and currency, assistant charges, hosting, and any domain registration or
-          renewal. Cloudflare Pages is the starting recommendation for the template; choose
-          Squarespace if a visual editor suits you better.
+        body: Choose your chat language (English, Japanese, or Simplified Chinese), separately from website
+          languages. Review your budget and currency, assistant charges, hosting, and any domain
+          registration or renewal. Cloudflare Pages is the starting recommendation for the template;
+          choose Squarespace if a visual editor suits you better.
       - title: Gather the pictures, words, and address
         body: Share the photographs, project notes, introduction, and public contact details. An existing
-          domain at Namecheap, GoDaddy, Squarespace, or Cloudflare can stay there. Choose guided
-          steps or, when your assistant supports it, grant computer use for difficult tasks.
+          domain at Namecheap, GoDaddy, Squarespace, Cloudflare, or Tencent Cloud can stay there.
+          Choose guided steps or, when your assistant supports it, grant computer use for difficult
+          tasks. Prepare web-sized WebP or JPEG copies and keep your originals.
       - title: Make the first version
         body: Build from the included English, Japanese, and Simplified Chinese template using your content.
           For Squarespace, use the template as a visual blueprint and recreate the pages in its
@@ -111,16 +114,17 @@ guide:
     revision: 画像にもっと余白を。一枚ずつカードにせず、シリーズをひとつの流れで見せてください。
     revisionNote: 習作ではテンプレートの縦並びを使い、一行に一枚の画像と控えめな作品目録を配置。装飾的なアニメーションはありません。試すための指示例であり、受託制作の会話記録ではありません。
     prepare: 下から助手にスキルを追加し、数枚の写真、名前、作品についての短いメモ、公開用の連絡先をご用意ください。ドメインがあれば、登録先も確認しておきましょう。スキルは無料です。助手、ドメイン、公開先の費用は最初に確認します。
-    firstPrompt: portfolio-site-builder
+    firstPrompt: 最初に、会話に使いたい言語（English / 日本語 / 简体中文）を聞いてください。portfolio-site-builder
       で写真のサイトをつくるのを手伝ってください。まず費用を確認し、写真、紹介文、ドメインの情報をそろえたいです。テンプレートでつくり、プレビューを見てから Cloudflare Pages
       で公開したいです。普段は手順を教えてください。難しい画面で操作を任せる場合は、使えるツールを確認してから、私に操作の許可を求めてください。選んだ写真と順序は保ってください。
     steps:
       - title: 費用を確認する
-        body: 予算と通貨、助手の利用料、公開先、ドメインの取得・更新費用を確認します。テンプレートは Cloudflare Pages を基本にし、ビジュアルエディターを使いたい場合は
-          Squarespace を選びます。
+        body: 会話の言語（英語・日本語・簡体字中国語）を選びます。サイトの表示言語は別に決められます。予算と通貨、助手の利用料、公開先、ドメインの取得・更新費用を確認します。テンプレートは
+          Cloudflare Pages を基本にし、ビジュアルエディターを使いたい場合は Squarespace を選びます。
       - title: 写真、文章、アドレスをそろえる
-        body: 写真、作品メモ、紹介文、公開用の連絡先を共有します。Namecheap、GoDaddy、Squarespace、Cloudflare
-          などで取得したドメインは、そのまま使えます。手順を教わる方法か、対応する助手に許可して難しい操作を任せる方法を選びます。
+        body: 写真、作品メモ、紹介文、公開用の連絡先を共有します。Namecheap、GoDaddy、Squarespace、Cloudflare、Tencent Cloud
+          などで取得したドメインは、そのまま使えます。手順を教わる方法か、対応する助手に許可して難しい操作を任せる方法を選びます。写真は WebP または JPEG
+          のウェブ用コピーを用意し、原本は保存しておきます。
       - title: 最初の形をつくる
         body: 同梱の英語・日本語・簡体字中国語テンプレートに、用意した作品を入れます。Squarespace ではテンプレートを見本に、エディター上で構成を再現します。
       - title: プレビューを見る
@@ -159,14 +163,16 @@ guide:
     revision: 给画面更多空间。让整组作品按顺序展开，不要把每张照片做成一张卡片。
     revisionNote: 习作采用模板的纵向布局：每行一张图，克制的项目目录，没有装饰性动画。这些是可尝试的修改方向，不是委托项目的对话记录。
     prepare: 先在下方把技能添加到助手，再准备一小组照片、署名、几句作品介绍和公开联系方式。已有域名的话，也请记下注册商。技能免费；助手、域名和托管服务的费用，会先一起确认。
-    firstPrompt: 请使用 portfolio-site-builder 帮我做一个摄影作品集网站。先确认费用，再一起准备照片、简介和域名信息。使用模板搭建，给我看预览，然后帮助我发布到
-      Cloudflare Pages。平时请逐步引导；遇到困难的界面操作时，先确认你是否有电脑操作工具，再征求我的控制授权。保留我已有的选片和顺序。
+    firstPrompt: 首先请问我想用哪种语言交流：English / 日本語 / 简体中文。请使用 portfolio-site-builder
+      帮我做一个摄影作品集网站。先确认费用，再一起准备照片、简介和域名信息。使用模板搭建，给我看预览，然后帮助我发布到 Cloudflare
+      Pages。平时请逐步引导；遇到困难的界面操作时，先确认你是否有电脑操作工具，再征求我的控制授权。保留我已有的选片和顺序。
     steps:
       - title: 先把费用看清楚
-        body: 确认预算、结算货币、助手费用，以及托管、域名注册和续费。模板网站优先推荐 Cloudflare Pages；如果更想使用可视化编辑器，可以选择 Squarespace。
+        body: 先选择交流语言（英文、日文或简体中文），网站的展示语言另外决定。确认预算、结算货币、助手费用，以及托管、域名注册和续费。模板网站优先推荐 Cloudflare
+          Pages；如果更想使用可视化编辑器，可以选择 Squarespace。
       - title: 准备照片、文字和网址
-        body: 分享照片、项目说明、简介和公开联系方式。已经在 Namecheap、GoDaddy、Squarespace 或 Cloudflare
-          注册的域名可以保留。选择按步骤自己操作，或在助手支持时授权电脑操作，接手困难步骤。
+        body: 分享照片、项目说明、简介和公开联系方式。已经在 Namecheap、GoDaddy、Squarespace、Cloudflare 或腾讯云
+          注册的域名可以保留。选择按步骤自己操作，或在助手支持时授权电脑操作，接手困难步骤。照片优先准备适合网页的 WebP 或 JPEG 副本，保留原始文件。
       - title: 做出第一版
         body: 把材料填入随附的中、英、日三语模板。如果选择 Squarespace，则以模板为视觉参考，在编辑器里搭建相应页面。
       - title: 一起看看预览

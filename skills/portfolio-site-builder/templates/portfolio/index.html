@@ -14,7 +14,12 @@
   </head>
   <body>
     <!-- Language switch (EN / 日本語 / 简体) — populated by app.js -->
-    <div class="lang-switch" id="langSwitch" role="group" aria-label="Language"></div>
+    <div
+      class="lang-switch"
+      id="langSwitch"
+      role="group"
+      aria-label="Language"
+    ></div>
 
     <!-- Full-bleed filmic hero. A real <img> (not a CSS background) so the
          browser can prioritize it — it's the most important image on the page. -->
@@ -29,7 +34,12 @@
           <h1 class="hero__name" id="heroName"></h1>
           <p class="hero__tagline" id="heroTagline"></p>
         </div>
-        <a class="hero__scroll" href="#work" id="heroScroll" aria-label="Scroll to work">
+        <a
+          class="hero__scroll"
+          href="#work"
+          id="heroScroll"
+          aria-label="Scroll to work"
+        >
           <span></span>
         </a>
       </div>
@@ -46,7 +56,11 @@
       <section class="section about" id="about" aria-labelledby="aboutLabel">
         <p class="eyebrow section__label" id="aboutLabel"></p>
         <div class="about__grid">
-          <div class="about__portrait" id="aboutPortrait" aria-hidden="true"></div>
+          <div
+            class="about__portrait"
+            id="aboutPortrait"
+            aria-hidden="true"
+          ></div>
           <div class="about__text">
             <p class="about__statement" id="aboutStatement"></p>
             <p class="about__bio" id="aboutBio"></p>
@@ -55,7 +69,11 @@
       </section>
 
       <!-- CONTACT -->
-      <section class="section contact" id="contact" aria-labelledby="contactLabel">
+      <section
+        class="section contact"
+        id="contact"
+        aria-labelledby="contactLabel"
+      >
         <p class="eyebrow section__label" id="contactLabel"></p>
         <a class="contact__email" id="contactEmail" href="#"></a>
         <ul class="social" id="social"></ul>
@@ -67,13 +85,55 @@
     <!-- Project detail — a full-screen view shown on #/p/<id> routes. -->
     <div class="project-view" id="projectView" hidden></div>
 
-    <!-- Lightbox — pages through the open project's images (arrows / arrow keys). -->
-    <div class="lightbox" id="lightbox" hidden>
-      <button class="lightbox__close" type="button" aria-label="Close">×</button>
-      <button class="lightbox__nav -prev" type="button" aria-label="Previous image">‹</button>
-      <button class="lightbox__nav -next" type="button" aria-label="Next image">›</button>
-      <img class="lightbox__img" alt="" />
-    </div>
+    <!-- Native dialog keeps focus inside the gallery and restores it on close. -->
+    <dialog class="lightbox" id="lightbox" aria-labelledby="galleryTitle">
+      <header class="lightbox__bar">
+        <div>
+          <span id="galleryTitle"></span
+          ><span
+            class="lightbox__count"
+            id="galleryCount"
+            aria-live="polite"
+          ></span>
+        </div>
+        <div class="lightbox__tools">
+          <button
+            id="galleryIndex"
+            type="button"
+            aria-expanded="false"
+          ></button>
+          <button id="galleryZoom" type="button" aria-pressed="false"></button>
+          <button class="lightbox__close" type="button" autofocus></button>
+        </div>
+      </header>
+      <div class="lightbox__stage">
+        <button class="lightbox__nav -prev" type="button">‹</button>
+        <div class="lightbox__canvas" id="galleryCanvas">
+          <button
+            class="lightbox__image-button"
+            id="galleryImageButton"
+            type="button"
+          >
+            <img class="lightbox__img" alt="" />
+          </button>
+          <p class="lightbox__error" id="galleryError" role="status" hidden></p>
+        </div>
+        <button class="lightbox__nav -next" type="button">›</button>
+      </div>
+      <footer class="lightbox__footer">
+        <p class="lightbox__caption" id="galleryCaption"></p>
+        <div class="lightbox__thumbs" id="galleryThumbs"></div>
+      </footer>
+      <section
+        class="lightbox__sheet"
+        id="gallerySheet"
+        aria-labelledby="gallerySheetTitle"
+        hidden
+      >
+        <h2 id="gallerySheetTitle"></h2>
+        <div class="photo-index" id="gallerySheetImages"></div>
+      </section>
+    </dialog>
 
     <!-- Content: edit these four files, not the HTML.
          site.js = structure (projects, images, social). Locale files = text. -->

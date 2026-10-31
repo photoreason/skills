@@ -2,7 +2,7 @@
 
 A domain is the address people type, such as `janedoe.com`. It is separate from
 the company hosting the website. A user can register with Namecheap, GoDaddy,
-Squarespace Domains, or Cloudflare Registrar and host the template on Cloudflare
+Squarespace Domains, Cloudflare Registrar, or Tencent Cloud and host the template on Cloudflare
 Pages. Keep an existing registration; a transfer is not a prerequisite.
 
 ## During resource gathering
@@ -20,6 +20,18 @@ requirements before promising public publishing.
 The user signs into their own registrar and reviews any purchase. In Computer-use
 mode, you can help navigate the agreed screens with an available tool, but hand
 over sign-in, verification, and payment entry. No passwords belong in chat.
+
+## Tencent Cloud as an option
+
+Tencent Cloud can suit someone who prefers its Chinese-language registration
+workflow or already has an account. Use its [official registration guide](https://cloud.tencent.com/document/product/242/9595)
+and check current eligibility, account/contact identity-verification requirements,
+availability, and renewal terms before buying. The user handles identity documents
+and account verification directly with the provider.
+
+This is a registrar option, not a reason to change the recommended Cloudflare
+host. Registering a domain with Tencent Cloud does not establish that the website
+will load faster or more reliably in mainland China. Test the actual hosted site.
 
 ## After the preview is approved
 

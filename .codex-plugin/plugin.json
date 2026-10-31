@@ -1,6 +1,6 @@
 {
   "name": "photoreason-skills",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Build and publish a photography portfolio with a guided, plain-language workflow.",
   "author": {
     "name": "Photo Reason",
@@ -32,8 +32,8 @@
       "Use $portfolio-site-builder to help me make a website for my photographs."
     ],
     "websiteURL": "https://photoreason.com",
-    "brandColor": "#164487",
-    "logo": "./skills/portfolio-site-builder/assets/website-builder-wordmark.png",
-    "composerIcon": "./skills/portfolio-site-builder/assets/website-builder.png"
+    "brandColor": "#000000",
+    "logo": "./skills/portfolio-site-builder/assets/portfolio-builder.png",
+    "composerIcon": "./skills/portfolio-site-builder/assets/portfolio-builder.png"
   }
 }

@@ -6,7 +6,7 @@
    No framework, no build step, no fetch() (so it works from file:// too).
    ========================================================================= */
 
-(function () {
+;(function () {
   'use strict'
 
   var SITE = window.PORTFOLIO_SITE || { projects: [], social: [] }
@@ -190,7 +190,8 @@
   function renderAbout() {
     $('aboutLabel').textContent = (t.labels && t.labels.about) || ''
     if (SITE.portraitImage) {
-      $('aboutPortrait').style.backgroundImage = 'url("' + SITE.portraitImage + '")'
+      $('aboutPortrait').style.backgroundImage =
+        'url("' + SITE.portraitImage + '")'
     }
     var about = t.about || {}
     $('aboutStatement').textContent = about.statement || ''
@@ -241,7 +242,11 @@
     setMeta('property', 'og:description', meta.description || '')
     if (SITE.heroImage) {
       // og:image must be an absolute URL to work when the link is shared.
-      setMeta('property', 'og:image', new URL(SITE.heroImage, window.location.href).href)
+      setMeta(
+        'property',
+        'og:image',
+        new URL(SITE.heroImage, window.location.href).href,
+      )
     }
   }
 
@@ -277,6 +282,7 @@
   }
 
   function renderProject(p) {
+    closeLightbox()
     var text = projectText(p.id)
     var view = $('projectView')
     view.innerHTML = ''
@@ -285,7 +291,10 @@
     var back = el('a', 'pv__back', '← ' + ((t.ui && t.ui.back) || 'Back'))
     back.href = '#'
     bar.appendChild(back)
-    var metaBits = [p.year, p.ongoing ? (t.ui && t.ui.ongoing) || 'ongoing' : null]
+    var metaBits = [
+      p.year,
+      p.ongoing ? (t.ui && t.ui.ongoing) || 'ongoing' : null,
+    ]
       .filter(Boolean)
       .join(' · ')
     bar.appendChild(el('span', 'pv__meta', metaBits))
@@ -293,10 +302,21 @@
 
     var head = el('div', 'pv__head')
     head.appendChild(el('h2', 'pv__title', text.title || p.id))
-    if (text.description) head.appendChild(el('p', 'pv__desc', text.description))
+    if (text.description)
+      head.appendChild(el('p', 'pv__desc', text.description))
     view.appendChild(head)
 
-    var images = el('div', 'pv__images ' + (p.layout === 'grid' ? '-grid' : '-stack'))
+    var galleryButton = el('button', 'pv__gallery', ui('gallery'))
+    galleryButton.type = 'button'
+    galleryButton.addEventListener('click', function () {
+      openLightboxAt(0)
+    })
+    head.appendChild(galleryButton)
+
+    var images = el(
+      'div',
+      'pv__images ' + (p.layout === 'grid' ? '-grid' : '-stack'),
+    )
     gallery = []
     ;(p.images || []).forEach(function (im, i) {
       var alt = im.alt || (text.title || '') + ' — ' + (i + 1)
@@ -309,13 +329,46 @@
           image.style.aspectRatio = im.aspect
           image.style.objectFit = 'cover'
         }
-        image.dataset.index = String(gallery.length)
-        gallery.push({ src: im.src, alt: alt })
+        var index = gallery.length
+        var enlarge = el('button', 'pv__enlarge')
+        enlarge.type = 'button'
+        enlarge.setAttribute('aria-label', ui('enlarge') + ': ' + alt)
+        enlarge.addEventListener('click', function () {
+          openLightboxAt(index)
+        })
+        enlarge.appendChild(image)
+        image = enlarge
+        fig.id = 'project-photo-' + index
+        gallery.push({
+          src: im.src,
+          thumb: im.thumb || im.src,
+          alt: alt,
+          caption: im.caption || '',
+        })
       }
       fig.appendChild(image)
       if (im.caption) fig.appendChild(el('figcaption', null, im.caption))
       images.appendChild(fig)
     })
+    galleryIndex = 0
+    galleryButton.hidden = !gallery.length
+    if (gallery.length) {
+      var indexWrap = el('div', 'pv__index')
+      indexWrap.appendChild(
+        el('p', 'pv__index-label', ui('allPhotos') + ' · ' + gallery.length),
+      )
+      var contactSheet = el('div', 'photo-index')
+      contactSheet.setAttribute('role', 'group')
+      contactSheet.setAttribute('aria-label', ui('allPhotos'))
+      renderThumbnails(contactSheet, function (index) {
+        galleryIndex = index
+        var figure = $('project-photo-' + index)
+        figure.scrollIntoView({ block: 'center', behavior: 'instant' })
+        figure.querySelector('button').focus({ preventScroll: true })
+      })
+      indexWrap.appendChild(contactSheet)
+      view.appendChild(indexWrap)
+    }
     view.appendChild(images)
 
     // Quiet editorial handoff to the next body of work.
@@ -325,9 +378,15 @@
       var nextWrap = el('div', 'pv__next')
       var nextLink = el('a')
       nextLink.href = '#/p/' + next.id
-      nextLink.appendChild(el('span', 'pv__next-label', (t.ui && t.ui.next) || 'Next'))
       nextLink.appendChild(
-        el('span', 'pv__next-title', (projectText(next.id).title || next.id) + ' →'),
+        el('span', 'pv__next-label', (t.ui && t.ui.next) || 'Next'),
+      )
+      nextLink.appendChild(
+        el(
+          'span',
+          'pv__next-title',
+          (projectText(next.id).title || next.id) + ' →',
+        ),
       )
       nextWrap.appendChild(nextLink)
       view.appendChild(nextWrap)
@@ -339,6 +398,7 @@
   }
 
   function closeProject() {
+    closeLightbox()
     var view = $('projectView')
     view.hidden = true
     view.innerHTML = ''
@@ -348,7 +408,14 @@
   function handleRoute() {
     var m = window.location.hash.match(/^#\/p\/(.+)$/)
     if (m) {
-      var p = findProject(decodeURIComponent(m[1]))
+      var id
+      try {
+        id = decodeURIComponent(m[1])
+      } catch (e) {
+        closeProject()
+        return
+      }
+      var p = findProject(id)
       if (p) {
         renderProject(p)
         return
@@ -378,63 +445,254 @@
     }, 160)
   }
 
-  // ---- lightbox (pages through the open project's images) ------------------
+  // ---- gallery: one project's sequence, without a framework ----------------
 
   var lightbox = $('lightbox')
   var lightboxImg = lightbox.querySelector('.lightbox__img')
   var lightboxPrev = lightbox.querySelector('.lightbox__nav.-prev')
   var lightboxNext = lightbox.querySelector('.lightbox__nav.-next')
-  var gallery = [] // filled by renderProject: [{src, alt}]
-  var galleryIndex = -1
+  var canvas = $('galleryCanvas')
+  var gallery = []
+  var galleryIndex = 0
+  var zoomed = false
+  var imageFailed = false
+  var galleryLabels = {
+    gallery: 'Gallery mode',
+    allPhotos: 'All photographs',
+    enlarge: 'Enlarge photograph',
+    zoom: 'Zoom',
+    fit: 'Fit image',
+    previous: 'Previous photograph',
+    nextPhoto: 'Next photograph',
+    close: 'Close',
+    imageError: 'This photograph could not be loaded.',
+  }
+
+  function ui(key) {
+    return (t.ui && t.ui[key]) || galleryLabels[key] || key
+  }
+
+  function renderThumbnails(container, select) {
+    container.innerHTML = ''
+    gallery.forEach(function (item, index) {
+      var button = el('button', 'photo-thumb')
+      button.type = 'button'
+      button.dataset.photo = String(index)
+      button.setAttribute(
+        'aria-label',
+        index + 1 + ' / ' + gallery.length + ': ' + item.alt,
+      )
+      button.appendChild(imgEl(item.thumb, '', '1 / 1'))
+      button.addEventListener('click', function () {
+        select(index)
+      })
+      container.appendChild(button)
+    })
+  }
+
+  function setZoom(value) {
+    zoomed = value && !imageFailed
+    canvas.classList.toggle('is-zoomed', zoomed)
+    canvas.scrollLeft = 0
+    canvas.scrollTop = 0
+    $('galleryZoom').textContent = ui(zoomed ? 'fit' : 'zoom')
+    $('galleryZoom').setAttribute('aria-pressed', String(zoomed))
+    $('galleryImageButton').setAttribute(
+      'aria-label',
+      ui(zoomed ? 'fit' : 'zoom'),
+    )
+  }
+
+  function setSheet(open) {
+    $('gallerySheet').hidden = !open
+    $('galleryIndex').setAttribute('aria-expanded', String(open))
+    // Keep covered controls out of keyboard navigation.
+    lightbox.querySelector('.lightbox__stage').inert = open
+    lightbox.querySelector('.lightbox__footer').inert = open
+    $('galleryZoom').disabled = open || imageFailed
+  }
+
+  function updateGallery() {
+    var item = gallery[galleryIndex]
+    if (!item) return
+    imageFailed = false
+    $('galleryError').hidden = true
+    setSheet(false)
+    setZoom(false)
+    lightboxImg.src = item.src
+    lightboxImg.alt = item.alt
+    $('galleryCaption').textContent = item.caption
+    $('galleryCount').textContent = galleryIndex + 1 + ' / ' + gallery.length
+    lightboxPrev.hidden = lightboxNext.hidden = gallery.length < 2
+    lightbox.querySelectorAll('[data-photo]').forEach(function (button) {
+      button.setAttribute(
+        'aria-current',
+        String(Number(button.dataset.photo) === galleryIndex),
+      )
+    })
+    var currentThumb = $('galleryThumbs').children[galleryIndex]
+    if (currentThumb)
+      currentThumb.scrollIntoView({
+        block: 'nearest',
+        inline: 'nearest',
+        behavior: 'instant',
+      })
+  }
 
   function openLightboxAt(index) {
-    var item = gallery[index]
-    if (!item) return
+    if (!gallery[index]) return
     galleryIndex = index
-    lightboxImg.src = item.src
-    lightboxImg.alt = item.alt || ''
-    var showNav = gallery.length > 1 ? '' : 'none'
-    lightboxPrev.style.display = showNav
-    lightboxNext.style.display = showNav
-    lightbox.hidden = false
+    if (!lightbox.open) {
+      var route = window.location.hash.match(/^#\/p\/(.+)$/)
+      $('galleryTitle').textContent = route
+        ? projectText(decodeURIComponent(route[1])).title || ''
+        : ''
+      $('galleryIndex').textContent = $('gallerySheetTitle').textContent =
+        ui('allPhotos')
+      $('galleryError').textContent = ui('imageError')
+      lightboxPrev.setAttribute('aria-label', ui('previous'))
+      lightboxNext.setAttribute('aria-label', ui('nextPhoto'))
+      lightbox.querySelector('.lightbox__close').textContent = ui('close')
+      $('galleryThumbs').setAttribute('aria-label', ui('allPhotos'))
+      $('galleryThumbs').setAttribute('role', 'group')
+      renderThumbnails($('galleryThumbs'), function (i) {
+        openLightboxAt(i)
+      })
+      renderThumbnails($('gallerySheetImages'), function (i) {
+        openLightboxAt(i)
+        $('galleryIndex').focus()
+      })
+      lightbox.showModal()
+    }
+    updateGallery()
   }
+
   function stepLightbox(delta) {
-    if (gallery.length < 2) return
-    openLightboxAt((galleryIndex + delta + gallery.length) % gallery.length)
+    if (gallery.length > 1)
+      openLightboxAt((galleryIndex + delta + gallery.length) % gallery.length)
   }
+
   function closeLightbox() {
-    lightbox.hidden = true
+    if (!lightbox.open) return
+    lightbox.close()
+    setZoom(false)
+    setSheet(false)
     lightboxImg.removeAttribute('src')
   }
 
-  document.addEventListener('click', function (e) {
-    var img = e.target
-    if (img && img.tagName === 'IMG' && img.closest('.pv__images')) {
-      openLightboxAt(Number(img.dataset.index || 0))
-    }
+  lightboxImg.addEventListener('error', function () {
+    if (!lightbox.open) return
+    imageFailed = true
+    $('galleryError').hidden = false
+    setZoom(false)
+    $('galleryZoom').disabled = true
   })
-  lightbox.addEventListener('click', function (e) {
-    if (e.target === lightbox || e.target.classList.contains('lightbox__close')) {
-      closeLightbox()
-    }
+  lightboxImg.addEventListener('load', function () {
+    imageFailed = false
+    $('galleryError').hidden = true
+    $('galleryZoom').disabled = !$('gallerySheet').hidden
   })
+  $('galleryZoom').addEventListener('click', function () {
+    setZoom(!zoomed)
+  })
+  $('galleryImageButton').addEventListener('click', function () {
+    setZoom(!zoomed)
+  })
+  $('galleryIndex').addEventListener('click', function () {
+    setZoom(false)
+    setSheet($('gallerySheet').hidden)
+  })
+  lightbox
+    .querySelector('.lightbox__close')
+    .addEventListener('click', closeLightbox)
   lightboxPrev.addEventListener('click', function () {
     stepLightbox(-1)
   })
   lightboxNext.addEventListener('click', function () {
     stepLightbox(1)
   })
-  document.addEventListener('keydown', function (e) {
-    if (!lightbox.hidden) {
-      if (e.key === 'Escape') closeLightbox()
-      else if (e.key === 'ArrowLeft') stepLightbox(-1)
-      else if (e.key === 'ArrowRight') stepLightbox(1)
+  lightbox.addEventListener('cancel', function (event) {
+    event.preventDefault()
+    if (!$('gallerySheet').hidden) {
+      setSheet(false)
+      $('galleryIndex').focus()
+    } else if (zoomed) setZoom(false)
+    else closeLightbox()
+  })
+  document.addEventListener('keydown', function (event) {
+    if (lightbox.open) {
+      if (event.key === 'Tab') {
+        var controls = Array.prototype.filter.call(
+          lightbox.querySelectorAll('button'),
+          function (button) {
+            return (
+              !button.disabled &&
+              !button.closest('[inert]') &&
+              button.getClientRects().length
+            )
+          },
+        )
+        var first = controls[0],
+          last = controls[controls.length - 1]
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault()
+          last.focus()
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault()
+          first.focus()
+        }
+      }
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault()
+        stepLightbox(event.key === 'ArrowLeft' ? -1 : 1)
+        // A contact-sheet button may have become hidden on navigation.
+        if (document.activeElement.closest('#gallerySheet'))
+          $('galleryIndex').focus()
+      }
       return
     }
-    if (e.key === 'Escape' && window.location.hash.indexOf('#/p/') === 0) {
+    if (event.key === 'Escape' && window.location.hash.indexOf('#/p/') === 0)
       window.location.hash = ''
-    }
   })
+
+  // Drag to pan a zoomed image; touch users can also scroll the enlarged canvas.
+  var drag = null
+  canvas.addEventListener('pointerdown', function (event) {
+    if (!zoomed || event.pointerType !== 'mouse' || event.button !== 0) return
+    drag = {
+      x: event.clientX,
+      y: event.clientY,
+      left: canvas.scrollLeft,
+      top: canvas.scrollTop,
+      moved: false,
+    }
+    canvas.setPointerCapture(event.pointerId)
+  })
+  canvas.addEventListener('pointermove', function (event) {
+    if (!drag) return
+    if (Math.abs(event.clientX - drag.x) + Math.abs(event.clientY - drag.y) > 5)
+      drag.moved = true
+    canvas.scrollLeft = drag.left + drag.x - event.clientX
+    canvas.scrollTop = drag.top + drag.y - event.clientY
+  })
+  canvas.addEventListener('pointerup', function (event) {
+    if (canvas.hasPointerCapture(event.pointerId))
+      canvas.releasePointerCapture(event.pointerId)
+  })
+  canvas.addEventListener('pointercancel', function () {
+    drag = null
+  })
+  canvas.addEventListener(
+    'click',
+    function (event) {
+      if (drag && drag.moved) {
+        event.preventDefault()
+        event.stopPropagation()
+      } else if (drag && event.target === canvas) setZoom(false)
+      drag = null
+    },
+    true,
+  )
 
   // ---- boot ---------------------------------------------------------------
 

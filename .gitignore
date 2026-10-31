@@ -10,3 +10,7 @@ dist/
 # Env
 .env
 .env.*
+
+# Browser verification output
+playwright-report/
+test-results/
