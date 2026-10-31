@@ -30,7 +30,7 @@
       {
         "name": "photoreason-skills",
         "description": "Build and publish a photography portfolio with a guided, plain-language workflow.",
-        "version": "0.4.2",
+        "version": "0.4.3",
         "source": {
           "source": "url",
           "url": "https://github.com/photoreason/skills.git"
