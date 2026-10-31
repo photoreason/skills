@@ -605,6 +605,11 @@
   }
 
   function handleRoute() {
+    // Preserve bookmarks and links to the former homepage About section.
+    if (window.location.hash === "#about") {
+      window.location.replace(pageLink("about/index.html"));
+      return;
+    }
     var m = window.location.hash.match(/^#\/p\/(.+)$/);
     if (m) {
       var id;
