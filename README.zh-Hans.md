@@ -2,12 +2,21 @@
 
 简体中文 · [English](README.md)
 
-面向摄影师的开源 Agent Skills。Photo Reason Skills 帮助摄影师——包括没有技术背景的
-使用者——建立作品集网站、编辑与排序作品，并通过 Claude、Codex、Kimi Code、
-Gemini、Cursor、OpenCode 和 Pi 完成创作工作流。
+面向摄影师的开源 Agent Skills，以 Codex 为主要安装体验，同时保留 Claude Code 和
+Kimi Code 的原生插件配置。当前版本只包含 Portfolio Site Builder：从已选照片到作品集网站。
+
+作品集建站保留为一个技能。独立的照片编辑与排序工作流，应在准备好后作为另一个技能与
+技能市场条目提供；当前版本不将它列为已发布功能。已有选片和顺序由摄影师决定。
 
 本仓库中的技能是 [Photo Reason Lab](https://www.photoreason.art/zh-hans/lab)
 所展示内容的唯一来源。
+
+## 两种协作方式
+
+引导模式依次完成：费用 → 照片、简介与域名等材料 → 使用模板搭建 → 预览 → 发布到
+Cloudflare Pages 或 Squarespace。电脑操作模式沿用同一流程，在宿主提供电脑或浏览器
+控制工具、用户授权后，助手可以接手上传、域名连接等困难步骤。用户随时可以收回控制。
+面向中国大陆受众时，模板网站也仍推荐 Cloudflare；实际访问效果需要从目标网络检查。
 
 ## 现有技能
 
@@ -15,7 +24,45 @@ Gemini、Cursor、OpenCode 和 Pi 完成创作工作流。
 | --- | --- |
 | [`portfolio-site-builder`](skills/portfolio-site-builder/) | 从费用、照片编辑与排序开始，一步一步帮助摄影师发布一个三语作品集网站；不要求技术经验。 |
 
+## 在 Mac 上添加 Codex 技能市场之前
+
+Codex 通过 Git 下载技能市场。新 Mac 可能需要先安装 Apple 命令行工具，无需安装完整 Xcode。
+
+1. 打开终端，运行 `git --version`。
+2. 如果 macOS 提示安装开发者工具，完成安装；也可以运行 `xcode-select --install` 启动安装。
+3. 再次运行 `git --version`。能显示版本号后，退出并重新打开 Codex，再添加技能市场。
+
+`xcode-select: No developer tools were found` 发生在 Git 读取仓库之前，不能靠修改网址或
+插件配置解决。如果已经安装 Xcode，先打开它并完成初始设置；若仍有问题，请按 Apple 的
+说明检查当前开发者工具位置，不要使用猜测的路径。
+
+[Apple 命令行工具安装说明](https://developer.apple.com/documentation/xcode/installing-the-command-line-tools/)
+
+### 不使用 Git
+
+在 GitHub 点击 **Code → Download ZIP**，解压到准备长期保留的文件夹。支持本地技能市场
+的 Codex CLI 可以直接添加这个文件夹，再安装插件：
+
+```sh
+codex plugin marketplace add "/完整路径/skills-main"
+codex plugin add photoreason-skills@photoreason-skills
+```
+
+把示例路径换成实际解压路径。这种方式不执行 Git 克隆，也不会接收 Git 技能市场更新；
+更新时需重新下载 ZIP，并添加、安装新的本地版本。请勿把 ZIP 或 JSON 网址填入 Git 市场地址栏。
+
 ## 安装
+
+### Codex
+
+```bash
+codex plugin marketplace add photoreason/skills
+```
+
+重启 ChatGPT 桌面应用，打开 **Plugins**，选择 Photo Reason Marketplace，并安装
+**Photo Reason Skills**。可以用 `$portfolio-site-builder` 明确调用，也可以直接描述
+作品集任务。
+
 
 ### Kimi Code
 
@@ -50,16 +97,6 @@ Gemini、Cursor、OpenCode 和 Pi 完成创作工作流。
 /plugin marketplace add photoreason/skills
 /plugin install photoreason-skills@photoreason-skills
 ```
-
-### Codex
-
-```bash
-codex plugin marketplace add photoreason/skills
-```
-
-重启 ChatGPT 桌面应用，打开 **Plugins**，选择 Photo Reason Marketplace，并安装
-**Photo Reason Skills**。可以用 `$portfolio-site-builder` 明确调用，也可以直接描述
-作品集任务。
 
 ### Gemini CLI
 

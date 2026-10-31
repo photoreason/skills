@@ -1,7 +1,7 @@
 {
   "name": "photoreason-skills",
-  "version": "0.2.0",
-  "description": "Photo Reason's open-source skills for photographers: portfolio building, curation, and creative workflows.",
+  "version": "0.3.0",
+  "description": "Build and publish a photography portfolio with a guided, plain-language workflow.",
   "author": {
     "name": "Photo Reason",
     "url": "https://photoreason.com"
@@ -19,15 +19,21 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Photo Reason Skills",
-    "shortDescription": "Portfolio building & creative workflows for photographers",
-    "longDescription": "Skills that help photographers — including those with no technical background — build portfolio websites, curate and sequence their work, and run creative workflows with coding agents.",
+    "shortDescription": "A portfolio, with guidance or hands-on help",
+    "longDescription": "One portfolio-building skill: costs, photographs and text, domain choices, template, preview, then Cloudflare Pages or Squarespace. Follow guided steps or grant available computer-use tools control for difficult screens.",
     "developerName": "Photo Reason",
     "category": "Creative",
-    "capabilities": ["Interactive", "Read", "Write"],
-    "defaultPrompt": [
-      "Help me build a portfolio website for my photography.",
-      "Help me curate and sequence my photos."
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
     ],
-    "websiteURL": "https://photoreason.com"
+    "defaultPrompt": [
+      "Use $portfolio-site-builder to help me make a website for my photographs."
+    ],
+    "websiteURL": "https://photoreason.com",
+    "brandColor": "#164487",
+    "logo": "./skills/portfolio-site-builder/assets/website-builder-wordmark.png",
+    "composerIcon": "./skills/portfolio-site-builder/assets/website-builder.png"
   }
 }

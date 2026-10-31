@@ -1,7 +1,7 @@
 {
   "name": "photoreason-skills",
-  "version": "0.2.0",
-  "description": "Photo Reason's open-source skills for photographers: portfolio building, curation, and creative workflows.",
+  "version": "0.3.0",
+  "description": "Build and publish a photography portfolio with a guided, plain-language workflow.",
   "author": {
     "name": "Photo Reason",
     "url": "https://photoreason.com"
@@ -19,10 +19,14 @@
   "skillInstructions": "Photo Reason skills are conversational, plain-language guides — many are written for people with no technical background. When a skill says to ask the user, ask clarifying questions, present options, or wait for a choice, use Kimi Code's `AskUserQuestion` tool with 2-4 concrete options (recommended option first, suffixed `(Recommended)`). Use `Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob`, `FetchURL`, and `WebSearch` by their exposed names. When a skill refers to the `Skill` tool, use Kimi Code's native `Skill` tool.",
   "interface": {
     "displayName": "Photo Reason Skills",
-    "shortDescription": "Portfolio building & creative workflows for photographers",
-    "longDescription": "Skills that help photographers — including those with no technical background — build portfolio websites, curate and sequence their work, and run creative workflows with coding agents.",
+    "shortDescription": "Build a home for your photographs",
+    "longDescription": "Portfolio Site Builder helps photographers choose a publishing path, build a website from their selected work, preview it, and keep it updated. This release includes one portfolio-building skill.",
     "developerName": "Photo Reason",
-    "capabilities": ["Interactive", "Read", "Write"],
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
     "websiteURL": "https://photoreason.com"
   }
 }

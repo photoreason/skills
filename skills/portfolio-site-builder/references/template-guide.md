@@ -1,4 +1,4 @@
-# Filling the template (Paths B & C)
+# Filling the template (Cloudflare route)
 
 The template in [`../templates/portfolio/`](../templates/portfolio/) is a
 minimal, monochrome, **trilingual (EN/JA/ZH)** photographer site. It's zero-build
@@ -31,7 +31,7 @@ social. Edit the placeholder values:
   - `layout` — `'stack'` (full-bleed, one image per row — best for a sequenced
     series) or `'grid'` (even grid — best for a set).
   - `images` — array of `{ src }`, each optionally with:
-    - `alt` — one plain sentence describing the photo (from the Phase 4 content
+    - `alt` — one plain sentence describing the photo (from the prepared content
       package; strongly recommended).
     - `caption` — shown under the image; many pros skip captions.
     - `aspect` — e.g. `'3 / 2'` — reserves the image's space before it loads so
@@ -39,7 +39,7 @@ social. Edit the placeholder values:
 
 ## Step 3 — Words: `content/en.js`, `ja.js`, `zh-hans.js`
 
-Each file has the **same shape**; translate the values. Fill from the Phase 4
+Each file has the **same shape**; translate the values. Fill from the prepared
 content package:
 
 - `meta.title` / `meta.description` — for the browser tab and sharing.

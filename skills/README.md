@@ -3,7 +3,7 @@
 Each skill is one directory here. To create one:
 
 1. Copy `_template/` to `<your-skill-name>/` (kebab-case).
-2. Edit `SKILL.md`:
+2. Rename `SKILL.md.example` to `SKILL.md`, then edit it:
    - `name` frontmatter must equal the directory name.
    - `description` is trigger-oriented: *when* should an agent use this skill?
    - The body is the guide the agent follows. Match the audience — beginner

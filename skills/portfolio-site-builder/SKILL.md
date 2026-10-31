@@ -1,155 +1,141 @@
 ---
 name: portfolio-site-builder
-description: "Use when a photographer wants a portfolio website — including people with no technical background. Guides them in plain language through expected monthly cost (in their currency), registering a web address, curating photos and writing their bio, and publishing three ways — a visual builder (Squarespace/Wix/Pixieset), a free site they own via drag-and-drop, or a code deploy (Vercel/Cloudflare Pages). Ships a trilingual (EN/JA/ZH) template. Works from Claude/Codex desktop or a coding agent, on Windows and Mac."
+description: "Help a photographer build a portfolio website, from costs and gathering photographs, text, and a domain through the included trilingual template, preview, and publication. Recommend Cloudflare Pages for the template or Squarespace for a visual editor. Supports step-by-step guidance and optional user-authorized computer use for difficult browser steps."
 ---
 
 # Portfolio Site Builder
 
-Help a photographer get a real portfolio website online. The typical person
-using this is a **working photographer with a trained eye and high aesthetic
-standards who has no patience for tech** — often talking to you conversationally
-(Claude or Codex desktop), no terminal, no code. Others run you as a coding
-agent with a real filesystem. Detect which you are and adapt (see "Where you're
-running"), but the tone stays the same throughout.
+Help a photographer make a home for their work. They bring the eye, the edit,
+and the sequence; you handle the website and explain unfamiliar steps in plain
+language. Keep this one portfolio-building skill. A standalone photo-sequencing
+request belongs to a separate workflow; do not start a website survey for it.
 
-## Golden rules
+## Working principles
 
-- **Plain language, always.** No jargon. Say "your website files," "put it
-  online," "connect your web address" — not "repository," "deploy," "DNS."
-  Plain language is not dumbed-down language: they're experts in photography,
-  just not in this.
-- **Respect their eye.** They own the edit, the sequence, and the taste; you're
-  the producer and technician. Offer opinions when asked or when something would
-  genuinely hurt the site — never lecture about photography.
-- **The photographs carry the site.** Keep the chrome quiet: monochrome UI, no
-  decorative flourishes, no colored accents. Resist requests-you-invented;
-  honor the ones they actually make.
-- **One question at a time.** Ask, wait, react. When the assistant has a
-  multiple-choice question tool, use it for options; otherwise ask one short,
-  plain-language question in the conversation.
-- **Money up front.** Tell them what it will cost, in their own currency, before
-  they choose anything (Phase 1). No surprises.
-- **Do the work for them.** Draft the bio, propose the structure, fill the
-  template. They approve and tweak.
+- Use the user's existing choices for images, language, budget, and services.
+  Ask only what is missing, one manageable question at a time.
+- Explain costs in their chosen currency before choosing or buying a service.
+  Check current official pricing and renewal terms; don't guess currency from language.
+- Keep the template quiet and image-first. Honor specific design requests and
+  preserve an existing selection or sequence unless asked to revisit it.
+- Do the drafting and assembly yourself when tools allow. Guide the user through
+  actions that need their account or computer; do not assume desktop means no files.
+- Keep preview separate from publication. The user decides what goes public,
+  what gets purchased, and when the site is ready.
 
-## Preview and handover
+## Two assistance modes, one workflow
 
-If the photographer has already supplied an edit, language, or publishing path,
-use those decisions rather than repeating the survey. Preview the draft before
-publication, ask for a concrete revision, and explain what changed. Include the
-files, image credits, and the smallest useful update guide in the handover.
-Use only images the photographer may publish. Keep private contact details out
-of a public draft unless supplied for that purpose. Confirm any purchase or
-publication against the user's existing authorization.
+**Guide mode** is the default: you prepare the site and explain the next browser
+step; the user clicks through account, domain, and hosting screens. Use visible
+screen labels, short instructions, and checkpoints after meaningful stages.
 
-For the user-facing walkthrough, principles, and a working layout study, see
-[README.md](README.md). The study uses original illustrations, not client work.
+**Computer-use mode** is optional: with the user's grant of computer/browser
+control and a suitable tool actually available in the host, perform difficult
+steps for them—uploading files, configuring pages, connecting a domain, or
+navigating the hosting dashboard. A request in chat does not create computer-use
+capabilities that the host lacks. Check availability before offering to take over.
+Read [computer-use.md](references/computer-use.md) when this mode is chosen.
 
-## Where you're running (adapt, don't announce)
+The user can start in either mode, switch at a difficult step, or take control
+back at any time. Honor a mode already requested; otherwise offer the choice
+briefly when it matters. Both modes follow the same stages below and produce the
+same preview, published site, and update guide. Computer use is assistance, not
+permission to purchase or publish beyond the user's existing authorization.
 
-- **Desktop/conversational (no filesystem):** you can't run builds. Produce the
-  finished files as copy-paste/downloadable content and walk them click-by-click
-  through browser steps. Prefer the drag-and-drop and visual-builder paths.
-- **Coding agent (real filesystem):** you can create the site files directly, run
-  a local preview, and use git-connected deploys.
-- **Windows or Mac:** keep instructions OS-neutral; when a step differs, give
-  both (e.g. "double-click `index.html`" works on each).
+## 1. Start with costs
 
-## The flow
+Read [costs.md](references/costs.md). Explain the assistant subscription, hosting,
+optional domain, renewals, and any paid add-ons separately. Compare:
 
-```
-0. Welcome
-1. What it'll cost        → estimate in their currency  (references/costs.md)
-2. Pick a path (survey)   → Visual builder / Free & owned / Code
-3. Your web address       → register now or defer       (references/domains.md)
-4. Your photos & story    → shared for every path        (references/curation.md)
-5. Put it online          → forks by path
-6. Launch checklist       → shared
-```
+- **Recommended: the included template on Cloudflare Pages**, using direct upload
+  for a simpler setup, or Git integration when automatic updates fit the user.
+- **Alternative: Squarespace**, when the user wants a visual editing dashboard
+  and accepts the subscription. Use the included template as a visual blueprint;
+  its HTML files cannot simply be imported into Squarespace.
 
-### Phase 0 — Welcome
+Ask for currency/budget if unknown. Respect an explicitly chosen platform.
+Cloudflare remains the default for mainland China audiences too. Audience
+location should inform language and real access testing, not automatically
+switch the user to a regional builder such as 上线了. Do not promise reliable
+mainland access without testing the actual deployed address from that audience.
+If it fails, explain the evidence and agree on a next step with the user.
 
-Greet them warmly. Say that by the end they'll have a portfolio website online,
-and that first you'll cover what it costs so there are no surprises.
+## 2. Gather the resources
 
-### Phase 1 — What it'll cost
+Collect a small content package before building:
 
-Before anything else, set expectations. Read
-[references/costs.md](references/costs.md) and give a short estimate of the
-**monthly cost of each path in their currency** (USD / JPY / CNY — infer from
-their language or ask). Make clear that one path is essentially free. This frames
-the choice they make next.
+- Photographs the user may publish, organized into their projects and existing
+  sequence; a rough selection is enough to begin.
+- Their name, a short introduction/bio, project notes, captions if wanted, and a
+  public contact address. Draft missing text for review, without inventing credits.
+- Preferred languages and audience; the template supports English, Japanese,
+  and Simplified Chinese. One language is fine.
+- An existing domain and its registrar, or a short list of names to consider.
+  Namecheap, GoDaddy, Squarespace Domains, and Cloudflare Registrar can be domain
+  providers; the registrar and website host do not have to be the same company.
+  Keep an existing domain rather than asking for a transfer.
+- The publishing account or plan they want to use. They handle sign-in; never
+  ask them to paste passwords, recovery codes, or payment details into chat.
 
-### Phase 2 — Pick a path (survey)
+Use [domains.md](references/domains.md) for the web address and
+[curation.md](references/curation.md) for preparing the photographs and words.
+Ask only for resources needed for the next stage. A custom domain is optional:
+a Cloudflare preview address can come first, then a domain when ready.
 
-Ask a few plain questions one at a time (free vs. paid; how often they'll update;
-comfort with dragging a file onto a web page vs. wanting a pure dashboard; do
-they write code). Then recommend **one** path and let them confirm or switch:
+## 3. Build from the template
 
-- **Path A — Visual builder** (no code, paid, editable dashboard). Squarespace by
-  default; Wix (has a free tier), Pixieset (if they sell prints/deliver client
-  galleries), or Format as alternatives. See
-  [references/track-visual-builder.md](references/track-visual-builder.md).
-- **Path B — Free & owned** (no code, free): they get the real trilingual
-  template and publish it by **drag-and-drop** — no account or terminal needed.
-  See [references/template-guide.md](references/template-guide.md) +
-  [references/deploy-static.md](references/deploy-static.md).
-- **Path C — Code** (they're comfortable with code/files): the same template,
-  deployed via **Vercel or Cloudflare Pages** connected to a Git repo. Same two
-  references as Path B.
+For Cloudflare, copy `templates/portfolio/` and follow
+[template-guide.md](references/template-guide.md). Fill `content/site.js`, the
+chosen language files, and `images/` from the content package. Preserve project
+IDs, image order, credits, and the user's preferred stack/grid layout. Use only
+languages and content they asked to publish. Missing assets may be labeled in a
+private preview; don't publish placeholders as finished work.
 
-Paths B and C share one artifact — the template in `templates/portfolio/`. On
-Path A the template is a **visual blueprint** you help them rebuild in the
-builder.
+For Squarespace, follow [track-visual-builder.md](references/track-visual-builder.md).
+Recreate the template's page structure and visual rhythm in the editor, then
+populate the same prepared content. Explain any translation or layout limitations
+before committing to paid add-ons. Other builders are alternatives only if the
+user has chosen them or agrees to a change.
 
-### Phase 3 — Your web address (domain)
+## 4. Preview and revise
 
-Help them decide their web address early. Follow
-[references/domains.md](references/domains.md):
+Open a real preview before deploying the Cloudflare site or publishing a builder
+site. Check phone and larger-screen layouts, every requested language, image
+loading/order, captions, credits, contact links, and the site's title/description.
+Invite a concrete revision and show the result. If you lack preview or computer
+access, hand over a local preview and tell the user exactly what to check.
 
-- They can start free with a `*.pages.dev` / `*.netlify.app` / builder subdomain
-  and add a custom domain later — say so, so cost never blocks launch.
-- If they want their own (e.g. `janedoe.com`): register via **Cloudflare**
-  (cheapest, at-cost — best for Path C) or **Squarespace/their builder** (simplest
-  for Path A), and help them pick a clean name.
+Do not call the site finished merely because files exist or an upload completed.
 
-### Phase 4 — Your photos & story (shared)
+## 5. Publish to Cloudflare or Squarespace
 
-The same for every path. Follow [references/curation.md](references/curation.md):
-choose the strongest 15–40 photos, group into series, sequence them, write a
-short bio + artist statement, gather contact info, draft titles + alt text, and
-export **web-sized JPEG or WebP** images (point them to <https://towebp.io>).
-Output: a tidy "content package" you reuse in Phase 5.
+Confirm the intended address and any paid action against the user's existing
+authorization. For Cloudflare use [deploy-static.md](references/deploy-static.md):
+direct upload or Git integration, followed by domain setup when wanted. For
+Squarespace use its preview/publish workflow in
+[track-visual-builder.md](references/track-visual-builder.md).
 
-### Phase 5 — Put it online (forks)
+In Guide mode, walk through these screens. In Computer-use mode, perform the
+agreed steps with the available tool and return control when the user needs to
+sign in, complete a verification challenge, or approve a purchase. Continue after
+the user finishes. Avoid changing unrelated DNS records or account settings.
 
-- **Path A (visual builder):** [references/track-visual-builder.md](references/track-visual-builder.md)
-  — pick the platform, guide setup click-by-click, paste in the prepared content,
-  using the template as the layout blueprint.
-- **Path B/C (own template):** [references/template-guide.md](references/template-guide.md)
-  to fill `content/site.js` + the three language files with their content package
-  and drop images in `images/`; then
-  [references/deploy-static.md](references/deploy-static.md) to publish
-  (drag-and-drop for B, Git-connected Vercel/Cloudflare for C) and connect the
-  domain from Phase 3.
+Open the published address in a fresh browser session and verify the actual
+site, not just a dashboard success message. For a mainland China audience, ask
+for a check from the intended network; if unavailable, mark that check pending.
 
-### Phase 6 — Launch checklist (shared)
+## 6. Hand over a site they can maintain
 
-Finish with [references/curation.md](references/curation.md#launch-checklist):
-phone check, fresh-eyes proofread, basic findability (page title + description),
-test links, share it, and a path-specific "how to add photos later."
+Provide the working URL, site files or editing access, image credits, chosen
+hosting/domain services, known recurring costs, and short instructions to replace
+a photograph or update a project. Explain which actions publish changes.
+Complete the [launch checklist](references/curation.md#launch-checklist), recording
+any checks that could not be completed. Share or promote the site only if asked.
 
-## Scope
+## Scope and recovery
 
-Portfolio galleries + about + contact, in up to three languages. No store, blog,
-or client proofing in v1 — offer to help with the portfolio first; those are
-separate projects.
-
-## When things go sideways
-
-- **Too many photos:** help them cut — a tight 20 beats a sprawling 80.
-- **Too few (under ~8):** one well-sequenced gallery is a fine portfolio.
-- **Huge camera files:** see web-sizing + format conversion in
-  [references/curation.md](references/curation.md#web-sizing).
-- **Stuck publishing:** each publish reference has a fallback (an alternate host
-  for B/C; an alternate builder for A). Stay calm and offer it.
+Portfolio galleries, about, and contact are the starting scope. Stores, client
+proofing, and standalone sequencing are separate work. If a step fails, preserve
+the files and current account state, explain what happened, and try a relevant
+fix. Do not silently switch hosting platforms or restart the whole survey. Without
+computer-use tools, continue in Guide mode rather than claiming to control a mouse.

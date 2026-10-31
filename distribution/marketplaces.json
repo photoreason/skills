@@ -29,8 +29,8 @@
     "plugins": [
       {
         "name": "photoreason-skills",
-        "description": "Skills for photographers: portfolio building, curation, and creative workflows for coding agents.",
-        "version": "0.2.0",
+        "description": "Build and publish a photography portfolio with a guided, plain-language workflow.",
+        "version": "0.3.0",
         "source": {
           "source": "url",
           "url": "https://github.com/photoreason/skills.git"

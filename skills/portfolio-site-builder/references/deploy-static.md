@@ -1,72 +1,64 @@
-# Putting the template online (Paths B & C)
+# Publish the template on Cloudflare Pages
 
-The template is a plain static site, so it deploys anywhere. Pick by comfort:
+Cloudflare Pages is the recommended host for this static template, including
+when the intended audience is in mainland China. Do not automatically replace it
+with a regional website builder. Test the actual published address with the
+intended audience; do not promise access or speed you have not checked.
 
-- **Path B — no code:** drag-and-drop (no account or terminal to start).
-- **Path C — code:** Git-connected Vercel or Cloudflare Pages (auto-rebuilds on
-  every push).
+Use Guide mode for step-by-step instructions, or the user-granted Computer-use
+mode for difficult screens. Both routes need a Cloudflare account. Preview the
+finished site locally before uploading. Keep accounts and purchases in the
+photographer's name.
 
-## Path B — Drag-and-drop (no code)
+## Direct upload: the simpler route
 
-### Option 1: Cloudflare Pages (recommended, free, keeps it)
+Use the current [Cloudflare Direct Upload guide](https://developers.cloudflare.com/pages/get-started/direct-upload/)
+as the source for screen names and upload limits.
 
-1. Create a free **Cloudflare** account.
-2. **Workers & Pages → Create → Pages → Upload assets**.
-3. Name the project, then **drag the entire site folder** (the one containing
-   `index.html`) onto the upload area.
-4. **Deploy.** It's live at `your-project.pages.dev`.
+1. Have the user sign into Cloudflare. Open Workers & Pages and create a Pages
+   project using direct upload (drag and drop).
+2. Name the project. Upload the prepared website folder or supported ZIP, with
+   `index.html` at the site's root—not a parent folder containing another folder.
+3. Confirm the intended public content and publish when authorized.
+4. Open the resulting `*.pages.dev` address in a fresh tab. Check images,
+   navigation, language switching, contact links, and a phone-sized viewport.
 
-### Option 2: Netlify Drop (fastest, no account to start)
+Explain before project creation: a direct-upload Pages project cannot later be
+switched to Git integration. If they expect automatic updates from Git, choose
+that route at the start. Do not describe direct upload as account-free.
 
-1. Go to <https://app.netlify.com/drop>.
-2. Drag the whole site folder onto the page. It's live in seconds at a
-   `*.netlify.app` address.
-3. Make a free account when prompted to keep the site and manage it.
+## Git integration: automatic updates
 
-Reassure them: publishing uploads copies of the finished website files; their
-original files remain on their computer and stay under their control.
+Follow the current [Cloudflare Git integration guide](https://developers.cloudflare.com/pages/get-started/git-integration/).
 
-## Path C — Git-connected (code)
+1. Put the finished site in the user's chosen Git repository and have them
+   authorize the required repository access.
+2. Create a Pages project connected to it. Select the intended production branch.
+3. The supplied template needs no build step. Set the output/root directory to
+   the folder containing `index.html`, using the current static-HTML guidance.
+4. Explain that later pushes to the production branch publish changes. Deploy
+   the reviewed version when authorized, then verify the actual address.
 
-Same template, deployed from a Git repo so pushes publish automatically.
+## Connect the web address
 
-### Vercel
+Follow [Cloudflare's custom-domain guide](https://developers.cloudflare.com/pages/configuration/custom-domains/).
+Add the domain to the Pages project first. A root/apex domain requires the zone
+on Cloudflare; a subdomain can use the documented CNAME route at an external DNS
+provider. Explain the difference before requesting any nameserver change.
 
-1. Put the site folder in a Git repo (GitHub/GitLab).
-2. On **vercel.com**, **Add New → Project → Import** the repo.
-3. Framework preset **Other**, no build command, output = the folder with
-   `index.html` (repo root if that's where it is). **Deploy.**
+An existing Namecheap, GoDaddy, or Squarespace registration can remain there.
+Registration and DNS hosting are different services. Preserve mail and unrelated
+records, use the exact values shown for this project, and check HTTPS and the
+chosen www/root address after setup. Don't guess propagation times or promise
+that a custom domain resolves mainland connectivity issues.
 
-### Cloudflare Pages
+## Update and hand over
 
-1. **Workers & Pages → Create → Pages → Connect to Git**, pick the repo.
-2. Build command: none. Build output directory: the folder with `index.html`.
-   **Save and Deploy.**
+- Direct upload: update the local content, preview it, then create a new deployment
+  of the same project. Keep a copy of the working website folder.
+- Git: update and preview, then publish through the chosen branch workflow.
 
-## Connect a custom domain
-
-Once live, connect the Phase 3 domain:
-
-- **Cloudflare Pages + domain at Cloudflare:** **Custom domains → Set up a domain**
-  → pick it → automatic.
-- **Netlify/Vercel:** **Domain settings → Add domain**, then the host shows the
-  exact DNS records to paste at wherever the domain was bought. Walk them through
-  pasting each one. Propagation can take up to a few hours.
-
-## Updating later
-
-- **Path B:** re-drag the folder onto Cloudflare Pages (Create a new deploy) or
-  Netlify Drop. Offer to add the new photos to `site.js` for them first.
-- **Path C:** commit and push; the host rebuilds automatically.
-
-To add photos: drop web-sized JPEG/WebP into `images/`, add a matching entry to
-the project's `images` array in `content/site.js` (and a project block in each
-language file if it's a new series). See
-[template-guide.md](template-guide.md).
-
-## Fallback if a host won't cooperate
-
-- Drag-and-drop blocked? Try the other drag-and-drop host (Cloudflare Pages ↔
-  Netlify Drop), or **Tiiny Host** (accepts a ZIP).
-- The finished files are portable — only "where it lives" changes. Stay calm and
-  switch hosts.
+Give the user the project URL, live address, domain provider, and a short guide
+to changing images and text. If publication fails, preserve the files and explain
+the failed step. Offer a relevant fix or return to Guide mode; change hosts only
+with the user's agreement. An explicitly chosen existing host can be retained.

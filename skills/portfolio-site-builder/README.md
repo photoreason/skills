@@ -2,13 +2,15 @@
 
 A small home for a body of work. The assistant handles the website; you keep the edit.
 
+<img src="assets/website-builder-wordmark.png" alt="Website Builder" width="280">
+
 ## Install, then start
 
 For a desktop plugin workflow, use the installation panel at
 [Photo Reason Lab](https://photoreason.art/en/lab/skills). Add the Photo Reason
 marketplace once, then install Photo Reason Skills in your assistant's plugin UI.
 The guide separates adding the source, installing the plugin, and updating later.
-The terminal method below is an alternative for installing just this skill.
+On a new Mac, [check Git before adding the marketplace](../../README.md#before-adding-the-codex-marketplace-on-a-mac). The terminal method below is an alternative for installing just this skill.
 
 You need Node.js and a coding assistant that reads skills. In your website project folder:
 
@@ -30,13 +32,30 @@ Bring a small selection of images you may publish, your name, a note about the w
 and a contact address. Your assistant may have a subscription cost. Hosting and a
 custom web address are separate choices; check current prices in your currency first.
 
-## From first conversation to handover
+## Two ways to work
 
-1. Review costs and choose a visual builder, a downloadable site, or a code workflow.
-2. Propose the selection and sequence, or give the assistant your existing edit.
-3. Review the draft on your phone. Check every language, image credit, and contact link.
-4. Approve paid services and publication before proceeding. Keep a short guide to replacing
-   photographs and updating the site.
+**Guided:** the assistant prepares the site and explains each browser step. You
+handle account, domain, and publishing screens.
+
+**Computer use:** if your assistant exposes a computer/browser-control tool, you
+can grant it access to handle difficult steps such as uploading files or connecting
+a domain. You keep control of sign-in, verification, purchases, and publication.
+You can switch back to guidance at any time. Installing this skill alone does not
+add mouse-control capability to a host that lacks it.
+
+Both modes follow the same sequence:
+
+1. Understand current costs and choose a budget/currency.
+2. Gather photographs, introductions, project text, and any domain. An existing
+   Namecheap, GoDaddy, Squarespace, or Cloudflare registration can stay where it is.
+3. Build from the supplied template, or recreate its layout in Squarespace.
+4. Review a real preview on a phone and larger screen; make a revision.
+5. Publish to Cloudflare Pages (recommended) or Squarespace when ready, verify
+   the live address, and keep a short update guide.
+
+Cloudflare remains the recommended template host for mainland China audiences.
+Test the actual site from the audience's network; do not assume the result.
+Portfolio building stays one skill. Standalone sequencing will be separate when ready.
 
 ## What guides the work
 

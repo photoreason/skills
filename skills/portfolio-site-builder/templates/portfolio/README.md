@@ -2,7 +2,7 @@
 
 A minimal, monochrome, image-first photographer portfolio in the Photo Reason
 house style. **Zero build, no framework, no server** — it runs by double-clicking
-`index.html` and deploys as-is to Cloudflare Pages, Netlify, or Vercel.
+`index.html` and deploys as-is to Cloudflare Pages (the recommended host).
 
 Trilingual out of the box: **English / 日本語 / 简体中文**, with a language switch
 top-right (remembers the visitor's choice).
@@ -47,5 +47,4 @@ friendly system fonts; it makes no third-party font request.
 
 ## Deploy
 
-See `../../references/deploy-static.md` — drag-and-drop (no account/coding) or
-git-connected (Vercel / Cloudflare Pages).
+See `../../references/deploy-static.md` — Cloudflare direct upload (a free account is required) or Git integration.

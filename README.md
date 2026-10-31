@@ -2,13 +2,27 @@
 
 [简体中文](README.zh-Hans.md) · English
 
-Open-source agent skills for photographers. Photo Reason Skills helps
-photographers—including people with no technical background—build portfolio
-websites, curate and sequence work, and complete creative workflows with Claude,
-Codex, Kimi Code, Gemini, Cursor, OpenCode, and Pi.
+Open-source agent skills for photographers, with Codex as the primary installation
+experience and native manifests for Claude Code and Kimi Code. This release
+contains one skill: Portfolio Site Builder, from a selection of photographs to a
+published website.
+
+Portfolio building stays one skill. A dedicated photo-sequencing workflow belongs
+in its own skill and marketplace entry when it is ready; it is not included or
+advertised as an available skill here. Existing selections and sequences remain
+the photographer's decisions.
 
 The skills in this repository are the source of truth for
 [Photo Reason Lab](https://www.photoreason.art/en/lab).
+
+## Two ways to work
+
+Guide mode walks the user through costs → photographs, text, and domain resources
+→ the included template → preview → publication on Cloudflare Pages or Squarespace.
+Computer-use mode follows the same flow, with user-granted browser/computer control
+for difficult steps when the host supplies that capability. Users can take control
+back at any time. Cloudflare is the recommended template host, including for mainland
+China audiences; real network access still needs testing.
 
 ## Available skills
 
@@ -34,7 +48,7 @@ Installation and publication are separate steps. Other installation methods foll
 
 ## Photo Reason marketplace URLs
 
-When the website changes are deployed, the branded entry points are:
+The branded entry points are:
 
 | Client | Add this source |
 | --- | --- |
@@ -59,13 +73,59 @@ catalogs are generated from this repository. The website refreshes the published
 with a five-minute cache and falls back to its committed snapshot during an outage.
 Run `pnpm build:registry` here and `pnpm skills:sync --source <checkout>` in the site
 when updating that fallback and the example assets.
-Publish the skills changes before the website so the Git source contains the new native manifest.
+Keep the skills release and the website fallback snapshot in sync.
 
 Sources: [OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins),
 [Codex CLI marketplace commands](https://learn.chatgpt.com/docs/cli/reference),
 [Claude marketplace hosting](https://code.claude.com/docs/en/plugins/host-marketplace).
 
+## Before adding the Codex marketplace on a Mac
+
+Codex uses Git to download a Git marketplace. On a new Mac, Apple's Command Line
+Tools may need to be installed first. Full Xcode is not required.
+
+1. Open Terminal and run `git --version`.
+2. If macOS offers to install developer tools, accept and finish the installation.
+   You can also start it with `xcode-select --install`.
+3. Run `git --version` again. Once it prints a version, quit and reopen Codex,
+   then retry adding the marketplace.
+
+An `xcode-select: No developer tools were found` error happens before the clone
+can read this repository. Changing our Git URL, adding a manifest, or using a
+JSON catalog cannot fix that local prerequisite. If Xcode is already installed,
+open it once and finish its setup; see Apple's guidance if the active developer
+tools location still needs correcting. Do not change it to a guessed path.
+
+[Apple: installing command-line tools](https://developer.apple.com/documentation/xcode/installing-the-command-line-tools/)
+
+### Without Git
+
+If you prefer to avoid Git, download **Code → Download ZIP** from this repository
+and extract it into a permanent folder. In a Codex version with the CLI's local
+marketplace support, register that extracted folder, then install the plugin:
+
+```sh
+codex plugin marketplace add "/full/path/to/skills-main"
+codex plugin add photoreason-skills@photoreason-skills
+```
+
+Replace the example path with your extracted folder. This local route bypasses
+Git cloning; it does not receive Git marketplace upgrades. For updates, download
+the new ZIP and register/reinstall the local source. Do not paste a ZIP or JSON
+URL into the Git marketplace field.
+
 ## Install
+
+### Codex
+
+```bash
+codex plugin marketplace add photoreason/skills
+```
+
+Quit and reopen Codex, open **Plugins**, choose the Photo Reason
+marketplace, and install **Photo Reason Skills**. Invoke the skill explicitly
+with `$portfolio-site-builder`, or describe the portfolio task naturally.
+
 
 ### Kimi Code
 
@@ -101,15 +161,12 @@ may select the skill automatically when the request matches its description.
 /plugin install photoreason-skills@photoreason-skills
 ```
 
-### Codex
+### Other clients
 
-```bash
-codex plugin marketplace add photoreason/skills
-```
-
-Restart the ChatGPT desktop app, open **Plugins**, choose the Photo Reason
-marketplace, and install **Photo Reason Skills**. Invoke the skill explicitly
-with `$portfolio-site-builder`, or describe the portfolio task naturally.
+The portable `SKILL.md` is independent of the model provider. A DeepSeek-backed
+setup uses the installation method of its host (for example Codex or OpenCode);
+we do not claim a separate DeepSeek marketplace format or a tested native
+DeepSeek integration.
 
 ### Gemini CLI
 

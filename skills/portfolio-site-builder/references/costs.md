@@ -1,46 +1,38 @@
-# What it'll cost (price estimator)
+# Costs before choosing a service
 
-Give the photographer a clear, honest estimate **before** they choose a path, in
-**their own currency**. Infer the currency from their language (English → USD,
-日本語 → JPY, 简体中文 → CNY) or just ask.
+Ask for the user's budget and currency if unknown. Language and audience location
+do not determine either. Keep a custom domain optional so a purchase does not
+block building or previewing the portfolio.
 
-Prices below are **approximate** and change over time and by region. When web
-access is available, check the provider's official pricing page and a current
-exchange rate before quoting; otherwise say these are planning estimates and
-offer to check again before they pay.
+## Give a small cost breakdown
 
-## Two things cost money: the web address, and the hosting
+Check the current official pages before quoting amounts:
 
-### 1. Web address (domain) — optional, shared by every path
+| Item | What to explain | Where to check |
+| --- | --- | --- |
+| Assistant | Their existing subscription or usage charges, separately from the site | The assistant's official pricing |
+| Cloudflare Pages | Recommended template hosting; check free-tier limits and any paid extras | [Cloudflare Pages pricing](https://developers.cloudflare.com/pages/functions/pricing/) |
+| Squarespace | Alternative visual editor; compare the plan, billing cycle, taxes, and renewals | [Squarespace pricing](https://www.squarespace.com/pricing) |
+| Domain | Optional annual registration, renewal, privacy, and any transfer charges | [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/), [Namecheap](https://www.namecheap.com/domains/), [GoDaddy](https://www.godaddy.com/domains), or [Squarespace Domains](https://domains.squarespace.com/) |
 
-A custom domain like `janedoe.com` is roughly:
+Distinguish first-year promotions from later renewals and annual billing from
+month-to-month prices. Don't call a registrar the cheapest without a current
+comparison. Don't add email, commerce, analytics, translation, or other paid
+services unless the user needs them.
 
-| | USD | JPY (≈) | CNY (≈) |
-| --- | --- | --- | --- |
-| `.com`, per year | ~$10–12 | ~¥1,600–1,900 | ~¥75–90 |
+Summarize the Cloudflare/template option and the Squarespace/editor option in
+their currency, with the price-check date and source. If browsing is unavailable,
+state which costs remain unverified and defer purchases until checked. Do not
+reuse stale fixed exchange rates or present an estimate as a current quote.
 
-That's about **$1 a month**. Cloudflare sells domains at cost (cheapest);
-Squarespace/other builders bundle one **free for the first year** on annual plans.
-They can also **start with a free address** (`*.pages.dev`, `*.netlify.app`, or a
-builder subdomain) and add a domain later — so this never blocks launch.
+## Make a recommendation
 
-### 2. Hosting — this is where the paths differ
+Recommend the included template on Cloudflare Pages for a simple portfolio. This
+remains the recommendation for a mainland China audience; audience access still
+needs a real test. Offer Squarespace when the user values a visual editing
+dashboard and accepts the checked subscription cost. Retain an existing chosen
+platform rather than requiring a move.
 
-| Path | What they get | USD / month | JPY (≈) | CNY (≈) |
-| --- | --- | --- | --- | --- |
-| **B/C — Free & owned / Code** | The real template on Cloudflare Pages, Netlify, or Vercel free tier | **$0** | **¥0** | **¥0** |
-| **A — Squarespace** | Polished visual builder + galleries | ~$16–23 | ~¥2,400–3,500 | ~¥115–165 |
-| **A — Wix** | Visual builder; free tier has Wix ads + a `wixsite.com` address | **$0** free · ~$17 paid | ¥0 · ~¥2,600 | ¥0 · ~¥120 |
-| **A — Pixieset** | Photographer-focused; can also sell prints / deliver client galleries | **$0** free · ~$12–15 | ¥0 · ~¥1,800–2,300 | ¥0 · ~¥85–110 |
-| **A — Format** | Minimal, portfolio-first builder | ~$10–18 | ~¥1,500–2,700 | ~¥70–130 |
-
-## The one-line summary to give them
-
-- **Cheapest:** Path B (free & owned) or Path C (code) — **$0/month**, plus about
-  **$1/month** if they want their own domain. The site is a free-hosted static
-  site; the only real cost is the optional web address.
-- **Easiest to edit later yourself:** Path A visual builder — **~$16–23/month**
-  for Squarespace (or free with Wix/Pixieset if they accept ads/a subdomain),
-  usually with a free domain the first year.
-
-Then move to the survey (Phase 2) so they choose with these numbers in mind.
+Once they understand the costs, gather their photographs, introduction, domain
+choices, and hosting account. Their assistance mode (guided clicks or authorized
+computer use) does not change the services they need or the costs to explain.

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Portfolio Site Builder"
+  short_description: "Build and publish a home for your photographs"
+  icon_small: "./assets/website-builder.png"
+  icon_large: "./assets/website-builder-wordmark.png"
+  brand_color: "#164487"
+  default_prompt: "Use $portfolio-site-builder to help me make a website for my photographs."

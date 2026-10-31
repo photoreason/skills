@@ -1,74 +1,42 @@
-# Path A — Visual builder (no code, editable dashboard)
+# Publish with the Squarespace visual editor
 
-For photographers who want to edit their site themselves in a point-and-click
-dashboard and don't mind a subscription (or accept a free tier's limits). You
-recommend one platform, then guide setup click-by-click, using the template as
-the **visual blueprint** and handing over the prepared content to paste in.
+Use this route when the user chooses a paid visual editor instead of the
+Cloudflare-hosted template. Use `templates/portfolio/` as a visual blueprint;
+its HTML files are not imported into Squarespace. Other builders remain available
+when the user explicitly chooses them or agrees to switch.
 
-> The hand-coded template can't be uploaded into a visual builder — you rebuild
-> its structure inside the builder. Use `templates/portfolio/` as the reference
-> for layout, section order, and tone.
+## Prepare and build
 
-## Pick one platform
+Check current official Squarespace pricing, plan features, domain terms, and
+language support before selecting a plan. Gather the same photographs, project
+notes, introduction, and contact details as for the Cloudflare route.
 
-Recommend a single option from the survey — don't list all four at them:
+Guide the user through the screens, or use the available computer-use tool for
+agreed steps after they grant control. They handle sign-in, verification, and
+payment entry. Read the current screen rather than inventing button labels.
 
-| Platform | Best when | Cost | Watch out for |
-| --- | --- | --- | --- |
-| **Squarespace** | Most polished all-rounder; great galleries | ~$16–23/mo | Trial then paid; no free tier |
-| **Wix** | Wants a free tier; maximum layout flexibility | Free (ads + `wixsite.com`) or ~$17/mo | Can't swap template after publishing; heavier/slower pages |
-| **Pixieset** | May sell prints or deliver client galleries | Free tier or ~$8–16/mo | Photographer-specific, less general-purpose |
-| **Format** | Wants a minimal, portfolio-first builder | ~$10–18/mo | Fewer non-portfolio features |
+1. Create or open the user's site and choose an image-first design close to the
+   supplied template: quiet navigation, generous space, and large photographs.
+2. Make the project/gallery, about, and contact pages from the prepared content.
+   Preserve the user's image order, credits, and chosen public contact details.
+3. Set page titles and descriptions. Review multilingual requirements before
+   adding any paid translation service or promising template parity.
+4. Show desktop and mobile previews. Check images, captions, contact links,
+   and each requested language; ask for a revision before publication.
 
-Default: **Squarespace** for a general portfolio; **Wix** if they specifically
-want free; **Pixieset** if they mentioned selling or client work. State your one
-pick in a sentence and let them switch.
+## Domain and publication
 
-## Guided setup (works for any of them)
+An existing Namecheap, GoDaddy, Squarespace, or other registration can stay with
+its registrar. Follow Squarespace's current external-domain workflow and preserve
+mail/unrelated records. Confirm any purchase or publication against the user's
+existing authorization; permission to control a mouse alone is not permission
+to buy a plan or publish a site.
 
-Walk through one click at a time, pausing for each:
+Publish the reviewed version, open its real address in a fresh browser session,
+and check the result. For a mainland China audience, ask for an access check from
+the intended network. Do not assume a chosen service guarantees connectivity.
 
-1. **Create the account**; start the free trial/tier.
-2. **Choose a clean, image-first template/theme.** Match the blueprint: minimal,
-   lots of whitespace, big images, simple nav. Tell them exactly which to click.
-   (On Wix, choose carefully — the template can't be changed later.)
-3. **Site title & tagline** — paste from the content package.
-4. **Build the galleries** — one gallery/page per series from Phase 4. Upload the
-   web-sized photos **in order**; paste each photo's title/alt text into the
-   caption/alt fields.
-5. **About page** — paste the bio + artist statement.
-6. **Contact** — paste the email; enable the builder's contact form if wanted (no
-   personal phone number).
-7. **Menu order** — Home, the galleries, About, Contact.
-8. **Preview on mobile** with the builder's device preview.
-
-### Languages on a visual builder
-
-Multilingual support varies and is often a paid add-on. If they need EN/JA/ZH and
-the builder makes it hard or costly, that's a reason to prefer **Path B** (the
-template is trilingual for free) — offer the switch.
-
-## Connect a web address
-
-- Free builder subdomain works to launch.
-- Own domain: **Settings → Domains** in the builder. If bought there, it's
-  automatic; if external, the builder shows records to paste at the registrar —
-  walk them through it. Squarespace annual plans usually include a free domain
-  the first year.
-
-## Publish
-
-Hit the builder's **Publish** button. Confirm the live address works in a fresh
-browser tab, then go to the launch checklist.
-
-## Updating later
-
-The easy part of Path A: log in, open the page, drag in new photos or edit text,
-hit **Publish**. That's what they're paying for.
-
-## Fallback
-
-- If the chosen platform's trial/checkout blocks them, switch to another row —
-  the content package pastes into any of them.
-- If the subscription becomes a dealbreaker, offer **Path B** (free & owned) —
-  you already have everything needed.
+Leave editing access and a short guide to changing photographs, text, and pages,
+including which actions publish those edits. If cost or editor limits make this
+route unsuitable, explain the issue and agree on a switch to Cloudflare/template
+rather than silently choosing another platform.
