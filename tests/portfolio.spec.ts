@@ -221,3 +221,21 @@ test('mobile gallery fits the viewport, traps focus, and respects reduced motion
       .evaluate((e) => getComputedStyle(e).objectFit),
   ).toBe('contain')
 })
+
+
+test('a short CJK photographer name stays on one line at desktop size', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 })
+  await page.goto(example + '?lang=en')
+  await page.evaluate(() => {
+    const translations = (window as any).PORTFOLIO_I18N
+    translations['zh-hans'].hero.name = '潘超群'
+  })
+  await page.getByRole('button', { name: '简体', exact: true }).click()
+  await expect(page.locator('#heroName')).toHaveText('潘超群')
+  const lines = await page.locator('#heroName').evaluate(element => {
+    const range = document.createRange()
+    range.selectNodeContents(element)
+    return range.getClientRects().length
+  })
+  expect(lines).toBe(1)
+})

@@ -55,6 +55,11 @@ content package:
 **If they only want one language:** delete the `<script src="content/ja.js">`
 and `zh-hans.js` lines from `index.html`; the language switch hides itself.
 
+Before publishing, also write the default language's title/description and an
+absolute `og:image` URL into the static `<head>` of `index.html`. Keep runtime
+language switching, but do not rely on JavaScript for social previews: many share
+crawlers do not execute it. Check the fetched HTML as well as the browser DOM.
+
 ## Step 4 — Images
 
 Drop web-sized **JPEG/WebP** photos into `images/` at the paths named in

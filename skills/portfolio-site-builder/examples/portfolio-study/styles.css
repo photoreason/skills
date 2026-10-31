@@ -95,8 +95,10 @@ a {
   z-index: 40;
   display: flex;
   gap: 0.75rem;
-  mix-blend-mode: difference; /* stays legible over any hero image */
-  color: #fff;
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+  background: var(--paper-veil);
+  color: var(--ink);
 }
 
 .lang-switch button {
@@ -110,7 +112,7 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: inherit;
-  opacity: 0.55;
+  opacity: 0.72;
   transition: opacity 0.2s;
 }
 
@@ -188,6 +190,16 @@ a {
 
 .hero__wordmark {
   align-self: end;
+  max-width: 20ch;
+}
+
+/* Body-sized ch units should not force CJK names into one character per line. */
+.hero__wordmark:lang(zh-Hans),
+.hero__wordmark:lang(ja) {
+  max-width: min(100%, 40rem);
+}
+.hero__wordmark:lang(zh-Hans) .hero__tagline,
+.hero__wordmark:lang(ja) .hero__tagline {
   max-width: 20ch;
 }
 
