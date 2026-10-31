@@ -90,6 +90,8 @@ the evidence and agree on a next step rather than silently replacing the host.
 
 Provide the URL, files or editing access, credits, known recurring costs, and
 short instructions to update a photo or project, identifying what publishes changes.
+For Cloudflare, help review or set a few [budget alerts](references/deploy-static.md#budget-alerts-before-handover)
+before wrapping up.
 Use the [launch checklist](references/curation.md#launch-checklist); do not call
 files or a successful upload a verified launch. Share/promote only when asked.
 If a step fails, preserve progress, explain it, and continue from the last useful

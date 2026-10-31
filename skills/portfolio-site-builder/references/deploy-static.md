@@ -72,6 +72,29 @@ records, use the exact values shown for this project, and check HTTPS and the
 chosen www/root address after setup. Don't guess propagation times or promise
 that a custom domain resolves mainland connectivity issues.
 
+## Budget alerts before handover
+
+After verifying the live site, help the user review existing alerts and set
+**2–3 useful thresholds** where available. Use the current
+[budget-alert guide](https://developers.cloudflare.com/billing/manage/budget-alerts/)
+for eligibility and screens; do not assume every account has this option.
+
+1. Open **Manage Account → Billing → Billable Usage → Budget alerts**.
+   Review existing/default alerts first; avoid duplicates or changing unrelated alerts.
+2. Agree early-warning, near-budget, and budget thresholds using the user's
+   existing budget and other account usage. Enter positive **USD amounts**, not
+   percentages: for an agreed $10 metered budget, $5 / $8 / $10 are examples,
+   not universal defaults. Confirm recipient addresses.
+3. Guide creation, or configure within existing authorization. Check the saved
+   amounts and recipients; hand over the settings location and actual status.
+   If unavailable or declined, record that rather than claiming alerts are enabled.
+
+These alerts cover account-wide metered spend, not just this portfolio.
+They are delayed notifications, **not spending caps**. Recurring subscriptions
+and domain renewals need separate cost tracking. Review relevant
+[product usage notifications](https://developers.cloudflare.com/billing/understand/usage-based-billing/)
+if applicable. Do not activate paid services just to enable alerts for a static site.
+
 ## Update and hand over
 
 - Direct upload: update the local content, preview it, then create a new deployment
