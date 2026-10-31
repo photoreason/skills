@@ -148,7 +148,7 @@ For a quick test, install directly from GitHub instead:
 Start the portfolio workflow with:
 
 ```text
-/skill:portfolio-site-builder
+/skill:photoreason-skills:portfolio-site-builder
 ```
 
 You can also say, “Help me build a portfolio website for my photography.” Kimi
@@ -160,6 +160,20 @@ may select the skill automatically when the request matches its description.
 /plugin marketplace add photoreason/skills
 /plugin install photoreason-skills@photoreason-skills
 ```
+
+### Grok Build and Grok Bot
+
+Grok Build supports Claude-compatible plugins and can reuse this repository's
+existing marketplace and skill tree. Use its `/plugins` and `/skills` interfaces.
+
+Grok Bot has a different skills library. Supply the **complete**
+`skills/portfolio-site-builder/` folder to its computer and ask it to read
+`SKILL.md`; do not provide only the entrypoint or assume the Codex marketplace
+command works in Grok Bot. Its authenticated app installation flow still needs
+a smoke test.
+
+See the [compatibility notes](docs/compatibility.md) for invocation names,
+what has been verified, and the distinction between these two Grok products.
 
 ### Other clients
 

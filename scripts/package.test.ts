@@ -24,3 +24,18 @@ test('Codex branding resolves to a packaged PNG and a real skill prompt', () => 
   }
   assert.ok(plugin.interface.defaultPrompt.every((prompt: string) => prompt.includes('$portfolio-site-builder')))
 })
+
+test('native hosts resolve the complete portable skill from the plugin root', () => {
+  for (const path of ['.codex-plugin/plugin.json', '.claude-plugin/plugin.json', '.kimi-plugin/plugin.json']) {
+    const plugin = read(path)
+    assert.equal(plugin.name, 'photoreason-skills')
+    assert.equal(plugin.version, read('package.json').version)
+    const directory = plugin.skills ?? './skills/' // Claude's conventional default.
+    assert.equal(typeof directory, 'string')
+    const bundled = resolve(root, directory, 'portfolio-site-builder')
+    assert.ok(bundled.startsWith(root + '/'))
+    for (const asset of ['SKILL.md', 'references/template-guide.md', 'templates/portfolio/index.html', 'templates/portfolio/app.js']) {
+      assert.ok(existsSync(resolve(bundled, asset)), `${path} loses ${asset}`)
+    }
+  }
+})

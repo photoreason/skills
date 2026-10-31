@@ -16,7 +16,7 @@
     "creative-workflows"
   ],
   "skills": "./skills/",
-  "skillInstructions": "Photo Reason skills are conversational, plain-language guides — many are written for people with no technical background. When a skill says to ask the user, ask clarifying questions, present options, or wait for a choice, use Kimi Code's `AskUserQuestion` tool with 2-4 concrete options (recommended option first, suffixed `(Recommended)`). Use `Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob`, `FetchURL`, and `WebSearch` by their exposed names. When a skill refers to the `Skill` tool, use Kimi Code's native `Skill` tool.",
+  "skillInstructions": "Follow each skill in the user’s chosen conversation language. Use the question tool exposed by this Kimi session when available; otherwise ask briefly in chat. Use only tools actually provided by the host. Plugin skills use the qualified /skill:photoreason-skills:<skill-name> command. Installing this plugin does not install browser or computer-control tools.",
   "interface": {
     "displayName": "Photo Reason Skills",
     "shortDescription": "Build a home for your photographs",

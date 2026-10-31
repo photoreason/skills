@@ -85,7 +85,7 @@ codex plugin marketplace add photoreason/skills
 启动摄影作品集流程：
 
 ```text
-/skill:portfolio-site-builder
+/skill:photoreason-skills:portfolio-site-builder
 ```
 
 也可以直接说：“请用中文一步一步帮我建立摄影作品集网站。我不懂技术，请一次只问我
@@ -97,6 +97,17 @@ codex plugin marketplace add photoreason/skills
 /plugin marketplace add photoreason/skills
 /plugin install photoreason-skills@photoreason-skills
 ```
+
+### Grok Build 与 Grok Bot
+
+Grok Build 支持 Claude 格式的插件，可使用本仓库已有的技能与市场配置。
+从它的 `/plugins` 和 `/skills` 界面选择即可，无需维护另一份技能。
+
+Grok Bot 的技能库是另一套界面。将完整的 `skills/portfolio-site-builder/`
+文件夹交给 Bot，请它先读 `SKILL.md`，再按需读取参考文件和模板。不要只传入口文件，
+也不要把 Codex 的市场命令直接用于 Grok Bot。账户内的安装和对话流程仍待实测。
+
+[兼容性说明](docs/compatibility.md)记录了各客户端的调用方式、验证范围和待验证事项。
 
 ### Gemini CLI
 
