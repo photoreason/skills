@@ -27,6 +27,26 @@ Explain before project creation: a direct-upload Pages project cannot later be
 switched to Git integration. If they expect automatic updates from Git, choose
 that route at the start. Do not describe direct upload as account-free.
 
+## Authorized CLI automation
+
+When the user has explicitly granted CLI/API deployment access, a tool-capable
+assistant can upload the same prepared folder with Wrangler. Keep credentials in
+protected files or environment variables, never command arguments, chat, or the
+published directory. Check current commands before use; honor the existing grant
+rather than asking the user to repeat routine steps.
+
+Some recent Wrangler releases delegate new Pages commands to Workers when run by
+agents. If the intended product is Pages, inspect the installed version's
+supported compatibility path instead of retrying a failed delegation unchanged.
+In the tested Wrangler 4.156.0, `pages project create <name> --production-branch main
+--force` explicitly creates a Pages project; this flag selects the product, not
+an overwrite. Once that project exists, deploy normally without `--force`.
+Keep dashboard instructions primary for a beginner who has no CLI tools.
+
+Account-owned tokens may not support the user-token verification endpoint.
+Validate the authorized account/project resources rather than treating that one
+endpoint's rejection as proof that every provided credential is invalid.
+
 ## Git integration: automatic updates
 
 Follow the current [Cloudflare Git integration guide](https://developers.cloudflare.com/pages/get-started/git-integration/).
