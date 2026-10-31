@@ -1,6 +1,6 @@
 {
   "name": "photoreason-skills",
   "description": "Photo Reason's open-source skills for photographers: portfolio building, curation, and creative workflows.",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "contextFileName": "GEMINI.md"
 }

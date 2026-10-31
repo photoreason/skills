@@ -10,7 +10,7 @@ const project = example + "#/p/coastal-study";
 
 async function fixture(
   page: Page,
-  options: { count?: number; broken?: boolean; grid?: boolean } = {},
+  options: { count?: number; broken?: boolean; grid?: boolean; portrait?: boolean } = {},
 ) {
   await page.addInitScript((options) => {
     let site: any;
@@ -29,6 +29,7 @@ async function fixture(
         }
         if (options.broken) p.images[0].src = "images/missing.jpg";
         if (options.grid) p.layout = "grid";
+        if (options.portrait) p.images[0].src = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000"><rect width="800" height="1000" fill="gray"/></svg>');
       },
     });
   }, options);
@@ -133,7 +134,8 @@ test("gallery index and thumbnails select every photograph; covered controls are
   await page.locator("#gallerySheetImages .photo-thumb").last().click();
   await expect(page.locator("#gallerySheet")).toBeHidden();
   await expect(page.locator("#galleryCount")).toHaveText("38 / 38");
-  await page.locator("#lightbox")
+  await page
+    .locator("#lightbox")
     .getByRole("button", { name: "Next photograph", exact: true })
     .click();
   await expect(page.locator("#galleryCount")).toHaveText("1 / 38");
@@ -421,38 +423,176 @@ test("a long project renders one uncropped photograph with its description and r
   ).toBe(initialHeight);
 });
 
-test('cross-page navigation works on static hosts without directory index routing', async ({ page }) => {
-  const root = resolve('skills/portfolio-site-builder/examples')
-  await page.route('https://portfolio.test/**', async route => {
-    const url = new URL(route.request().url())
-    const path = resolve(root, '.' + url.pathname.replace(/^\/examples/, ''))
-    if (!path.startsWith(root + '/')) return route.fulfill({status: 404, body: 'Not found'})
+test("cross-page navigation works on static hosts without directory index routing", async ({
+  page,
+}) => {
+  const root = resolve("skills/portfolio-site-builder/examples");
+  await page.route("https://portfolio.test/**", async (route) => {
+    const url = new URL(route.request().url());
+    const path = resolve(root, "." + url.pathname.replace(/^\/examples/, ""));
+    if (!path.startsWith(root + "/"))
+      return route.fulfill({ status: 404, body: "Not found" });
     try {
-      const contentType = ({'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml'} as Record<string,string>)[extname(path)]
-      await route.fulfill({body: await readFile(path), contentType})
+      const contentType = (
+        {
+          ".html": "text/html",
+          ".js": "text/javascript",
+          ".css": "text/css",
+          ".svg": "image/svg+xml",
+        } as Record<string, string>
+      )[extname(path)];
+      await route.fulfill({ body: await readFile(path), contentType });
     } catch {
-      await route.fulfill({status: 404, body: 'No directory indexes'})
+      await route.fulfill({ status: 404, body: "No directory indexes" });
     }
-  })
-  await page.goto('https://portfolio.test/examples/portfolio-study/index.html?lang=en')
-  await page.locator('#nav a').nth(1).click()
-  await expect(page).toHaveURL(/about\/index\.html\?lang=en/)
-  await expect(page.locator('#aboutHeading')).toHaveText('About this study')
-  await page.locator('#nav a').first().click()
-  await expect(page).toHaveURL(/portfolio-study\/index\.html\?lang=en#work/)
-  await expect(page.locator('.project-disclosure')).toHaveCount(1)
-})
+  });
+  await page.goto(
+    "https://portfolio.test/examples/portfolio-study/index.html?lang=en",
+  );
+  await page.locator("#nav a").nth(1).click();
+  await expect(page).toHaveURL(/about\/index\.html\?lang=en/);
+  await expect(page.locator("#aboutHeading")).toHaveText("About this study");
+  await page.locator("#nav a").first().click();
+  await expect(page).toHaveURL(/portfolio-study\/index\.html\?lang=en#work/);
+  await expect(page.locator(".project-disclosure")).toHaveCount(1);
+});
 
-for (const locale of ['en', 'ja', 'zh-hans']) {
-  test(`legacy #about bookmarks open the separate About page in ${locale}`, async ({page}) => {
-    await page.goto(example + '?lang=' + locale + '#about')
-    await expect(page).toHaveURL(new RegExp('about/index\\.html\\?lang=' + locale + '$'))
-    await expect(page.locator('#aboutHeading')).toBeVisible()
-    await expect(page.locator('html')).toHaveAttribute('lang', locale === 'zh-hans' ? 'zh-Hans' : locale)
-    await page.locator('#nav a').first().click()
-    await expect(page.locator('.project-disclosure')).toHaveCount(1)
-    await page.evaluate(() => { location.hash = '#about' })
-    await expect(page.locator('#aboutHeading')).toBeVisible()
-    await expect(page).toHaveURL(new RegExp('about/index\\.html\\?lang=' + locale + '$'))
-  })
+for (const locale of ["en", "ja", "zh-hans"]) {
+  test(`legacy #about bookmarks open the separate About page in ${locale}`, async ({
+    page,
+  }) => {
+    await page.goto(example + "?lang=" + locale + "#about");
+    await expect(page).toHaveURL(
+      new RegExp("about/index\\.html\\?lang=" + locale + "$"),
+    );
+    await expect(page.locator("#aboutHeading")).toBeVisible();
+    await expect(page.locator("html")).toHaveAttribute(
+      "lang",
+      locale === "zh-hans" ? "zh-Hans" : locale,
+    );
+    await page.locator("#nav a").first().click();
+    await expect(page.locator(".project-disclosure")).toHaveCount(1);
+    await page.evaluate(() => {
+      location.hash = "#about";
+    });
+    await expect(page.locator("#aboutHeading")).toBeVisible();
+    await expect(page).toHaveURL(
+      new RegExp("about/index\\.html\\?lang=" + locale + "$"),
+    );
+  });
 }
+
+test("click zoom keeps the chosen photograph point under the pointer", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await fixture(page);
+  await page.locator(".pv__gallery").click();
+  await expect(page.locator("#galleryZoomRange")).toBeEnabled();
+  for (const [u, v] of [
+    [0.65, 0.6],
+    [0.35, 0.4],
+  ] as const) {
+    const before = await page.locator(".lightbox__img").boundingBox();
+    if (!before) throw new Error("Missing gallery photograph");
+    const x = before.x + before.width * u,
+      y = before.y + before.height * v;
+    await page.mouse.click(x, y);
+    await expect(page.locator("#galleryZoomRange")).toHaveValue("200");
+    const after = await page.locator(".lightbox__img").boundingBox();
+    if (!after) throw new Error("Missing zoomed photograph");
+    expect(Math.abs(after.x + after.width * u - x)).toBeLessThan(2);
+    expect(Math.abs(after.y + after.height * v - y)).toBeLessThan(2);
+    expect(after.width / before.width).toBeCloseTo(2, 1);
+    await page.locator("#galleryZoom").click();
+    await expect(page.locator("#galleryZoomRange")).toHaveValue("100");
+  }
+});
+
+test("zoom slider preserves the visible centre, supports keyboard adjustment and does not navigate photos", async ({
+  page,
+}) => {
+  await fixture(page);
+  await page.locator(".pv__gallery").click();
+  const range = page.getByRole("slider", { name: "Zoom level", exact: true });
+  await expect(range).toBeEnabled();
+  await range.fill("250");
+  await expect(page.locator("#galleryZoomValue")).toHaveText("250%");
+  const centre = await page.locator(".lightbox__img").evaluate((img) => {
+    const image = img.getBoundingClientRect(),
+      canvas = document.getElementById("galleryCanvas")!,
+      frame = canvas.getBoundingClientRect();
+    return {
+      u: (frame.left + canvas.clientWidth / 2 - image.left) / image.width,
+      v: (frame.top + canvas.clientHeight / 2 - image.top) / image.height,
+    };
+  });
+  await range.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(range).toHaveValue("260");
+  await expect(page.locator("#galleryCount")).toHaveText("1 / 3");
+  const next = await page.locator(".lightbox__img").evaluate((img) => {
+    const image = img.getBoundingClientRect(),
+      canvas = document.getElementById("galleryCanvas")!,
+      frame = canvas.getBoundingClientRect();
+    return {
+      u: (frame.left + canvas.clientWidth / 2 - image.left) / image.width,
+      v: (frame.top + canvas.clientHeight / 2 - image.top) / image.height,
+    };
+  });
+  expect(Math.abs(next.u - centre.u)).toBeLessThan(0.005);
+  expect(Math.abs(next.v - centre.v)).toBeLessThan(0.005);
+  await page.keyboard.press("End");
+  await expect(range).toHaveValue("400");
+  await page.keyboard.press("Home");
+  await expect(range).toHaveValue("100");
+  await expect(page.locator("#galleryZoom")).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+  await page.locator("#galleryIndex").click();
+  await expect(range).toBeDisabled();
+  await page.keyboard.press("Escape");
+  await expect(range).toBeEnabled();
+});
+
+for (const [locale, label] of [
+  ["ja", "表示倍率"],
+  ["zh-hans", "缩放比例"],
+]) {
+  test(`mobile ${locale} zoom slider fits and resets between photographs`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(example + "?lang=" + locale + "#/p/coastal-study");
+    await page.locator(".pv__gallery").click();
+    const range = page.getByRole("slider", { name: label, exact: true });
+    await expect(range).toBeEnabled();
+    await range.fill("300");
+    await expect(page.locator("#galleryZoomValue")).toHaveText("300%");
+    expect(
+      await page
+        .locator("#lightbox")
+        .evaluate((e) => e.scrollWidth <= e.clientWidth),
+    ).toBe(true);
+    await page.locator(".lightbox__nav.-next").click();
+    await expect(range).toBeEnabled();
+    await expect(range).toHaveValue("100");
+    await expect(page.locator("#galleryZoomValue")).toHaveText("100%");
+  });
+}
+
+test('portrait zoom clamps at the image edge instead of jumping to the top left', async ({page})=>{
+  await page.setViewportSize({width:1440,height:1000})
+  await fixture(page,{portrait:true})
+  await page.locator('.pv__gallery').click()
+  await expect(page.locator('#galleryZoomRange')).toBeEnabled()
+  const before=await page.locator('.lightbox__img').boundingBox()
+  if(!before)throw new Error('Missing portrait')
+  await page.mouse.click(before.x+before.width*.65,before.y+before.height*.6)
+  await expect(page.locator('#galleryZoomRange')).toHaveValue('200')
+  const scroll=await page.locator('#galleryCanvas').evaluate(e=>({x:e.scrollLeft,max:e.scrollWidth-e.clientWidth,y:e.scrollTop}))
+  expect(scroll.max).toBeGreaterThan(0)
+  expect(Math.abs(scroll.x-scroll.max)).toBeLessThan(1)
+  expect(scroll.y).toBeGreaterThan(0)
+})

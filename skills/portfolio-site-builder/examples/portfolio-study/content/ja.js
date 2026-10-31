@@ -33,7 +33,8 @@ window.PORTFOLIO_I18N["ja"] = {
     "imageError": "写真を読み込めませんでした。",
     "viewProject": "作品を見る",
     "photographCount": "写真 {count} 枚",
-    "noPhotos": "この作品には、まだ写真がありません。"
+    "noPhotos": "この作品には、まだ写真がありません。",
+    "zoomLevel": "表示倍率"
   },
   "projects": {
     "coastal-study": {

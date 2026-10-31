@@ -139,10 +139,7 @@
     var items = t.nav || {};
     [
       [isAbout ? homeLink("work") : "#work", items.work],
-      [
-        pageLink("about/index.html"),
-        items.about,
-      ],
+      [pageLink("about/index.html"), items.about],
       ["#contact", items.contact],
     ].forEach(function (pair, index) {
       if (!pair[1]) return;
@@ -672,6 +669,10 @@
   var gallery = [];
   var galleryIndex = 0;
   var zoomed = false;
+  var zoomScale = 1;
+  var imageReady = false;
+  var surface = $("gallerySurface");
+  var zoomRange = $("galleryZoomRange");
   var imageFailed = false;
   var galleryLabels = {
     viewProject: "View project",
@@ -680,6 +681,7 @@
     allPhotos: "All photographs",
     enlarge: "Enlarge photograph",
     zoom: "Zoom",
+    zoomLevel: "Zoom level",
     fit: "Fit image",
     previous: "Previous photograph",
     nextPhoto: "Next photograph",
@@ -710,17 +712,59 @@
     });
   }
 
-  function setZoom(value) {
-    zoomed = value && !imageFailed;
+  function syncZoomControls() {
+    var disabled = !imageReady || imageFailed || !$("gallerySheet").hidden;
+    $("galleryZoom").disabled = zoomRange.disabled = disabled;
+  }
+
+  // Scale relative to fit-to-screen. Keep the chosen image point at the same
+  // viewport position, clamping only when an image edge prevents further panning.
+  function setZoom(value, point) {
+    var frame = canvas.getBoundingClientRect();
+    var old = lightboxImg.getBoundingClientRect();
+    var x = point ? point.x - frame.left : canvas.clientWidth / 2;
+    var y = point ? point.y - frame.top : canvas.clientHeight / 2;
+    var u = old.width ? (frame.left + x - old.left) / old.width : 0.5;
+    var v = old.height ? (frame.top + y - old.top) / old.height : 0.5;
+    u = Math.max(0, Math.min(1, u));
+    v = Math.max(0, Math.min(1, v));
+    zoomScale = typeof value === "boolean" ? (value ? 2 : 1) : value;
+    zoomScale = Math.max(1, Math.min(4, zoomScale));
+    if (!imageReady || imageFailed) zoomScale = 1;
+    zoomed = zoomScale > 1;
     canvas.classList.toggle("is-zoomed", zoomed);
-    canvas.scrollLeft = 0;
-    canvas.scrollTop = 0;
+    var percent = Math.round(zoomScale * 100);
+    zoomRange.value = String(percent);
+    zoomRange.setAttribute("aria-valuetext", percent + "%");
+    $("galleryZoomValue").textContent = percent + "%";
     $("galleryZoom").textContent = ui(zoomed ? "fit" : "zoom");
     $("galleryZoom").setAttribute("aria-pressed", String(zoomed));
     $("galleryImageButton").setAttribute(
       "aria-label",
       ui(zoomed ? "fit" : "zoom"),
     );
+    if (!lightbox.open || !canvas.clientWidth || !canvas.clientHeight) return;
+    var naturalWidth = lightboxImg.naturalWidth || canvas.clientWidth;
+    var naturalHeight = lightboxImg.naturalHeight || canvas.clientHeight;
+    var fit = Math.min(
+      canvas.clientWidth / naturalWidth,
+      canvas.clientHeight / naturalHeight,
+    );
+    var width = naturalWidth * fit * zoomScale;
+    var height = naturalHeight * fit * zoomScale;
+    surface.style.width = Math.ceil(Math.max(canvas.clientWidth, width)) + "px";
+    surface.style.height =
+      Math.ceil(Math.max(canvas.clientHeight, height)) + "px";
+    var button = $("galleryImageButton");
+    button.style.width = width + "px";
+    button.style.height = height + "px";
+    if (!zoomed) {
+      canvas.scrollLeft = canvas.scrollTop = 0;
+    } else {
+      var current = lightboxImg.getBoundingClientRect();
+      canvas.scrollLeft += current.left - frame.left + u * current.width - x;
+      canvas.scrollTop += current.top - frame.top + v * current.height - y;
+    }
   }
 
   function setSheet(open) {
@@ -729,13 +773,14 @@
     // Keep covered controls out of keyboard navigation.
     lightbox.querySelector(".lightbox__stage").inert = open;
     lightbox.querySelector(".lightbox__footer").inert = open;
-    $("galleryZoom").disabled = open || imageFailed;
+    syncZoomControls();
   }
 
   function updateGallery() {
     var item = gallery[galleryIndex];
     if (!item) return;
     imageFailed = false;
+    imageReady = false;
     $("galleryError").hidden = true;
     setSheet(false);
     setZoom(false);
@@ -770,6 +815,7 @@
       $("galleryIndex").textContent = $("gallerySheetTitle").textContent =
         ui("allPhotos");
       $("galleryError").textContent = ui("imageError");
+      zoomRange.setAttribute("aria-label", ui("zoomLevel"));
       lightboxPrev.setAttribute("aria-label", ui("previous"));
       lightboxNext.setAttribute("aria-label", ui("nextPhoto"));
       lightbox.querySelector(".lightbox__close").textContent = ui("close");
@@ -800,27 +846,48 @@
     setZoom(false);
     setSheet(false);
     lightboxImg.removeAttribute("src");
+    imageReady = false;
+    syncZoomControls();
     setProjectPhoto(galleryIndex);
   }
 
   lightboxImg.addEventListener("error", function () {
     if (!lightbox.open) return;
     imageFailed = true;
+    imageReady = false;
     $("galleryError").hidden = false;
     setZoom(false);
-    $("galleryZoom").disabled = true;
+    syncZoomControls();
   });
   lightboxImg.addEventListener("load", function () {
+    if (!lightbox.open) return;
     imageFailed = false;
+    imageReady = true;
     $("galleryError").hidden = true;
-    $("galleryZoom").disabled = !$("gallerySheet").hidden;
+    setZoom(false);
+    syncZoomControls();
   });
   $("galleryZoom").addEventListener("click", function () {
     setZoom(!zoomed);
   });
-  $("galleryImageButton").addEventListener("click", function () {
-    setZoom(!zoomed);
+  $("galleryImageButton").addEventListener("click", function (event) {
+    setZoom(
+      !zoomed,
+      event.detail ? { x: event.clientX, y: event.clientY } : null,
+    );
   });
+  zoomRange.addEventListener("input", function () {
+    setZoom(Number(zoomRange.value) / 100);
+  });
+  if (typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(function () {
+      if (lightbox.open && imageReady) setZoom(zoomScale);
+    }).observe(canvas, { box: "border-box" });
+  } else {
+    window.addEventListener("resize", function () {
+      if (lightbox.open && imageReady) setZoom(zoomScale);
+    });
+  }
   $("galleryIndex").addEventListener("click", function () {
     setZoom(false);
     setSheet($("gallerySheet").hidden);
@@ -846,7 +913,7 @@
     if (lightbox.open) {
       if (event.key === "Tab") {
         var controls = Array.prototype.filter.call(
-          lightbox.querySelectorAll("button"),
+          lightbox.querySelectorAll("button, input[type=range]"),
           function (button) {
             return (
               !button.disabled &&
@@ -865,7 +932,10 @@
           first.focus();
         }
       }
-      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      if (
+        (event.key === "ArrowLeft" || event.key === "ArrowRight") &&
+        event.target !== zoomRange
+      ) {
         event.preventDefault();
         stepLightbox(event.key === "ArrowLeft" ? -1 : 1);
         // A contact-sheet button may have become hidden on navigation.
@@ -924,7 +994,8 @@
       if (drag && drag.moved) {
         event.preventDefault();
         event.stopPropagation();
-      } else if (drag && event.target === canvas) setZoom(false);
+      } else if (drag && (event.target === canvas || event.target === surface))
+        setZoom(false);
       drag = null;
     },
     true,
