@@ -1,10 +1,10 @@
 name: Portfolio Site Builder
 blurb: Make a home for your photographs, from the first edit to a live website.
-longDescription: "Build a photography portfolio with guided steps or optional user-granted computer
+longDescription: Build a photography portfolio with guided steps or optional user-granted computer
   use. Choose a conversation language, review costs, gather photographs and domain resources, build
   with the included trilingual template, preview, then publish on Cloudflare Pages or Squarespace.
   Cloudflare remains recommended for mainland China audiences. Your edit and publishing decisions
-  stay yours."
+  stay yours.
 tags:
   - portfolio
   - website
@@ -29,11 +29,9 @@ sampleVisuals:
 demoPath: portfolio-study/index.html
 guide:
   en:
-    intro: A home for your photographs. Made with an assistant, shaped by your eye.
+    intro: A home for your photographs.
     demoTitle: Study 01 — A quieter sequence
-    demoCaption: A working study of the bundled portfolio template. Original landscape illustrations
-      stand in for photographs; this is a layout demonstration, not a client portfolio or a
-      documented agent session.
+    demoCaption: Template preview · illustrations stand in for photographs
     demoPrompt: Help me make a portfolio for one coastal series. Keep the interface quiet, show the work
       large, and make it readable in English, Japanese, and Chinese.
     revision: Give the images more room. Keep the project together as a sequence instead of turning each
@@ -41,166 +39,144 @@ guide:
     revisionNote: "The study uses the template’s stacked layout: one image per row, a restrained project
       index, and no decorative animation. These are example directions to try, not a transcript of a
       commissioned project."
-    prepare: Install the skill in your assistant below, then bring a small selection of photographs,
-      your name, a few words about the work, and a public contact address. If you have a domain,
-      keep its registrar details handy. The skill is free; assistant, domain, and hosting costs are
-      reviewed first.
-    firstPrompt: "First ask which language I would like to chat in: English, 日本語, or 简体中文. Use
-      portfolio-site-builder to help me make a website for my photographs. Start with costs, then
-      help me gather the photographs, introduction, and domain details. Use the template, show me a
-      preview, and help me publish on Cloudflare Pages. Guide me through the steps; if a difficult
-      screen needs computer use, first check that you have that capability and ask me to grant
-      control. Keep my existing image selection and sequence."
+    prepare: Photographs grouped by project, in your preferred order. Your name, a short introduction
+      and a contact address you want to make public. A domain can wait. Use WebP or JPEG web copies
+      and keep the originals.
+    firstPrompt: Use Portfolio Site Builder to help me make a photography portfolio. Ask which language
+      I would like to chat in first, then help me review costs and prepare the photographs. Keep my
+      selection and sequence, and show me a preview before publishing.
     steps:
-      - title: Understand the costs
-        body: Choose your chat language (English, Japanese, or Simplified Chinese), separately from website
-          languages. Review your budget and currency, assistant charges, hosting, and any domain
-          registration or renewal. Cloudflare Pages is the starting recommendation for the template;
-          choose Squarespace if a visual editor suits you better.
-      - title: Gather the pictures, words, and address
-        body: Share the photographs, project notes, introduction, and public contact details. An existing
-          domain at Namecheap, GoDaddy, Squarespace, Cloudflare, or Tencent Cloud can stay there.
-          Choose guided steps or, when your assistant supports it, grant computer use for difficult
-          tasks. Prepare web-sized WebP or JPEG copies and keep your originals.
-      - title: Make the first version
-        body: Build from the included English, Japanese, and Simplified Chinese template using your content.
-          For Squarespace, use the template as a visual blueprint and recreate the pages in its
-          editor.
-      - title: Look at the preview
-        body: Check the site on a phone and a larger screen. Read the captions, try each language and
-          contact link, and make a revision before anything is published.
-      - title: Publish when it is ready
-        body: Publish the approved site to Cloudflare Pages or Squarespace, connect a domain if wanted, and
-          open the live address to check it. For mainland audiences, also test from the intended
-          network. Keep a short guide to updating the site.
+      - title: Start with your work
+        body: Choose a chat language, review costs and gather pictures and text.
+      - title: Make a first version
+        body: Use the template and review it on a phone and a larger screen.
+      - title: Publish when ready
+        body: Cloudflare is the starting recommendation; Squarespace is an option.
     principles:
-      - title: Your eye leads
-        body: You bring the photographs and the decisions behind them. The assistant can suggest an edit and
-          explain its reasoning; the final selection and sequence stay yours.
-      - title: Give the work room
-        body: Quiet controls, generous spacing, and a considered rhythm let photographs hold the page.
-          Choose a continuous sequence or a grid according to how you want the work to be seen.
-      - title: Know the cost
-        body: Begin with a clear view of assistant, hosting, and domain costs in your currency. A free
-          starting address may be all you need.
-      - title: Keep it yours to update
-        body: A portfolio grows with the work. The handover should leave you with the files or editing
-          access, and a clear way to change a picture, a caption, or a project.
+      - title: What guides the design?
+        body: Begin with the photographs, as you would when laying out prints on a table. Keep the interface
+          quiet and let each project find its rhythm. The selection and sequence belong to the
+          photographer.
     making:
-      - title: Borrowing from the editing table
-        body: "The template begins with a project index and two ways of looking: a sequence to follow, or a
-          grid to move through. Its structure takes its cue from selecting and laying out prints."
-      - title: One sequence, three languages
-        body: The same project structure carries English, Japanese, and Simplified Chinese text in separate
-          files. Each language can find its own phrasing while the image order stays together.
-      - title: Simple materials
-        body: The included template uses HTML, CSS, and JavaScript. Keeping these materials familiar makes
-          the finished site easier to read, adapt, and pass on when your needs change.
+      - title: Making notes
+        body: Plain HTML, CSS and JavaScript. English, Japanese and Simplified Chinese text in separate
+          files, with one shared photo sequence. Source files, licensing and validation records are
+          available on GitHub.
     references:
       - title: Explore the portfolio template
         url: https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio
         reason: The page structure, styles, and language files included with the skill. A starting point you
           can make your own.
-    overview: "Turn your photographs into a portfolio you can share. Start with costs, gather the
-      pictures and words, build from the included template, and review a preview before publishing.
-      Cloudflare Pages is the recommended host, including for mainland China audiences; Squarespace
-      is an alternative for a visual editor. Choose step-by-step guidance, or grant an available
-      computer-use tool control for difficult screens. You keep the edit and the final say."
+    overview: Bring a selection of pictures and a few words. Build from the included template, review a
+      preview, and publish when it feels ready.
+    costNote: The skill is free. Assistant, domain and hosting costs are considered separately.
+    outcomes:
+      - title: A portfolio template
+        body: Large images, generous space and your chosen sequence.
+      - title: Ways to look closer
+        body: Project index, thumbnails, full-screen viewing and zoom.
+      - title: A site you can update
+        body: Keep the files. Change a photograph or add a project later.
+    questions:
+      - title: What should I bring?
+        body: Photographs grouped by project, in your preferred order. Your name, a short introduction and a
+          contact address you want to make public. A domain can wait. Use WebP or JPEG web copies
+          and keep the originals.
+      - title: Costs and publishing options
+        body: The skill is free. Assistant, hosting, domain and renewal costs are reviewed separately. Start
+          with Cloudflare; Squarespace uses its own editor to recreate the template. For mainland
+          China audiences, keep Cloudflare as the starting recommendation and check the actual
+          target network. After publishing on Cloudflare, review the available budget alerts.
+      - title: Can the assistant help with the screen?
+        body: When suitable computer tools are available, you can grant control for difficult steps.
+          Otherwise, the assistant explains what to do next. Installing the skill does not add
+          computer-control tools.
   ja:
-    intro: 写真に、ひとつの居場所を。助手とつくり、あなたの目で整える。
+    intro: 自分の写真を、自分のサイトで。
     demoTitle: 習作 01 — 作品の流れを静かに
-    demoCaption: 同梱のポートフォリオテンプレートによる操作できる習作です。写真の代わりにオリジナルの風景イラストを使用。顧客の作品集でも、エージェントの実行記録でもありません。
+    demoCaption: テンプレートのイメージ · 写真の代わりにイラストを使用
     demoPrompt: 海岸のシリーズのための作品集をつくってください。画面は静かに、作品は大きく。日本語、英語、中国語で読めるようにしたいです。
     revision: 画像にもっと余白を。一枚ずつカードにせず、シリーズをひとつの流れで見せてください。
     revisionNote: 習作ではテンプレートの縦並びを使い、一行に一枚の画像と控えめな作品目録を配置。装飾的なアニメーションはありません。試すための指示例であり、受託制作の会話記録ではありません。
-    prepare: 下から助手にスキルを追加し、数枚の写真、名前、作品についての短いメモ、公開用の連絡先をご用意ください。ドメインがあれば、登録先も確認しておきましょう。スキルは無料です。助手、ドメイン、公開先の費用は最初に確認します。
-    firstPrompt: 最初に、会話に使いたい言語（English / 日本語 / 简体中文）を聞いてください。portfolio-site-builder
-      で写真のサイトをつくるのを手伝ってください。まず費用を確認し、写真、紹介文、ドメインの情報をそろえたいです。テンプレートでつくり、プレビューを見てから Cloudflare Pages
-      で公開したいです。普段は手順を教えてください。難しい画面で操作を任せる場合は、使えるツールを確認してから、私に操作の許可を求めてください。選んだ写真と順序は保ってください。
+    prepare: 写真を作品ごとに分け、見せたい順に並べてください。名前、短い紹介文、公開してよい連絡先も用意します。ドメインは後で決めても大丈夫です。ウェブ用の写真はWebPかJPEGで用意し、元のファイルは別に残します。
+    firstPrompt: Portfolio Site
+      Builderで写真のポートフォリオサイトをつくりたいです。まず会話に使う言語を聞いてから、費用の確認と写真の準備を手伝ってください。選んだ写真と順序は変えず、公開前にプレビューを見せてください。
     steps:
-      - title: 費用を確認する
-        body: 会話の言語（英語・日本語・簡体字中国語）を選びます。サイトの表示言語は別に決められます。予算と通貨、助手の利用料、公開先、ドメインの取得・更新費用を確認します。テンプレートは
-          Cloudflare Pages を基本にし、ビジュアルエディターを使いたい場合は Squarespace を選びます。
-      - title: 写真、文章、アドレスをそろえる
-        body: 写真、作品メモ、紹介文、公開用の連絡先を共有します。Namecheap、GoDaddy、Squarespace、Cloudflare、Tencent Cloud
-          などで取得したドメインは、そのまま使えます。手順を教わる方法か、対応する助手に許可して難しい操作を任せる方法を選びます。写真は WebP または JPEG
-          のウェブ用コピーを用意し、原本は保存しておきます。
-      - title: 最初の形をつくる
-        body: 同梱の英語・日本語・簡体字中国語テンプレートに、用意した作品を入れます。Squarespace ではテンプレートを見本に、エディター上で構成を再現します。
-      - title: プレビューを見る
-        body: スマートフォンと大きな画面で確認します。キャプション、言語切り替え、連絡先のリンクを見直し、公開前に一度手を入れましょう。
-      - title: 準備ができたら公開する
-        body: 確認したサイトを Cloudflare Pages または Squarespace
-          で公開し、必要ならドメインを接続します。実際のアドレスを開いて確認し、中国本土向けなら想定するネットワークからも試します。更新方法も短く残してもらいましょう。
+      - title: まず、作品のことから
+        body: 会話の言語と費用を確認し、写真と紹介文を用意。
+      - title: 最初のサイトをつくる
+        body: テンプレートに作品を入れ、スマホとPCで確認。
+      - title: 納得できたら公開
+        body: Cloudflareを基本に、Squarespaceも選べます。
     principles:
-      - title: あなたの目が導く
-        body: 写真と、その背景にある判断を持ち寄るのはあなたです。助手は編集案と理由を提案できます。最後の選択と順序は、あなたの手に残ります。
-      - title: 作品に余白を
-        body: 控えめな操作部、余白、考えられたリズムで、写真がページの中心に。順にたどる構成か、自由に眺めるグリッドか。見てほしい流れに合わせて選びます。
-      - title: 費用を見通す
-        body: 助手、公開先、ドメインにかかる費用を、使う通貨で最初に確認します。無料の初期アドレスで十分なこともあります。
-      - title: 自分で育てられる形に
-        body: 作品が増えれば、ポートフォリオも変わります。ファイルや編集権限とともに、写真、キャプション、プロジェクトの更新方法を受け取れるようにします。
+      - title: つくるときに大切にしていること
+        body: プリントを机に並べるように、写真を見ながら構成を考える。テンプレートの装飾は控えめにして、作品ごとの流れを大切にしました。写真の選択と順序は、撮り手が決めます。
     making:
-      - title: 写真を並べる机から
-        body: テンプレートはプロジェクトの目録と、二つの見方からできています。順にたどる連続表示と、自由に見渡すグリッド。プリントを選び、並べる作業を構成の手がかりにしています。
-      - title: ひとつの順序、三つの言語
-        body: 共通のプロジェクト構成に、英語、日本語、簡体字中国語の文章を個別のファイルで添えています。写真の順序を保ちながら、それぞれの言語に合う表現へ整えられます。
-      - title: 扱いやすい素材で
-        body: 同梱テンプレートは HTML、CSS、JavaScript でできています。身近な仕組みにすることで、後から読み解き、手を加え、必要に応じて引き継ぎやすくしています。
+      - title: 制作ノート
+        body: テンプレートはHTML、CSS、JavaScriptでできています。日本語、英語、中国語の文章は個別に編集し、写真は共通です。ファイル一式、ライセンス、検証の記録はGitHubで公開しています。
     references:
       - title: ポートフォリオテンプレートを見る
         url: https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio
         reason: スキルに含まれるページ構成、スタイル、言語ファイル。自分の作品に合わせて手を加える出発点です。
-    overview: 写真を、人に見てもらえるポートフォリオへ。費用を確認し、写真と文章をそろえ、同梱テンプレートでつくり、プレビューを見てから公開します。中国本土の閲覧者を想定する場合も、テンプレートの公開先は
-      Cloudflare Pages を基本に。ビジュアルエディターを使いたい場合は Squarespace
-      を選べます。手順に沿って自分で操作するか、対応する助手に許可して難しい画面の操作を任せるかを選べます。作品の編集と最終判断は、あなたの手に残ります。
+    overview: 選んだ写真と短い紹介文から、テンプレートでサイトをつくります。プレビューを見ながら整えて、納得できたら公開しましょう。
+    costNote: スキルは無料です。AIサービス、ドメイン、公開先の費用は別途確認します。
+    outcomes:
+      - title: 写真のためのテンプレート
+        body: 大きな写真と余白。選んだ順序をそのままに。
+      - title: 一覧でも、一枚ずつでも
+        body: 作品一覧、サムネイル、全画面表示と拡大。
+      - title: 公開した後も更新できる
+        body: ファイルを手元に残し、写真や作品を追加できます。
+    questions:
+      - title: 用意するものは？
+        body: 写真を作品ごとに分け、見せたい順に並べてください。名前、短い紹介文、公開してよい連絡先も用意します。ドメインは後で決めても大丈夫です。ウェブ用の写真はWebPかJPEGで用意し、元のファイルは別に残します。
+      - title: 費用と公開先について
+        body: スキル自体は無料です。AIサービス、サイトの公開先、ドメインの取得・更新にかかる費用は、最初に分けて確認します。基本はCloudflareで公開します。Squarespaceを選ぶ場合は、その編集画面でテンプレートの構成を再現します。中国本土向けの場合もCloudflareから検討し、実際の接続環境で確認します。
+          Cloudflareで公開した後は、利用できる予算通知も確認します。
+      - title: 画面の操作も任せられますか？
+        body: 対応するツールがあれば、許可した範囲で操作を手伝えます。使えない場合は次の手順を説明するので、アカウントの画面は自分で操作します。このスキルを追加するだけで、PCを操作する機能が増えるわけではありません。
   zh-hans:
-    intro: 给照片一个自己的地方。与助手一起搭建，用你的眼光慢慢打磨。
+    intro: 给照片一个自己的地方。
     demoTitle: 习作 01 — 让观看慢下来
-    demoCaption: 使用随附作品集模板制作的可操作习作。原创风景插画代替照片；这是版式演示，并非客户作品集，也不是一次代理执行过程的实录。
+    demoCaption: 模板示意 · 以插画代替照片
     demoPrompt: 帮我为一组海岸作品做一个作品集。界面安静，照片足够大，并支持中文、英文和日文。
     revision: 给画面更多空间。让整组作品按顺序展开，不要把每张照片做成一张卡片。
     revisionNote: 习作采用模板的纵向布局：每行一张图，克制的项目目录，没有装饰性动画。这些是可尝试的修改方向，不是委托项目的对话记录。
-    prepare: 先在下方把技能添加到助手，再准备一小组照片、署名、几句作品介绍和公开联系方式。已有域名的话，也请记下注册商。技能免费；助手、域名和托管服务的费用，会先一起确认。
-    firstPrompt: 首先请问我想用哪种语言交流：English / 日本語 / 简体中文。请使用 portfolio-site-builder
-      帮我做一个摄影作品集网站。先确认费用，再一起准备照片、简介和域名信息。使用模板搭建，给我看预览，然后帮助我发布到 Cloudflare
-      Pages。平时请逐步引导；遇到困难的界面操作时，先确认你是否有电脑操作工具，再征求我的控制授权。保留我已有的选片和顺序。
+    prepare: 照片按项目分好，保留希望展示的顺序。再准备署名、几句简介和愿意公开的联系方式。域名可以晚一点决定；已有域名也不必迁走。网页副本优先用 WebP 或 JPEG，原件另存。
+    firstPrompt: 请用 Portfolio Site Builder 帮我做一个摄影作品集。先问我想用什么语言交流，再一起看费用、准备照片。保留我的选片和顺序，发布前先给我看预览。
     steps:
-      - title: 先把费用看清楚
-        body: 先选择交流语言（英文、日文或简体中文），网站的展示语言另外决定。确认预算、结算货币、助手费用，以及托管、域名注册和续费。模板网站优先推荐 Cloudflare
-          Pages；如果更想使用可视化编辑器，可以选择 Squarespace。
-      - title: 准备照片、文字和网址
-        body: 分享照片、项目说明、简介和公开联系方式。已经在 Namecheap、GoDaddy、Squarespace、Cloudflare 或腾讯云
-          注册的域名可以保留。选择按步骤自己操作，或在助手支持时授权电脑操作，接手困难步骤。照片优先准备适合网页的 WebP 或 JPEG 副本，保留原始文件。
-      - title: 做出第一版
-        body: 把材料填入随附的中、英、日三语模板。如果选择 Squarespace，则以模板为视觉参考，在编辑器里搭建相应页面。
-      - title: 一起看看预览
-        body: 分别在手机和大屏幕上检查。读一遍图注，试试语言切换和联系链接，在公开前再做一轮调整。
-      - title: 准备好后，再发布
-        body: 把确认的版本发布到 Cloudflare Pages 或 Squarespace，需要时再连接域名。打开真实网址检查；面向中国大陆受众，也从目标网络试一遍。最后留下一份简短的更新说明。
+      - title: 先聊聊你的作品
+        body: 选择交流语言，确认费用，整理照片和简介。
+      - title: 一起做出第一版
+        body: 套用模板，在手机和电脑上看看效果。
+      - title: 满意以后再发布
+        body: 优先使用 Cloudflare，也可选择 Squarespace。
     principles:
-      - title: 你的眼光在前
-        body: 照片，以及照片背后的判断，来自你。助手可以建议选片、解释理由；最终的取舍与顺序，始终留在你手里。
-      - title: 给作品留出空间
-        body: 克制的控件、充足的留白、有节奏的排列，让照片撑起页面。连续展开还是网格浏览，取决于你希望观众怎样观看。
-      - title: 把费用看清楚
-        body: 一开始就用你的货币说明助手、托管与域名的费用。免费提供的初始网址，也许已经够用。
-      - title: 留下可以继续生长的网站
-        body: 作品在变，作品集也会跟着变。交付时应留下文件或编辑权限，以及更换照片、修改图注、添加项目的清楚步骤。
+      - title: 我们为什么这样做
+        body: 从整理纸质照片的桌面借一点思路：先有作品，再决定怎样摆放。模板尽量少做装饰，让每组照片有自己的节奏。选片和排序由你决定。
     making:
-      - title: 从摆放照片的桌面出发
-        body: 模板从项目目录开始，提供两种观看方式：沿着顺序往下看，或在网格中自由浏览。它的结构，借鉴了挑选、摆放纸质照片时的过程。
-      - title: 一组顺序，三种语言
-        body: 同一套项目结构，配上独立存放的中文、英文和日文文字。照片的顺序保持一致，每种语言都可以慢慢找到自己的表达。
-      - title: 用朴素的材料搭建
-        body: 随附模板使用 HTML、CSS 和 JavaScript。保持结构简单，是为了以后更容易读懂、修改，也方便在需要时交给别人继续维护。
+      - title: 制作手记
+        body: 模板使用普通 HTML、CSS 和 JavaScript；中文、英文和日文分别编辑，共用同一组照片。完整文件、许可与检查记录都可以在 GitHub 查看。
     references:
       - title: 看看作品集模板
         url: https://github.com/photoreason/skills/tree/main/skills/portfolio-site-builder/templates/portfolio
         reason: 技能附带的页面结构、样式与语言文件。可以从这里开始，慢慢改成适合自己作品的样子。
-    overview: 把照片做成一个可以分享的作品集网站。先看费用，再准备照片和文字，用随附模板搭建，看过预览后再发布。模板网站推荐 Cloudflare
-      Pages，面向中国大陆受众时也一样；想用可视化编辑器，则可以选择
-      Squarespace。你可以按步骤自己操作，也可以在助手支持电脑操作时，授权它接手困难的界面步骤。作品的取舍与最后决定，始终在你手里。
+    overview: 带着选好的照片和几句介绍，从模板开始搭建。助手会带你看预览、做调整，再发布成一个可以分享的网站。
+    costNote: 技能免费。助手服务、域名和托管可能另计。
+    outcomes:
+      - title: 一套作品集模板
+        body: 大图、留白，按你选好的顺序展示。
+      - title: 看整组，也看细节
+        body: 项目目录、缩略图、全屏浏览与放大。
+      - title: 以后也能接着改
+        body: 保留网站文件，想换照片或加项目时，再请助手帮忙。
+    questions:
+      - title: 需要准备哪些材料？
+        body: 照片按项目分好，保留希望展示的顺序。再准备署名、几句简介和愿意公开的联系方式。域名可以晚一点决定；已有域名也不必迁走。网页副本优先用 WebP 或 JPEG，原件另存。
+      - title: 费用和发布方式
+        body: 技能本身免费。开始时会分别说明助手、托管、域名及续费成本。模板优先发布到 Cloudflare；选择 Squarespace 时，会在它的编辑器里按模板重建。面向大陆读者也会先考虑
+          Cloudflare，再检查实际访问情况。 Cloudflare 上线后，也会帮你检查可用的预算提醒。
+      - title: 能让助手帮我操作电脑吗？
+        body: 可以在工具支持时授权它协助困难的步骤。没有电脑操作工具时，助手会说明下一步，由你完成账户页面。安装这个技能本身不会增加鼠标控制功能。
 license: MIT
 studyNumber: 1
