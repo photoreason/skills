@@ -32,7 +32,9 @@ window.PORTFOLIO_I18N["zh-hans"] = {
     "fit": "适合屏幕",
     "previous": "上一张照片",
     "nextPhoto": "下一张照片",
-    "imageError": "这张照片暂时无法加载。"
+    "imageError": "这张照片暂时无法加载。",
+    "viewProject": "查看完整项目",
+    "photographCount": "{count} 张照片"
   },
   "projects": {
     "tidal": {
@@ -50,7 +52,38 @@ window.PORTFOLIO_I18N["zh-hans"] = {
   },
   "about": {
     "statement": "我拍摄事物之间的停顿——退去的潮水、雨后渐干的城市、年末稀薄的光。",
-    "bio": "Aki Mori 是常驻京都的摄影师，作品曾在日本多地的群展中展出。接受编辑与委托拍摄。"
+    "bio": "Aki Mori 是常驻京都的摄影师，作品曾在日本多地的群展中展出。接受编辑与委托拍摄。",
+    "heading": "关于",
+    "role": "摄影师 · 京都",
+    "imageAlt": "",
+    "imageCaption": "",
+    "representation": "",
+    "sections": [
+      {
+        "title": "出版",
+        "entries": []
+      },
+      {
+        "title": "个展",
+        "entries": []
+      },
+      {
+        "title": "群展",
+        "entries": []
+      },
+      {
+        "title": "策展",
+        "entries": []
+      },
+      {
+        "title": "奖项",
+        "entries": []
+      },
+      {
+        "title": "写作与教学",
+        "entries": []
+      }
+    ]
   },
   "footer": {
     "rights": "© {year} Aki Mori"

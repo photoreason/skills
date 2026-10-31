@@ -30,7 +30,9 @@ window.PORTFOLIO_I18N["en"] = {
     "fit": "Fit image",
     "previous": "Previous photograph",
     "nextPhoto": "Next photograph",
-    "imageError": "This photograph could not be loaded."
+    "imageError": "This photograph could not be loaded.",
+    "viewProject": "View project",
+    "photographCount": "{count} photographs"
   },
   "projects": {
     "coastal-study": {
@@ -40,7 +42,9 @@ window.PORTFOLIO_I18N["en"] = {
   },
   "about": {
     "statement": "Original vector illustrations by Photo Reason, released under MIT. No photographs or client work are used.",
-    "bio": "This sample uses the bundled portfolio template. Replace the illustrations and copy with your own work before publishing."
+    "bio": "This sample uses the bundled portfolio template. Replace the illustrations and copy with your own work before publishing.",
+    "heading": "About this study",
+    "sections": []
   },
   "footer": {
     "rights": "© {year} Photo Reason · MIT"

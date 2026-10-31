@@ -32,7 +32,9 @@ window.PORTFOLIO_I18N["en"] = {
     "fit": "Fit image",
     "previous": "Previous photograph",
     "nextPhoto": "Next photograph",
-    "imageError": "This photograph could not be loaded."
+    "imageError": "This photograph could not be loaded.",
+    "viewProject": "View project",
+    "photographCount": "{count} photographs"
   },
   "projects": {
     "tidal": {
@@ -50,7 +52,38 @@ window.PORTFOLIO_I18N["en"] = {
   },
   "about": {
     "statement": "I photograph the pause between things — the tide going out, a city drying after rain, light thinning at the edge of the year.",
-    "bio": "Aki Mori is a photographer based in Kyoto. Selected work has appeared in group shows across Japan. Available for editorial and commissions."
+    "bio": "Aki Mori is a photographer based in Kyoto. Selected work has appeared in group shows across Japan. Available for editorial and commissions.",
+    "heading": "About",
+    "role": "Photographer · Kyoto",
+    "imageAlt": "",
+    "imageCaption": "",
+    "representation": "",
+    "sections": [
+      {
+        "title": "Publications",
+        "entries": []
+      },
+      {
+        "title": "Solo exhibitions",
+        "entries": []
+      },
+      {
+        "title": "Group exhibitions",
+        "entries": []
+      },
+      {
+        "title": "Curatorial projects",
+        "entries": []
+      },
+      {
+        "title": "Awards",
+        "entries": []
+      },
+      {
+        "title": "Writing & teaching",
+        "entries": []
+      }
+    ]
   },
   "footer": {
     "rights": "© {year} Aki Mori"

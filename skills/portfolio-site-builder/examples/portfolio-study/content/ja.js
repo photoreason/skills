@@ -30,7 +30,9 @@ window.PORTFOLIO_I18N["ja"] = {
     "fit": "全体を表示",
     "previous": "前の写真",
     "nextPhoto": "次の写真",
-    "imageError": "写真を読み込めませんでした。"
+    "imageError": "写真を読み込めませんでした。",
+    "viewProject": "作品を見る",
+    "photographCount": "写真 {count} 枚"
   },
   "projects": {
     "coastal-study": {
@@ -40,7 +42,9 @@ window.PORTFOLIO_I18N["ja"] = {
   },
   "about": {
     "statement": "Photo Reason 制作のオリジナルベクターイラスト。MIT ライセンス。写真や顧客の作品は使用していません。",
-    "bio": "同梱テンプレートによる例です。公開前に、ご自身の作品と文章に置き換えてください。"
+    "bio": "同梱テンプレートによる例です。公開前に、ご自身の作品と文章に置き換えてください。",
+    "heading": "この習作について",
+    "sections": []
   },
   "footer": {
     "rights": "© {year} Photo Reason · MIT"

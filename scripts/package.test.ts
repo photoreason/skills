@@ -34,7 +34,7 @@ test('native hosts resolve the complete portable skill from the plugin root', ()
     assert.equal(typeof directory, 'string')
     const bundled = resolve(root, directory, 'portfolio-site-builder')
     assert.ok(bundled.startsWith(root + '/'))
-    for (const asset of ['SKILL.md', 'references/template-guide.md', 'templates/portfolio/index.html', 'templates/portfolio/app.js']) {
+    for (const asset of ['SKILL.md', 'references/template-guide.md', 'templates/portfolio/index.html', 'templates/portfolio/about/index.html', 'templates/portfolio/app.js']) {
       assert.ok(existsSync(resolve(bundled, asset)), `${path} loses ${asset}`)
     }
   }
