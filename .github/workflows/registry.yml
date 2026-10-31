@@ -32,6 +32,15 @@ jobs:
       - name: Offline portfolio interactions
         run: pnpm test:browser
 
+      - name: Preserve failed browser traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-browser-traces
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Rebuild registry.json
         run: pnpm build:registry
 
