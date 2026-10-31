@@ -15,5 +15,6 @@
     "portfolio",
     "photoreason",
     "creative-workflows"
-  ]
+  ],
+  "icon": "./skills/portfolio-site-builder/assets/portfolio-builder.png"
 }
